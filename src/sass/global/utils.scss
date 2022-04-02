@@ -21,6 +21,6 @@
   &--active {
     z-index: unset;
 
-    background-color: $color-semi-transparent;
+    background-color: rgba(0,0,0,0.5);
   }
 }

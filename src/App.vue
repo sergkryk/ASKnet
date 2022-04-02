@@ -1,13 +1,19 @@
 <template>
-  Hello
+  <main-layout>
+    <template v-slot:header>
+      <the-header></the-header>
+    </template>
+  </main-layout>
 </template>
 
 <script>
-export default {
+import MainLayout from './components/layout/MainLayout.vue'
+import TheHeader from './components/TheHeader.vue'
 
+export default {
+  components: {
+    MainLayout,
+    TheHeader
+  }
 }
 </script>
-
-<style>
-
-</style>
