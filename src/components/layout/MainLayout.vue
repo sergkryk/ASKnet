@@ -1,21 +1,31 @@
 <template>
-  <header class="header">
-    <div class="container">
+<div class="wrapper">
+    <header>
       <slot name="header"></slot>
-    </div>
-  </header>
-  <main>
-    <div class="container">
+    </header>
+    <main>
       <slot name="main"></slot>
-    </div>
-  </main>
-  <footer>
-    <div class="container">
+    </main>
+    <footer>
       <slot name="footer"></slot>
-    </div>
-  </footer>
+    </footer>
+</div>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+  .wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px 0 rgba(1, 3, 4, 0.19);
+  }
+  main {
+    flex-grow: 1;
+  }
+  footer {
+    flex-shrink: 0;
+  }
 </style>
