@@ -1,0 +1,15 @@
+// Vendor
+//---------------------------------
+@import "./normalize.scss"; // импортирую из node_modules
+// @import "vendor/hamburger";
+// @import "../../node_modules/swiper/swiper.scss";
+
+// Global
+//---------------------------------
+@import "./variables";
+@import "./mixins";
+@import "./global/fonts";
+@import "./global/typography";
+@import "./global/utils";
+@import "./global/reset";
+@import "./global/container";
