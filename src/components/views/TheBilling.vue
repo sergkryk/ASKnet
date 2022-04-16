@@ -1,5 +1,5 @@
 <template>
-  <section class="user">
+  <section class="user" @click="getInfo">
     <div class="container">
       <h1 class="user__title title">Кабинет пользователя</h1>
       <div class="user__content">
@@ -37,7 +37,25 @@ export default {
     SiteTable,
   },
   data() {
-    return {};
+    return {
+      id: 196,
+      backEndUrl: "http://192.168.88.200:9000/users/",
+    };
+  },
+  methods: {
+    getInfo() {
+      fetch(`${this.backEndUrl}${this.id}`, { mode: "no-cors" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          return data;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
   },
 };
 </script>
@@ -80,7 +98,7 @@ export default {
   flex-flow: row nowrap;
   justify-content: right;
   align-items: center;
-  
+
   button:last-child {
     margin-left: 2rem;
   }
