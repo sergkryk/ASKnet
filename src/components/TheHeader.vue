@@ -48,11 +48,11 @@ export default {
     margin: 0 auto;
     padding: 0 32px;
   }
-  .header__logo {
-    flex-shrink: 0;
-    margin-right: 50px;
-    padding: 15px 0;
-  }
+  // .header__logo {
+  //   flex-shrink: 0;
+  //   margin-right: 50px;
+  //   padding: 15px 0;
+  // }
 
   .header__button {
     display: none;
