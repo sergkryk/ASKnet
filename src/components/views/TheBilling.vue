@@ -40,22 +40,23 @@ export default {
     return {
       id: 196,
       backEndUrl: "http://192.168.88.200:9000/users/",
+      user: '',
     };
   },
   methods: {
     getInfo() {
-      fetch(`${this.backEndUrl}${this.id}`, { mode: "no-cors" })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          return data;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    },
+      console.log(this.user);
+    }
+  },
+  created() {
+    this.user = fetch(`${this.backEndUrl}${this.id}`)
+      .then((response) => {
+        this.user = response.json();
+        console.log(this.user);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+    });
   },
 };
 </script>
