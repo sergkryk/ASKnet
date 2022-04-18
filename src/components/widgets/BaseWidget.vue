@@ -1,43 +1,46 @@
 <template>
-  <ul class="bar">
-    <li class="bar__item" v-for="item of items" :key="item.title">
-      <p class="bar__title">{{ item.title }}</p>
-      <div class="bar__svg-wrapper" :data-style="item.icon">
-        <svg viewBox="0 0 24 24">
-          <use :xlink:href="('#'+item.icon)"></use>
-        </svg>
-      </div>
-      <p class="bar__content">{{ item.data }}</p>
-      <button class="bar__button site-button site-button--small">{{ item.button }}</button>
-    </li>
-  </ul>
+  <li class="bar__item">
+    <p class="bar__title">{{ title }}</p>
+    <div class="bar__svg-wrapper" :data-style="icon">
+      <svg viewBox="0 0 24 24">
+        <use :xlink:href="'#' + icon"></use>
+      </svg>
+    </div>
+    <p class="bar__content">{{ content }}</p>
+    <button @click="clickHandler" class="bar__button site-button site-button--small">
+      {{ buttonTitle }}
+    </button>
+  </li>
 </template>
 
 <script>
-import { statusBarItems } from '../config'
-
 export default {
-  data() {
-    return {
-      items: statusBarItems,
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    buttonTitle: {
+      type: String,
+      required: true,
+    },
+    clickHandler: {
+      type: Function,
+      required: true,
     }
   }
 };
 </script>
 
 <style lang="scss">
-  .bar {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: minmax(100px, auto);
-    grid-gap: 1rem;
-
-    list-style: none;
-  }
   .bar__item {
     --padding: 1.5rem;
     --svg-size: 3rem;

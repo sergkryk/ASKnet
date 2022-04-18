@@ -4,11 +4,11 @@
       <h1 class="user__title title">Кабинет пользователя</h1>
       <div class="user__content">
         <h2 class="user__subtitle subtitle">Интернет</h2>
-        <status-bar></status-bar>
+        <user-widgets :user="user"></user-widgets>
       </div>
       <div class="user__content">
         <h2 class="user__subtitle subtitle">Текущий баланс</h2>
-        <span class="user__balance">162&#8381;</span>
+        <span class="user__balance">{{ user.deposit }}&#8381;</span>
         <site-table></site-table>
         <div class="user__buttons-wrapper">
           <button type="button" class="site-button">Финансовая выписка</button>
@@ -26,37 +26,39 @@
 </template>
 
 <script>
-import StatusBar from "../StatusBar.vue";
+import UserWidgets from "../UserWidgets.vue";
 import UserInfo from "../UserInfo.vue";
 import SiteTable from "../SiteTable.vue";
 
 export default {
   components: {
-    StatusBar,
+    UserWidgets,
     UserInfo,
     SiteTable,
   },
   data() {
     return {
-      id: 196,
+      userId: "",
       backEndUrl: "http://192.168.88.200:9000/users/",
-      user: '',
+      user: {},
     };
   },
   methods: {
     getInfo() {
-      console.log(this.user);
-    }
+      fetch(`${this.backEndUrl}${this.userId}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          Object.assign(this.user, data);
+        });
+    },
   },
   created() {
-    this.user = fetch(`${this.backEndUrl}${this.id}`)
-      .then((response) => {
-        this.user = response.json();
-        console.log(this.user);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-    });
+    this.userId = this.$route.params.userId;
+  },
+  beforeMount() {
+    this.getInfo();
   },
 };
 </script>

@@ -31,45 +31,6 @@ export const headerLinks = [
   }
 ]
 
-export const statusBarItems = [
-  {
-    title: 'Статус',
-    icon: 'statusok',
-    data: 'Активно',
-    button: 'изменить'
-  },
-  {
-    title: 'Действителен до',
-    icon: 'calendar',
-    data: '09.05.2022',
-    button: 'продлить'
-  },
-  {
-    title: 'Тариф',
-    icon: 'speedometr',
-    data: 'Простой плюс',
-    button: 'изменить'
-  },
-  {
-    title: 'Логин',
-    icon: 'user',
-    data: 'user_1211',
-    button: 'статистика'
-  },
-  {
-    title: 'Пароль',
-    icon: 'password',
-    data: '654321',
-    button: 'изменить'
-  },
-  {
-    title: 'Мак-адрес',
-    icon: 'macaddress',
-    data: '00:07:BA:35:0E:5B',
-    button: 'сбросить'
-  }
-]
-
 export const userInfo = [
   {
     label: 'ФИО',  

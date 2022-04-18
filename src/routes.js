@@ -9,33 +9,31 @@ import TheBilling from './components/views/TheBilling.vue'
 
 const routes = [
   {
-    history: createWebHistory,
     path: '/main',
     component: TheHero,
   },
   {
-    history: createWebHistory,
     path: '/news',
     component: TheNews,
   },
   {
-    history: createWebHistory,
     path: '/help',
     component: TheHelp,
   },
   {
-    history: createWebHistory,
     path: '/tariffs',
     component: TheTariffs,
   },
   {
-    history: createWebHistory,
     path: '/about',
     component: TheAbout,
   },
   {
-    history: createWebHistory,
     path: '/login',
+    component: TheBilling,
+  },
+  {
+    path: '/users/:userId',
     component: TheBilling,
   }
 ]
