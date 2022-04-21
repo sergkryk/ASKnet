@@ -1,12 +1,12 @@
 <template>
   <section class="user" @click="getInfo">
     <div class="container">
-      <h1 class="user__title title">Кабинет пользователя</h1>
-      <div class="user__content">
+      <h1 class="user__title title">{{  Object.keys(user).length ? 'Кабинет пользователя' : 'Пользователя не существует'}}</h1>
+      <div class="user__content" v-if="Object.keys(user).length">
         <h2 class="user__subtitle subtitle">Интернет</h2>
         <user-widgets :user="user"></user-widgets>
       </div>
-      <div class="user__content">
+      <div class="user__content" v-if="Object.keys(user).length">
         <h2 class="user__subtitle subtitle">Текущий баланс</h2>
         <span class="user__balance">{{ user.deposit }}&#8381;</span>
         <site-table></site-table>
@@ -17,7 +17,7 @@
           </button>
         </div>
       </div>
-      <div class="user__content">
+      <div class="user__content" v-if="Object.keys(user).length">
         <h2 class="user__subtitle subtitle">Личные данные</h2>
         <user-info></user-info>
       </div>
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       userId: "",
-      backEndUrl: "http://192.168.88.200:9000/users/",
+      backEndUrl: "http://localhost:9000/users/",
       user: {},
     };
   },

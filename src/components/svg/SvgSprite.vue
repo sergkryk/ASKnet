@@ -11,7 +11,7 @@
     <symbol id="password" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12.65 10a5.998 5.998 0 0 0-6.88-3.88c-2.29.46-4.15 2.29-4.63 4.58A6.006 6.006 0 0 0 7 18a5.99 5.99 0 0 0 5.65-4H17v2c0 1.1.9 2 2 2s2-.9 2-2v-2c1.1 0 2-.9 2-2s-.9-2-2-2h-8.35zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
     </symbol>
-    <symbol id="statusok" viewBox="0 0 24 24">
+    <symbol id="enabled" viewBox="0 0 24 24">
       <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.3 7.61-4.57 6a1 1 0 0 1-.79.39 1 1 0 0 1-.79-.38l-2.44-3.11a1 1 0 0 1 1.58-1.23l1.63 2.08 3.78-5a1 1 0 1 1 1.6 1.22Z"/>
     </symbol>
     <symbol id="speedometr" viewBox="0 0 24 24" fill="currentColor">
@@ -21,6 +21,9 @@
     <symbol id="user" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" opacity=".48"/>
       <path d="M18 21a1 1 0 0 0 1-1 7 7 0 1 0-14 0 1 1 0 0 0 1 1z"/>
+    </symbol>
+    <symbol id="disabled" viewBox="0 0 24 24" fill="currentColor" >
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm2.71 11.29a1 1 0 0 1 0 1.42a1 1 0 0 1-1.42 0L12 13.41l-1.29 1.3a1 1 0 0 1-1.42 0a1 1 0 0 1 0-1.42l1.3-1.29l-1.3-1.29a1 1 0 0 1 1.42-1.42l1.29 1.3l1.29-1.3a1 1 0 0 1 1.42 1.42L13.41 12Z" />
     </symbol>
 </svg>
 </template>

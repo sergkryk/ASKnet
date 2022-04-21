@@ -1,5 +1,5 @@
 <template>
-  <base-widget title="Статус" :content="content" icon="statusok" buttonTitle="изменить" :clickHandler="setUserStatus"></base-widget>
+  <base-widget title="Статус" :content="content" :icon="icon" buttonTitle="изменить" :clickHandler="setUserStatus"></base-widget>
 </template>
 
 <script>
@@ -10,7 +10,6 @@ export default {
     content: {
       type: String,
       required: true,
-      default: '',
     }
   },
   components: {
@@ -21,9 +20,10 @@ export default {
       console.log('I am setting the status');
     },
   },
+  computed: {
+    icon() {
+      return this.content === 'Активен' ? 'enabled' : 'disabled';
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>

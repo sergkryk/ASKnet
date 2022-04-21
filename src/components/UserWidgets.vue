@@ -1,7 +1,7 @@
 <template>
   <ul class="bar">
-    <status-widget :content="user.login"></status-widget>
-    <dates-widget :content="user.expire"></dates-widget>
+    <status-widget :content="status"></status-widget>
+    <dates-widget :content="expire"></dates-widget>
     <tariff-widget :content="user.tariff"></tariff-widget>
     <login-widget :content="user.login"></login-widget>
     <password-widget :content="user.password"></password-widget>
@@ -32,6 +32,14 @@ export default {
     PasswordWidget,
     CidWidget,
   },
+  computed: {
+    status() {
+      return this.user.deposit > 0 ? 'Активен' : 'Отключен';
+    },
+    expire() {
+      return new Date(this.user.expire).toLocaleDateString('ru-RU');
+    }
+  }
 }
 </script>
 

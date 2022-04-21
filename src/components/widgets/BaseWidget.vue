@@ -1,5 +1,5 @@
 <template>
-  <li class="bar__item">
+  <li class="bar__item" v-if="content">
     <p class="bar__title">{{ title }}</p>
     <div class="bar__svg-wrapper" :data-style="icon">
       <svg viewBox="0 0 24 24">
@@ -71,8 +71,11 @@ export default {
       height: 100%;
     }
 
-    &[data-style="statusok"] {
+    &[data-style="enabled"] {
       color: var(--color-green);
+    }
+    &[data-style="disabled"] {
+      color: var(--color-lightred);
     }
     &[data-style="user"] {
       color: var(--color-yellow);

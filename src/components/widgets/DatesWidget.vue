@@ -1,5 +1,5 @@
 <template>
-  <base-widget title="Действительный до" :content="expireDate" icon="calendar" buttonTitle="продлить" :clickHandler="onButtonClick"></base-widget>
+  <base-widget title="Действительный до" :content="content" icon="calendar" buttonTitle="продлить" :clickHandler="onButtonClick"></base-widget>
 </template>
 
 <script>
@@ -8,9 +8,8 @@ import BaseWidget from './BaseWidget.vue'
 export default {
   props: {
     content: {
-      type: Number,
+      type: String,
       required: true,
-      default: 0,
     }
   },
   components: {
@@ -25,15 +24,6 @@ export default {
     onButtonClick() {
       console.log();
     },
-  },
-  computed: {
-    expireDate() {
-      return new Date(this.content).toLocaleDateString('ru-RU');
-    }
   }
 }
 </script>
-
-<style>
-
-</style>
