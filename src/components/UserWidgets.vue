@@ -2,7 +2,7 @@
   <ul class="bar">
     <status-widget :content="status"></status-widget>
     <dates-widget :content="expire"></dates-widget>
-    <tariff-widget :content="user.tariff"></tariff-widget>
+    <tariff-widget :content="user.tp.tp_name"></tariff-widget>
     <login-widget :content="user.login"></login-widget>
     <password-widget :content="user.password"></password-widget>
     <cid-widget :content="user.cid"></cid-widget>
@@ -16,6 +16,7 @@ import TariffWidget from "./widgets/TariffWidget.vue";
 import PasswordWidget from "./widgets/PasswordWidget.vue";
 import CidWidget from "./widgets/CidWidget.vue";
 import LoginWidget from "./widgets/LoginWidget.vue";
+import { formatDate } from '../utils';
 
 export default {
   props: {
@@ -37,7 +38,7 @@ export default {
       return this.user.deposit > 0 ? 'Активен' : 'Отключен';
     },
     expire() {
-      return new Date(this.user.expire).toLocaleDateString('ru-RU');
+      return formatDate(this.user.finance.expireDate);
     }
   }
 }

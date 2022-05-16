@@ -10,22 +10,16 @@ export default {
     content: {
       type: String,
       required: true,
-      default: '',
     }
   },
   components: {
     BaseWidget,
   },
-  data() {
-    return {
-
-    }
-  },
   methods: {
     onButtonClick() {
-      console.log();
+      console.log(this.id);
     },
-  },
+  }
 }
 </script>
 

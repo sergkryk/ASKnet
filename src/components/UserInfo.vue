@@ -1,6 +1,6 @@
 <template>
-  <ul class="info-grid">
-    <li class="info-grid__item" v-for="el in info" :key="el.address">
+  <ul class="info-grid" :address='address'>
+    <li class="info-grid__item" v-for="el in address" :key="el.label">
       <span class="info-grid__description">{{ el.label }}</span>
       <span class="info-grid__data">{{ el.data }}</span>
     </li>
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import { userInfo } from '../config';
 
 export default {
-  data() {
-    return {
-      info: userInfo,
+  props: {
+    address: {
+      type: Array,
+      required: true,
     }
   }
 };

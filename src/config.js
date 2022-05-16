@@ -31,6 +31,8 @@ export const headerLinks = [
   }
 ]
 
+export const API_URL = "http://localhost:9000"
+
 export const userInfo = [
   {
     label: 'ФИО',  
@@ -56,4 +58,15 @@ export const userInfo = [
     label: 'Электронная почта',  
     data: 'example@yandex.ru',
   },
+]
+
+export const paymentsTypes = [
+  "Дилер",
+  "Банковское отделение",
+  "Карта оплаты",
+  'Почтовое отделение',
+  "Бонус",
+  "Корректировка",
+  "Компенсация",
+  "Личные средства"
 ]

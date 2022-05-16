@@ -1,5 +1,5 @@
 <template>
-  <table class="site-table">
+  <table class="site-table" :finance="finance">
     <thead>
       <tr>
         <th>Операции</th>
@@ -26,9 +26,9 @@
             <span>Последнее пополнение</span>
           </div>
         </td>
-        <td>300&#8381;</td>
-        <td>01.04.2022</td>
-        <td>Почтовое отделение</td>
+        <td>{{ prevPay.sum }}&#8381;</td>
+        <td>{{ date.prevPay }}</td>
+        <td>{{ prevPay.dsc }}</td>
       </tr>
       <tr>
         <td>
@@ -47,9 +47,9 @@
             <span>Последнее списание</span>
           </div>
         </td>
-        <td>300&#8381;</td>
-        <td>31.03.2022</td>
-        <td>Ежемесячное списание</td>
+        <td>{{ prevFee.sum }}&#8381;</td>
+        <td>{{ date.prevFee}}</td>
+        <td>{{ prevFee.dsc }}</td>
       </tr>
       <tr>
         <td>
@@ -64,16 +64,42 @@
             <span>Следующее списание</span>
           </div>
         </td>
-        <td>300&#8381;</td>
-        <td>01.05.2022</td>
-        <td>Ежемесячное списание</td>
+        <td>{{ nextFee.sum }}&#8381;</td>
+        <td>{{ date.nextFee }}</td>
+        <td>{{ nextFee.dsc }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-export default {};
+
+import { formatDate } from '../utils';
+
+export default {
+  props: {
+    finance: {
+      type: Object,
+      required: true,
+    }
+  },
+  data() {
+    return {
+      prevPay: this.finance.prevPay,
+      prevFee: this.finance.prevFee,
+      nextFee: this.finance.nextFee,
+    }
+  },
+  computed: {
+    date() {
+      return {
+        prevPay: formatDate(this.prevPay.date),
+        prevFee: formatDate(this.prevFee.date),
+        nextFee: formatDate(this.nextFee.date),
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss">

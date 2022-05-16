@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import BaseWidget from './BaseWidget.vue'
+import BaseWidget from './BaseWidget.vue';
 
 export default {
   props: {
@@ -15,15 +15,10 @@ export default {
   components: {
     BaseWidget,
   },
-  data() {
-    return {
-
-    }
-  },
   methods: {
     onButtonClick() {
       console.log();
     },
-  }
+  },
 }
 </script>

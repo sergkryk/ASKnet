@@ -1,15 +1,15 @@
 <template>
-  <section class="user" @click="getInfo">
+  <section class="user" v-if="user">
     <div class="container">
-      <h1 class="user__title title">{{  Object.keys(user).length ? 'Кабинет пользователя' : 'Пользователя не существует'}}</h1>
-      <div class="user__content" v-if="Object.keys(user).length">
+      <h1 class="user__title title">Кабинет пользователя</h1>
+      <div class="user__content">
         <h2 class="user__subtitle subtitle">Интернет</h2>
         <user-widgets :user="user"></user-widgets>
       </div>
-      <div class="user__content" v-if="Object.keys(user).length">
+      <div class="user__content">
         <h2 class="user__subtitle subtitle">Текущий баланс</h2>
         <span class="user__balance">{{ user.deposit }}&#8381;</span>
-        <site-table></site-table>
+        <site-table :finance="user.finance"></site-table>
         <div class="user__buttons-wrapper">
           <button type="button" class="site-button">Финансовая выписка</button>
           <button type="button" class="site-button site-button--green">
@@ -17,9 +17,9 @@
           </button>
         </div>
       </div>
-      <div class="user__content" v-if="Object.keys(user).length">
+      <div class="user__content">
         <h2 class="user__subtitle subtitle">Личные данные</h2>
-        <user-info></user-info>
+        <user-info :address="user.pi"></user-info>
       </div>
     </div>
   </section>
@@ -30,6 +30,8 @@ import UserWidgets from "../UserWidgets.vue";
 import UserInfo from "../UserInfo.vue";
 import SiteTable from "../SiteTable.vue";
 
+import { API_URL } from "../../config";
+
 export default {
   components: {
     UserWidgets,
@@ -38,27 +40,16 @@ export default {
   },
   data() {
     return {
-      userId: "",
-      backEndUrl: "http://localhost:9000/users/",
-      user: {},
+      user: null,
     };
   },
-  methods: {
-    getInfo() {
-      fetch(`${this.backEndUrl}${this.userId}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          Object.assign(this.user, data);
-        });
-    },
-  },
   created() {
-    this.userId = this.$route.params.userId;
+    this.fetchUser();
   },
-  beforeMount() {
-    this.getInfo();
+  methods: {
+    async fetchUser() {
+      this.user = await (await fetch(`${API_URL}/user/${this.$route.params.userId}`)).json()
+    },
   },
 };
 </script>
