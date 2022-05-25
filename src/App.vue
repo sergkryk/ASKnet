@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <the-container>
     <template v-slot:header>
       <the-header></the-header>
     </template>
@@ -8,22 +8,22 @@
       <router-view></router-view>
     </template>
     <template v-slot:footer>
-      <the-footer></the-footer>
+      <!-- <the-footer></the-footer> -->
     </template>
-  </main-layout>
+  </the-container>
 </template>
 
 <script>
-import MainLayout from '@/components/layout/MainLayout.vue';
-import TheHeader from '@/components/TheHeader.vue';
-import TheFooter from '@/components/TheFooter.vue';
+import TheContainer from '@/components/layout/TheContainer.vue';
+import TheHeader from '@/components/layout/TheHeader.vue';
+// import TheFooter from '@/components/layout/TheFooter.vue';
 import SvgSprite from '@/components/svg/SvgSprite.vue';
 
 export default {
   components: {
-    MainLayout,
+    TheContainer,
     TheHeader,
-    TheFooter,
+    // TheFooter,
     SvgSprite,
   }
 }

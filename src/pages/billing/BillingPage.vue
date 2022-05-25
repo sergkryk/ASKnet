@@ -1,6 +1,7 @@
 <template>
-  <section class="user" v-if="user">
-    <div class="container">
+  <section class="user">
+    <h1>The Billing Page</h1>
+    <!-- <div class="container">
       <h1 class="user__title title">Кабинет пользователя</h1>
       <div class="user__content">
         <h2 class="user__subtitle subtitle">Интернет</h2>
@@ -21,35 +22,35 @@
         <h2 class="user__subtitle subtitle">Личные данные</h2>
         <user-info :address="user.pi"></user-info>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
-import UserWidgets from "../UserWidgets.vue";
-import UserInfo from "../UserInfo.vue";
-import SiteTable from "../SiteTable.vue";
+// import UserWidgets from "../UserWidgets.vue";
+// import UserInfo from "../UserInfo.vue";
+// import SiteTable from "../SiteTable.vue";
 
-import { API_URL } from "../../config";
+// import { API_URL } from "../../config";
 
 export default {
   components: {
-    UserWidgets,
-    UserInfo,
-    SiteTable,
+    // UserWidgets,
+    // UserInfo,
+    // SiteTable,
   },
   data() {
     return {
-      user: null,
+      // user: null,
     };
   },
   created() {
-    this.fetchUser();
+    // this.fetchUser();
   },
   methods: {
-    async fetchUser() {
-      this.user = await (await fetch(`${API_URL}/user/${this.$route.params.userId}`)).json()
-    },
+    // async fetchUser() {
+    //   this.user = await (await fetch(`${API_URL}/user/${this.$route.params.userId}`)).json()
+    // },
   },
 };
 </script>

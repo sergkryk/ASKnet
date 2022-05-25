@@ -2,7 +2,7 @@ export const headerLinks = [
   {
     id: 'main',
     title: 'Главная',
-    url: '/main',
+    url: '/',
   },
   {
     id: 'news',
@@ -27,7 +27,7 @@ export const headerLinks = [
   {
     id: 'billing',
     title: 'Личный кабинет',
-    url: '/login'
+    url: '/billing'
   }
 ]
 

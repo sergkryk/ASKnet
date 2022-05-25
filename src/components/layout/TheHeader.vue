@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { headerLinks } from "@/config";
+import { headerLinks } from "@/config/config";
 
 export default {
   data() {

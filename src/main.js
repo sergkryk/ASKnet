@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from '@/App.vue'
 // import routes from routes.js //
-import routes from './routes';
+import routes from '@/routes/routes';
 //import css styles //
 import '@/sass/main.scss'
 

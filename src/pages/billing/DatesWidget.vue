@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import BaseWidget from './BaseWidget.vue';
+import BaseWidget from '../ui/BaseWidget.vue';
 
 export default {
   props: {

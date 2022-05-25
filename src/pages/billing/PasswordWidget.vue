@@ -1,9 +1,9 @@
 <template>
-  <base-widget title="Мак-адрес" :content="content" icon="macaddress" buttonTitle="сбросить" :clickHandler="onButtonClick"></base-widget>
+  <base-widget title="Пароль" :content="content" icon="password" buttonTitle="изменить" :clickHandler="onButtonClick"></base-widget>
 </template>
 
 <script>
-import BaseWidget from './BaseWidget.vue'
+import BaseWidget from '../billing./widgets/BaseWidget.vue'
 
 export default {
   props: {
