@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-if="prevPay">
         <td>
           <div class="site-table__container">
             <div class="site-table__arrow">
@@ -30,7 +30,7 @@
         <td>{{ date.prevPay }}</td>
         <td>{{ prevPay.dsc }}</td>
       </tr>
-      <tr>
+      <tr v-if="prevFee">
         <td>
           <div class="site-table__container">
             <div class="site-table__arrow site-table__arrow--red">
@@ -51,7 +51,7 @@
         <td>{{ date.prevFee}}</td>
         <td>{{ prevFee.dsc }}</td>
       </tr>
-      <tr>
+      <tr v-if="nextFee">
         <td>
           <div class="site-table__container">
             <div class="site-table__arrow site-table__arrow--blue">
