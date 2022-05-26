@@ -3,14 +3,14 @@
     <div class="login__container container">
       <h2>Вход в личный кабинет</h2>
       <p>Введите ваши учётные данные для входа в личный кабинет</p>
-      <form>
+      <form @submit.prevent="sendData">
         <div class="login__input-wrapper">
           <label for="userLogin">Лицевой счёт</label>
-          <input type="text" name="userLogin" id="userLogin">
+          <input type="text" name="userLogin" id="userLogin" v-model="login">
         </div>
         <div class="login__input-wrapper">
           <label for="userPassword">Пароль</label>
-          <input type="text" name="userPassword" id="userPassword">
+          <input type="text" name="userPassword" id="userPassword" v-model="password">
         </div>
         <button>Войти</button>
       </form>
@@ -19,8 +19,26 @@
 </template>
 
 <script>
-export default {
+import { LOGIN_URL } from '@/config/config.js';
 
+export default {
+  data() {
+    return {
+      login: '',
+      password: '',
+    }
+  },
+  methods: {
+    async sendData() {
+      const response = await fetch(LOGIN_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({login: this.login, password: this.password}),
+      })
+      const resData = await response.json();
+      console.log(resData);
+    }
+  }
 }
 </script>
 
