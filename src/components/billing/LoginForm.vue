@@ -3,14 +3,14 @@
     <div class="login__container container">
       <h2>Вход в личный кабинет</h2>
       <p>Введите ваши учётные данные для входа в личный кабинет</p>
-      <form @submit.prevent="sendData">
+      <form @submit.prevent="requestAuthorization">
         <div class="login__input-wrapper">
           <label for="userLogin">Лицевой счёт</label>
-          <input type="text" name="userLogin" id="userLogin" v-model="login">
+          <input type="text" id="userLogin" v-model="login">
         </div>
         <div class="login__input-wrapper">
           <label for="userPassword">Пароль</label>
-          <input type="text" name="userPassword" id="userPassword" v-model="password">
+          <input type="text" id="userPassword" v-model="password">
         </div>
         <button>Войти</button>
       </form>
@@ -29,14 +29,17 @@ export default {
     }
   },
   methods: {
-    async sendData() {
+    async requestAuthorization() {
       const response = await fetch(LOGIN_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({login: this.login, password: this.password}),
       })
+      if (response.status !== 200) {
+        return;
+      }
       const resData = await response.json();
-      console.log(resData);
+      this.$store.dispatch('setToken', resData);
     }
   }
 }

@@ -34,6 +34,7 @@ export const headerLinks = [
 export const API_URL = "http://localhost:9000";
 
 export const LOGIN_URL = "http://localhost:9000/login";
+export const USER_DETAILS_URL = "http://localhost:9000/user";
 
 export const userInfo = [
   {

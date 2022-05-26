@@ -7,14 +7,22 @@ const store = createStore({
   },
   state() {
     return {
-      userId: 412,
+      token: null,
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setToken(state, payload) {
+      state.token = payload;
+    }
+  },
+  actions: {
+    setToken(context, data) {
+      context.commit('setToken', data);
+    }
+  },
   getters: {
-    userId(state) {
-      return state.userId;
+    token(state) {
+      return state.token;
     }
   },
 });
