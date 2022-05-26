@@ -1,6 +1,7 @@
 <template>
   <section class="user">
-    <h1>The Billing Page</h1>
+    <login-form></login-form>
+
     <!-- <div class="container">
       <h1 class="user__title title">Кабинет пользователя</h1>
       <div class="user__content">
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import LoginForm from '../../components/billing/LoginForm.vue'
 // import UserWidgets from "../UserWidgets.vue";
 // import UserInfo from "../UserInfo.vue";
 // import SiteTable from "../SiteTable.vue";
@@ -35,6 +37,7 @@
 
 export default {
   components: {
+    LoginForm,
     // UserWidgets,
     // UserInfo,
     // SiteTable,
