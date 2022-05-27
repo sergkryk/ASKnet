@@ -3,12 +3,19 @@
     <h1 class="user__title title">Кабинет пользователя</h1>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Интернет</h2>
-      <!-- <user-widgets :user="user"></user-widgets> -->
+        <ul class="bar">
+          <base-card title="Статус" :content="status" :icon="statusIcon" buttonTitle="подробнее" :clickHandler="showStatus"></base-card>
+          <base-card title="Действительный до" :content="expire" icon="calendar" buttonTitle="подробнее" :clickHandler="showExpireDetails"></base-card>
+          <base-card title="Тарифный план" :content="tariff" icon="speedometr" buttonTitle="подробнее" :clickHandler="showTariff"></base-card>
+          <base-card title="Имя пользователя" :content="user.login" icon="user" buttonTitle="статистика" :clickHandler="showStatistics"></base-card>
+          <base-card title="Пароль" :content="user.password" icon="password" buttonTitle="изменить" :clickHandler="updatePass"></base-card>
+          <base-card title="Мак-адрес" :content="cid" icon="macaddress" buttonTitle="сбросить" :clickHandler="resetCid"></base-card>
+        </ul>
     </div>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Текущий баланс</h2>
       <span class="user__balance">{{ user.deposit }}&#8381;</span>
-      <!-- <site-table :finance="user.finance"></site-table> -->
+      <user-finances :finance="user.finance"></user-finances>
       <div class="user__buttons-wrapper">
         <button type="button" class="site-button">Финансовая выписка</button>
         <button type="button" class="site-button site-button--green">
@@ -18,22 +25,23 @@
     </div>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Личные данные</h2>
-      <!-- <user-info :address="user.pi"></user-info> -->
+      <user-personal :address="user.pi"></user-personal>
     </div>
   </div>
 </template>
 
 <script>
-// import UserWidgets from "../UserWidgets.vue";
-// import UserInfo from "../UserInfo.vue";
-// import SiteTable from "../SiteTable.vue";
+import BaseCard from '@/components/ui/BaseCard.vue';
+import UserPersonal from "@/components/billing/UserPersonal.vue";
+import UserFinances from "@/components/billing/UserFinances.vue";
 import { USER_DETAILS_URL } from '@/config/config.js';
+import { formatDate } from '@/utils/utils';
 
 export default {
   components: {
-    // UserWidgets,
-    // UserInfo,
-    // SiteTable,
+    BaseCard,
+    UserPersonal,
+    UserFinances,
   },
   methods: {
     async fetchUserDetails() {
@@ -44,11 +52,51 @@ export default {
       });
       const data = await response.json();
       this.$store.dispatch('user/setUser', data);
-    }
+    },
+    onButtonClick() {
+      console.log(this.user);
+    },
+    resetCid() {
+
+    },
+    updatePass() {
+
+    },
+    showStatistics() {
+
+    },
+    showTariff() {
+
+    },
+    showExpireDetails() {
+
+    },
+    showStatus() {
+
+    },
   },
   computed: {
     user() {
       return this.$store.getters['user/user'];
+    },
+    tariff() {
+      return this.user.tp.tp_name;
+    },
+    status() {
+      return this.user.deposit > 0 ? 'Активен' : 'Отключен';
+    },
+    statusIcon() {
+      return this.status === 'Активен' ? 'enabled' : 'disabled';
+    },
+    cid() {
+      if (this.user.cid.includes(';')) {
+        let addresses = this.user.cid.split(';')
+        return addresses[0];
+      }
+      return this.user.cid;
+    },
+    expire() {
+      return formatDate(this.user.finance.expireDate);
     }
   },
   async created() {
@@ -99,5 +147,17 @@ export default {
   button:last-child {
     margin-left: 2rem;
   }
+}
+.bar {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 1rem;
+
+  list-style: none;
 }
 </style>
