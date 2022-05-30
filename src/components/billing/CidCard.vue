@@ -1,29 +1,34 @@
 <template>
-  <base-card title="Мак-адрес" :content="cid" icon="macaddress" buttonTitle="сбросить" :clickHandler="fetchCid"></base-card>
+  <base-card title="Мак-адрес" :content="cid" icon="macaddress" buttonTitle="сбросить" :clickHandler="resetCid" :buttonState="isReseted"></base-card>
 </template>
 
 <script>
 
 export default {
+  data() {
+    return {
+
+    }
+  },
   methods: {
     async fetchCid() {
       await this.$store.dispatch('user/setCid');
     },
-    // async resetCid() {
-    //   const response = await fetch(`${USER_DETAILS_URL}/cid`, {
-    //     method: 'PUT',
-    //     headers: this.headers,
-    //   });
-    //   if (response.status === 200) {
-    //     this.fetchUserDetails();
-    //   } else {
-    //     console.log('Something goes wrong');
-    //   }
-    // },
+    async resetCid() {
+       await this.$store.dispatch('user/resetCid');
+    },
   },
   computed: {
     cid() {
-      return this.$store.getters['user/cid'];
+      let cid = this.$store.getters['user/cid'];
+      if (cid.includes(';')) {
+        const splitted = cid.split(';');
+        cid = splitted[0];
+      }
+      return cid ? cid : 'Нет записи';
+    },
+    isReseted() {
+      return this.cid === 'Нет записи';
     }
   }
 }

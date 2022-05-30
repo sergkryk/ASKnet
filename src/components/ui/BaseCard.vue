@@ -7,7 +7,7 @@
       </svg>
     </div>
     <p class="bar__content">{{ content }}</p>
-    <button @click="clickHandler" class="bar__button site-button site-button--small">
+    <button @click="clickHandler" class="bar__button site-button site-button--small" :disabled="buttonState">
       {{ buttonTitle }}
     </button>
   </li>
@@ -31,6 +31,11 @@ export default {
     buttonTitle: {
       type: String,
       required: true,
+    },
+    buttonState: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     clickHandler: {
       type: Function,
@@ -109,5 +114,10 @@ export default {
   }
   .bar__details {
     margin: 0;
+  }
+  .bar__button:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 </style>
