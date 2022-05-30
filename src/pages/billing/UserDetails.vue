@@ -9,7 +9,7 @@
           <base-card title="Тарифный план" :content="tariff" icon="speedometr" buttonTitle="подробнее" :clickHandler="showTariff"></base-card>
           <base-card title="Имя пользователя" :content="user.login" icon="user" buttonTitle="статистика" :clickHandler="showStatistics"></base-card>
           <base-card title="Пароль" :content="user.password" icon="password" buttonTitle="изменить" :clickHandler="updatePass"></base-card>
-          <base-card title="Мак-адрес" :content="cid" icon="macaddress" buttonTitle="сбросить" :clickHandler="resetCid"></base-card>
+          <cid-card></cid-card>
         </ul>
     </div>
     <div class="user__content">
@@ -32,6 +32,7 @@
 
 <script>
 import BaseCard from '@/components/ui/BaseCard.vue';
+import CidCard from '@/components/billing/CidCard.vue';
 import UserPersonal from "@/components/billing/UserPersonal.vue";
 import UserFinances from "@/components/billing/UserFinances.vue";
 import { USER_DETAILS_URL } from '@/config/config.js';
@@ -39,25 +40,18 @@ import { formatDate } from '@/utils/utils';
 
 export default {
   components: {
+    CidCard,
     BaseCard,
     UserPersonal,
     UserFinances,
   },
   methods: {
     async fetchUserDetails() {
-      const token = this.$store.getters.token;
-      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
       const response = await fetch(USER_DETAILS_URL, {
-        headers,
+        headers: this.$store.getters.authHeader,
       });
       const data = await response.json();
       this.$store.dispatch('user/setUser', data);
-    },
-    onButtonClick() {
-      console.log(this.user);
-    },
-    resetCid() {
-
     },
     updatePass() {
 
@@ -93,7 +87,7 @@ export default {
         let addresses = this.user.cid.split(';')
         return addresses[0];
       }
-      return this.user.cid;
+      return this.user.cid ? this.user.cid : 'Адрес сброшен';
     },
     expire() {
       return formatDate(this.user.finance.expireDate);

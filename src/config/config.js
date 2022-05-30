@@ -4,26 +4,26 @@ export const headerLinks = [
     title: 'Главная',
     url: '/',
   },
-  {
-    id: 'news',
-    title: 'Новости',
-    url: '/news'
-  },
-  {
-    id: 'help',
-    title: 'Помощь',
-    url: '/help'
-  },
-  {
-    id: 'tarifs',
-    title: 'Тарифы',
-    url: '/tariffs'
-  },
-  {
-    id: 'about',
-    title: 'О нас',
-    url: '/about'
-  },
+  // {
+  //   id: 'news',
+  //   title: 'Новости',
+  //   url: '/news'
+  // },
+  // {
+  //   id: 'help',
+  //   title: 'Помощь',
+  //   url: '/help'
+  // },
+  // {
+  //   id: 'tarifs',
+  //   title: 'Тарифы',
+  //   url: '/tariffs'
+  // },
+  // {
+  //   id: 'about',
+  //   title: 'О нас',
+  //   url: '/about'
+  // },
   {
     id: 'billing',
     title: 'Личный кабинет',

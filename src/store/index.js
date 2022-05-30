@@ -7,22 +7,23 @@ const store = createStore({
   },
   state() {
     return {
-      token: null,
+      authHeader: null,
     }
   },
   mutations: {
-    setToken(state, payload) {
-      state.token = payload;
+    setAuthHeader(state, payload) {
+      state.authHeader = payload;
     }
   },
   actions: {
-    setToken(context, data) {
-      context.commit('setToken', data);
+    setAuthHeader(context, data) {
+      const authHeader = { Authorization: `Bearer ${data}` };
+      context.commit('setAuthHeader', authHeader);
     }
   },
   getters: {
-    token(state) {
-      return state.token;
+    authHeader(state) {
+      return state.authHeader;
     }
   },
 });

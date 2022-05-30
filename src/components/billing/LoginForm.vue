@@ -39,7 +39,7 @@ export default {
         return;
       }
       const resData = await response.json();
-      this.$store.dispatch('setToken', resData);
+      this.$store.dispatch('setAuthHeader', resData);
     }
   }
 }

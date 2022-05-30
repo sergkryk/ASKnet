@@ -1,7 +1,7 @@
 <template>
   <section class="user">
-    <login-form v-if="!token"></login-form>
-    <user-details v-if="token"></user-details>
+    <login-form v-if="!authHeader"></login-form>
+    <user-details v-if="authHeader"></user-details>
   </section>
 </template>
 
@@ -15,8 +15,8 @@ export default {
     UserDetails,
   },
   computed: {
-    token() {
-      return this.$store.getters.token;
+    authHeader() {
+      return this.$store.getters.authHeader;
     }
   }
 };
