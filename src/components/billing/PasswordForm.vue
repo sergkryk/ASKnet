@@ -27,3 +27,25 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+form {
+  padding: 1rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+div {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+input {
+  padding: 1rem calc(1rem - 2px);
+  min-width: 100%;
+  min-height: 100%;
+}
+</style>
