@@ -5,7 +5,7 @@
 <style lang="scss" scoped>
 button {
   --size: 2rem;
-  --contentColor: var(--color-green);
+  --contentColor: var(--font-color);
   
   padding: 0;
   width: 2rem;
@@ -18,7 +18,6 @@ button {
   background: none;
   border: 0;
   border-radius: 50%;
-  transition: background-color 0.2s ease-in-out;
 
   &::before,
   &::after {
@@ -32,6 +31,7 @@ button {
 
     background-color: var(--contentColor);
     transform-origin: center;
+    transition: background-color 0.3s ease-in-out;
   }
   &::before {
     transform: rotate(-45deg);
@@ -40,7 +40,7 @@ button {
     transform: rotate(45deg);
   }
   &:hover {
-    --contentColor: var(--color-lightblue);
+    --contentColor: var(--color-green);
   }
   &:focus {
     outline: 1px solid var(--color-green);

@@ -1,6 +1,6 @@
 <template>
   <div class="modal" v-if="visible">
-    <div class="modal__overlay"></div>
+    <div class="modal__overlay" @click="close"></div>
     <div class="modal__content">
       <button-close @click="close"></button-close>
       <slot></slot>
@@ -28,11 +28,11 @@ export default {
 
 <style lang="scss" scoped>
 .modal {
-  --gap: 3rem;
+  --padding: 3rem;
   position: fixed;
   z-index: 100;
 
-  padding: var(--gap);
+  padding: var(--padding);
 
   top: 0;
   left: 0;
@@ -61,13 +61,14 @@ export default {
   width: 100%;
   max-width: 1024px;
 
-  padding: 2rem;
+  padding: var(--padding);
 
-  background-color: white;
+  background-color: var(--color-white);
+  border-radius: 1rem;
 }
 button {
   position: absolute;
-  top: calc(var(--gap)/ 2);
-  right: calc(var(--gap)/2);
+  top: calc(var(--padding) / 3);
+  right: calc(var(--padding) / 3);
 }
 </style>>
