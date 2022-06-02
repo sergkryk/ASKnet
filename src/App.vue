@@ -25,6 +25,20 @@ export default {
     TheHeader,
     // TheFooter,
     SvgSprite,
+  },
+  computed: {
+    isModal() {
+      return this.$store.getters['isModal'];
+    }
+  },
+  watch: {
+    isModal() {
+      if (this.isModal) {
+        document.querySelector('body').setAttribute('style', 'overflow: hidden');
+      } else {
+        document.querySelector('body').removeAttribute('style');
+      }
+    }
   }
 }
 </script>

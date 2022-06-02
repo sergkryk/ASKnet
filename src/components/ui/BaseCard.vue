@@ -10,6 +10,7 @@
     <button @click="clickHandler" class="bar__button site-button site-button--small" :disabled="buttonState">
       {{ buttonTitle }}
     </button>
+    <slot name="modal"></slot>
   </li>
 </template>
 

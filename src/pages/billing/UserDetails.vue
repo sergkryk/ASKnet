@@ -8,7 +8,7 @@
           <base-card title="Действительный до" :content="expire" icon="calendar" buttonTitle="подробнее" :clickHandler="showExpireDetails"></base-card>
           <base-card title="Тарифный план" :content="tariff" icon="speedometr" buttonTitle="подробнее" :clickHandler="showTariff"></base-card>
           <base-card title="Имя пользователя" :content="user.login" icon="user" buttonTitle="статистика" :clickHandler="showStatistics"></base-card>
-          <base-card title="Пароль" :content="user.password" icon="password" buttonTitle="изменить" :clickHandler="updatePass"></base-card>
+          <password-card></password-card>
           <cid-card></cid-card>
         </ul>
     </div>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import BaseCard from '@/components/ui/BaseCard.vue';
+import PasswordCard from '@/components/billing/PasswordCard.vue';
 import CidCard from '@/components/billing/CidCard.vue';
 import UserPersonal from "@/components/billing/UserPersonal.vue";
 import UserFinances from "@/components/billing/UserFinances.vue";
@@ -41,7 +41,7 @@ import { formatDate } from '@/utils/utils';
 export default {
   components: {
     CidCard,
-    BaseCard,
+    PasswordCard,
     UserPersonal,
     UserFinances,
   },
@@ -52,9 +52,6 @@ export default {
       });
       const data = await response.json();
       this.$store.dispatch('user/setUser', data);
-    },
-    updatePass() {
-
     },
     showStatistics() {
 

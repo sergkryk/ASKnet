@@ -4,5 +4,8 @@ export default {
   },
   cid(state) {
     return state.user.cid;
+  },
+  password(state) {
+    return state.user.password;
   }
 }
