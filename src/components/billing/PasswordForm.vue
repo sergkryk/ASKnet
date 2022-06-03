@@ -1,40 +1,99 @@
 <template>
-  <form>
-    <div class="valid">
-      <input type="text" id="oldValue" @focus="setClass" placeholder="Old">
-      <label for="oldValue">Старый пароль</label>
-    </div>
-    <div class="invalid">
-      <input type="password" id="newValue" placeholder="New">
-      <label for="newValue">Новый пароль</label>
-    </div>
-    <div>
-      <input type="password" id="confirmedValue" placeholder="Confirmed">
-      <label for="confirmedValue">Подтверждение пароля</label>
-    </div>
-      <button type="button" class="site-button site-button--green">
-        Сохранить
-      </button>
-</form>
+  <form @submit.prevent="formSubmitHandler">
+    <base-input
+      inputId="currentPassword"
+      inputPlaceholder="Текущий пароль"
+      labelText="Введите ваш текущий пароль"
+      :validations="validations"
+      @user-input="setCurrent"
+    ></base-input>
+    <base-input
+      inputType="password"
+      inputId="newPassword"
+      inputPlaceholder="Новый пароль"
+      labelText="Введите новый пароль"
+      :validations="validations"
+      @user-input="setNew"
+    ></base-input>
+    <base-input
+      inputType="password"
+      inputId="confirmedPassword"
+      inputPlaceholder="Подтверждение пароля"
+      labelText="Введите подтверждение пароля"
+      :validations="validations"
+      @user-input="setConfirmed"
+    ></base-input>
+    <button type="submit" class="site-button site-button--green" :disabled="!formIsValid">
+      Сохранить
+    </button>
+  </form>
 </template>
 
 <script>
+import { CHANGE_PASS_URL } from '@/config/config.js'
+import passwordValidations from "@/utils/passwordValidations";
+
 export default {
   data() {
     return {
-
-    }
+      currentPassword: "",
+      newPassword: "",
+      confirmedPassword: "",
+    };
   },
   methods: {
-    async fetchPassword() {
-      // await this.$store.dispatch('user/setCid');
+    // async fetchPassword() {
+    //   await this.$store.dispatch('user/setCid');
+    // },
+    // async updatePassword() {
+    //    await this.$store.dispatch('user/resetCid');
+    // },
+    async formSubmitHandler() {
+      if (this.formIsValid) {
+        const authHeader = this.$store.getters["authHeader"];
+        const response = await fetch(CHANGE_PASS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: authHeader.Authorization,
+          },
+          body: JSON.stringify({
+            previous: this.currentPassword,
+            candidate: this.newPassword,
+            confirmed: this.confirmedPassword,
+          }),
+        });
+        if (response.status === 200) {
+          const data = await response.json();
+          console.log(data);
+        }
+        return;
+      }
     },
-    async updatePassword() {
-      //  await this.$store.dispatch('user/resetCid');
+    setCurrent(value) {
+      this.currentPassword = value;
     },
-  }
-}
+    setNew(value) {
+      this.newPassword = value;
+    },
+    setConfirmed(value) {
+      this.confirmedPassword = value;
+    },
+  },
+  computed: {
+    formIsValid() {
+      if (this.currentPassword && this.newPassword && this.confirmedPassword) {
+        return true;
+      }
+      return false;
+    },
+    validations() {
+      return passwordValidations;
+    },
+  },
+};
 </script>
+
 <style lang="scss" scoped>
 form {
   padding: 1rem;
@@ -42,72 +101,9 @@ form {
   display: flex;
   flex-flow: column nowrap;
 }
-div {
-  --inputPadding: 1rem;
-  --fsize: 1rem;
-  --lheight: 1.4rem;
-  --border: 1px;
-
-  position: relative;
-  display: flex;
-
-  font-size: var(--fsize);
-  line-height: var(--lheight);
-
-  &:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-
-  & .valid {
-    --border-color: var(--color-green);
-    color: var(--color-green);
-  }
-  & .invalid {
-    --border-color: var(--color-lightred);
-    color: var(--color-red);
-  }
-}
-label {
-  --labelPadding: 3px;
-
-  padding: 0 var(--labelPadding);
-  position: absolute;
-  top: calc(((var(--inputPadding) * 2 + var(--border) * 2 + var(--lheight)) / 2) - var(--lheight) / 2);
-  left: calc(var(--inputPadding) - var(--labelPadding));
-
-  font-size: inherit;
-  line-height: inherit;
-  color: currentColor;
-
-  transition: top 0.3s ease-in-out, left  0.3s ease-in-out, font-size 0.3s ease-in-out;
-}
-input {
-  padding: var(--inputPadding);
-  min-width: 100%;
-  min-height: 100%;
-
-  font-size: inherit;
-  line-height: inherit;
-  color: var(--font-color);
-
-  border: var(--border) solid var(--border-color);
-  border-radius: 0.5rem;
-
-  &::placeholder {
-    opacity: 0;
-    font-size: 0;
-  }
-  &:focus,
-  &:focus-visible,
-  &:active {
-    outline: none;
-  }
-}
-input:focus ~ label,
-input:not(:placeholder-shown) ~ label {
-  font-size: 0.8rem;
-  line-height: 1.2rem;
-  top: calc(1.2rem / 2) * -1;
-  background-color: var(--color-white);
+button:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.5;
 }
 </style>

@@ -35,6 +35,7 @@ export const API_URL = "http://localhost:9000";
 
 export const LOGIN_URL = "http://localhost:9000/login";
 export const USER_DETAILS_URL = "http://localhost:9000/user";
+export const CHANGE_PASS_URL = "http://localhost:9000/user/password";
 
 export const userInfo = [
   {

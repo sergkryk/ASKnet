@@ -34,6 +34,11 @@ export default {
     password() {
       return this.$store.getters['user/password'];
     },
+  },
+  watch: {
+    password() {
+      console.log('Password has changed');
+    }
   }
 }
 </script>
