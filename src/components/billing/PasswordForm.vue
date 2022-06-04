@@ -50,7 +50,8 @@ export default {
     // },
     async formSubmitHandler() {
       if (this.formIsValid) {
-        this.$store.dispatch('setIsLoading', true);
+        this.$store.dispatch('loading/setStatus', true);
+        this.$store.dispatch('loading/setMessage', 'Ожидаю ответ от сервера');
         const authHeader = this.$store.getters["authHeader"];
         const response = await fetch(CHANGE_PASS_URL, {
           method: "POST",
@@ -64,10 +65,11 @@ export default {
             confirmed: this.confirmedPassword,
           }),
         });
-        this.$store.dispatch('setIsLoading', false);
         if (response.status === 200) {
+          this.$store.dispatch('loading/setMessage', 'Данные успешно сохранены');
           const data = await response.json();
           console.log(data);
+          this.$store.dispatch('loading/setStatus', false);
         }
         return;
       }

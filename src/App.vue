@@ -4,6 +4,7 @@
       <the-header></the-header>
     </template>
     <template v-slot:main>
+      <inform-banner v-if="isLoading"></inform-banner>
       <svg-sprite></svg-sprite>
       <router-view></router-view>
     </template>
@@ -31,7 +32,7 @@ export default {
       return this.$store.getters['isModal'];
     },
     isLoading() {
-      return this.$store.getters['isLoading'];
+      return this.$store.getters['loading/status'];
     }
   },
   watch: {

@@ -11,6 +11,7 @@ import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseModal from "@/components/ui/BaseModal.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
 import ButtonClose from "@/components/ui/ButtonClose.vue";
+import InformBanner from "@/components/ui/InformBanner.vue";
 
 const app = createApp(App);
 
@@ -19,6 +20,7 @@ app.component("base-card", BaseCard);
 app.component("base-modal", BaseModal);
 app.component("base-input", BaseInput);
 app.component("button-close", ButtonClose);
+app.component("inform-banner", InformBanner);
 
 app.use(store);
 app.use(routes);
