@@ -36,6 +36,7 @@ import passwordValidations from "@/utils/passwordValidations";
 export default {
   data() {
     return {
+      status: 'ready',
       currentPassword: "",
       newPassword: "",
       confirmedPassword: "",
@@ -49,7 +50,9 @@ export default {
     //    await this.$store.dispatch('user/resetCid');
     // },
     async formSubmitHandler() {
-      if (this.formIsValid) {
+      if (this.formIsValid && this.status === 'ready') {
+        this.$store.dispatch('loading/setStatusCode', '102');
+        this.status = 'pending';
         this.$store.dispatch('loading/setStatus', true);
         this.$store.dispatch('loading/setMessage', 'Ожидаю ответ от сервера');
         const authHeader = this.$store.getters["authHeader"];
@@ -65,13 +68,13 @@ export default {
             confirmed: this.confirmedPassword,
           }),
         });
-        if (response.status === 200) {
-          this.$store.dispatch('loading/setMessage', 'Данные успешно сохранены');
-          const data = await response.json();
-          console.log(data);
+        const data = await response.json();
+        this.$store.dispatch('loading/setStatusCode', response.status);
+        this.$store.dispatch('loading/setMessage', data.message);
+        setTimeout(() => {
           this.$store.dispatch('loading/setStatus', false);
-        }
-        return;
+          this.status = 'ready';
+        }, 2000)
       }
     },
     setCurrent(value) {
@@ -86,7 +89,7 @@ export default {
   },
   computed: {
     formIsValid() {
-      if (this.currentPassword && this.newPassword && this.confirmedPassword) {
+      if (this.currentPassword && this.newPassword && this.confirmedPassword && this.status === 'ready') {
         return true;
       }
       return false;

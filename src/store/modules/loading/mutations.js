@@ -4,5 +4,8 @@ export default {
   },
   setMessage(state, payload) {
     state.message = payload;
+  },
+  setStatusCode(state, payload) {
+    state.statusCode = payload;
   }
 }

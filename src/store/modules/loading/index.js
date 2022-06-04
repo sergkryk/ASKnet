@@ -7,7 +7,8 @@ export default {
   state() {
     return {
       status: false,
-      message: ''
+      message: '',
+      statusCode: '',
     }
   },
   mutations,

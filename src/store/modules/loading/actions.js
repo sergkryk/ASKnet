@@ -5,4 +5,7 @@ export default {
   setMessage(contex, data) {
     contex.commit('setMessage', data);
   },
+  setStatusCode(contex, data) {
+    contex.commit('setStatusCode', data);
+  },
 }

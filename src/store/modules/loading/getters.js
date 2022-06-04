@@ -5,4 +5,7 @@ export default {
   message(state) {
     return state.message;
   },
+  statusCode(state) {
+    return state.statusCode;
+  },
 }
