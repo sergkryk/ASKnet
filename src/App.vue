@@ -29,6 +29,9 @@ export default {
   computed: {
     isModal() {
       return this.$store.getters['isModal'];
+    },
+    isLoading() {
+      return this.$store.getters['isLoading'];
     }
   },
   watch: {
@@ -37,6 +40,13 @@ export default {
         document.querySelector('body').setAttribute('style', 'overflow: hidden');
       } else {
         document.querySelector('body').removeAttribute('style');
+      }
+    },
+    isLoading() {
+      if (this.isLoading) {
+        console.log('I am loading the data');
+      } else {
+        console.log('I am done loading the data');
       }
     }
   }

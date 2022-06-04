@@ -9,6 +9,7 @@ const store = createStore({
     return {
       authHeader: null,
       isModal: false,
+      isLoading: false,
     }
   },
   mutations: {
@@ -17,6 +18,9 @@ const store = createStore({
     },
     setIsModal(state, payload) {
       state.isModal = payload;
+    },
+    setIsLoading(state, payload) {
+      state.isLoading = payload;
     }
   },
   actions: {
@@ -26,6 +30,9 @@ const store = createStore({
     },
     setIsModal(context, data) {
       context.commit('setIsModal', data);
+    },
+    setIsLoading(context, data) {
+      context.commit('setIsLoading', data);
     }
   },
   getters: {
@@ -34,6 +41,9 @@ const store = createStore({
     },
     isModal(state) {
       return state.isModal;
+    },
+    isLoading(state) {
+      return state.isLoading;
     }
   },
 });

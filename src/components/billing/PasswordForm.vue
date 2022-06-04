@@ -50,6 +50,7 @@ export default {
     // },
     async formSubmitHandler() {
       if (this.formIsValid) {
+        this.$store.dispatch('setIsLoading', true);
         const authHeader = this.$store.getters["authHeader"];
         const response = await fetch(CHANGE_PASS_URL, {
           method: "POST",
@@ -63,6 +64,7 @@ export default {
             confirmed: this.confirmedPassword,
           }),
         });
+        this.$store.dispatch('setIsLoading', false);
         if (response.status === 200) {
           const data = await response.json();
           console.log(data);
