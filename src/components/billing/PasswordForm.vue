@@ -34,6 +34,7 @@ import { CHANGE_PASS_URL } from '@/config/config.js'
 import passwordValidations from "@/utils/passwordValidations";
 
 export default {
+  emits: ['close'],
   data() {
     return {
       status: 'ready',
@@ -51,10 +52,11 @@ export default {
     // },
     async formSubmitHandler() {
       if (this.formIsValid && this.status === 'ready') {
-        this.$store.dispatch('loading/setStatusCode', '102');
         this.status = 'pending';
-        this.$store.dispatch('loading/setStatus', true);
+        this.$store.dispatch('loading/setStatusCode', '102');
         this.$store.dispatch('loading/setMessage', 'Ожидаю ответ от сервера');
+        this.$store.dispatch('loading/setStatus', true);
+        
         const authHeader = this.$store.getters["authHeader"];
         const response = await fetch(CHANGE_PASS_URL, {
           method: "POST",
@@ -69,6 +71,10 @@ export default {
           }),
         });
         const data = await response.json();
+        if (response.status === 200) {
+          this.$store.dispatch('user/setPassword');
+          this.$emit('close');
+        }
         this.$store.dispatch('loading/setStatusCode', response.status);
         this.$store.dispatch('loading/setMessage', data.message);
         setTimeout(() => {

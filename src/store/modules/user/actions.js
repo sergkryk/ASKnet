@@ -1,4 +1,4 @@
-import { USER_DETAILS_URL } from "@/config/config";
+import { USER_DETAILS_URL, CHANGE_PASS_URL } from "@/config/config";
 
 export default {
   setUser(contex, data) {
@@ -25,5 +25,15 @@ export default {
     } else {
       throw new Error('CID cannot be reseted');
     }
-  }
+  },
+  async setPassword(context) {
+    const response = await fetch(CHANGE_PASS_URL, {
+      headers: context.rootGetters.authHeader,
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      const pass = data[0].password;
+      context.commit('setPassword', pass);
+    }
+  },
 }

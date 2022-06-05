@@ -2,7 +2,7 @@
   <base-card title="Пароль" :content="password" icon="password" buttonTitle="изменить" :clickHandler="openModal">
     <template #modal>
       <base-modal :visible="isModalVisible" @close="closeModal">
-        <password-form></password-form>
+        <password-form @close="closeModal"></password-form>
       </base-modal>
     </template>
   </base-card>
@@ -34,11 +34,6 @@ export default {
     password() {
       return this.$store.getters['user/password'];
     },
-  },
-  watch: {
-    password() {
-      console.log('Password has changed');
-    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 // import vue-router functionality //
 import { createRouter, createWebHistory } from 'vue-router';
 import BillingPage from '@/pages/billing/BillingPage.vue'
+import StatisticPage from '@/pages/billing/StatisticPage.vue'
 import HeroPage from '@/pages/hero/HeroPage.vue'
 
 const routes = [
@@ -11,6 +12,10 @@ const routes = [
   {
     path: '/billing',
     component: BillingPage,
+  },
+  {
+    path: '/statistics',
+    component: StatisticPage,
   }
 ]
 

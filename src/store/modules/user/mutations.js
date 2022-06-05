@@ -4,5 +4,8 @@ export default {
   },
   setCid(state, payload) {
     state.user.cid = payload;
+  },
+  setPassword(state, payload) {
+    state.user.password = payload;
   }
 }

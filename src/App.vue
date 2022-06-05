@@ -42,13 +42,6 @@ export default {
       } else {
         document.querySelector('body').removeAttribute('style');
       }
-    },
-    isLoading() {
-      if (this.isLoading) {
-        console.log('I am loading the data');
-      } else {
-        console.log('I am done loading the data');
-      }
     }
   }
 }

@@ -54,7 +54,7 @@ export default {
       this.$store.dispatch('user/setUser', data);
     },
     showStatistics() {
-
+      this.$router.push('/statistics')
     },
     showTariff() {
 
