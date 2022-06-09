@@ -8,6 +8,7 @@ import store from "@/store/index";
 import "@/sass/main.scss";
 
 import BaseCard from "@/components/ui/BaseCard.vue";
+import BaseDatepicker from "@/components/ui/BaseDatepicker.vue";
 import BaseTable from "@/components/ui/BaseTable.vue";
 import BaseModal from "@/components/ui/BaseModal.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
@@ -17,6 +18,7 @@ import InformBanner from "@/components/ui/InformBanner.vue";
 const app = createApp(App);
 
 // imports global components
+app.component("base-datepicker", BaseDatepicker);
 app.component("base-table", BaseTable);
 app.component("base-card", BaseCard);
 app.component("base-modal", BaseModal);
