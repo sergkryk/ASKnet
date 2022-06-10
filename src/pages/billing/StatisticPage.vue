@@ -146,7 +146,7 @@ export default {
       if (this.stats.length > 0) {
         return this.stats.slice(0, this.quantity);
       }
-      return '';
+      return "";
     },
   },
   methods: {
@@ -157,15 +157,21 @@ export default {
       const data = await response.json();
       return data;
     },
-    async fetchStatsByDate(period = {start: new Date(), end: new Date()}) {
-      console.log(period);
+    async fetchStatsByDate(period = { start: new Date(), end: new Date() }) {
+      const start = period.start.getTime(); // send the value in milliseconds, time is equal 00:00:00 //
+      const end = period.start.getTime() + 86399000; // by adding 8639900 I set the time to 23:59:59 to get the sessions for a single day request //
+      const reqBody = {
+        start,
+        end,
+      }
+      const authHeader = this.$store.getters["authHeader"];
       const response = await fetch(STATS_URL, {
         method: "POST",
-        headers: this.$store.getters.authHeader,
-        body: {
-          start: period.start,
-          end: period.end,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authHeader.Authorization,
         },
+        body: JSON.stringify(reqBody),
       });
       const data = await response.json();
       this.stats = data;
