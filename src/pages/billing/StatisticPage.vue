@@ -159,7 +159,7 @@ export default {
     },
     async fetchStatsByDate(period = { start: new Date(), end: new Date() }) {
       const start = period.start.getTime(); // send the value in milliseconds, time is equal 00:00:00 //
-      const end = period.start.getTime() + 86399000; // by adding 8639900 I set the time to 23:59:59 to get the sessions for a single day request //
+      const end = period.end.getTime() + 86399000; // by adding 8639900 I set the time to 23:59:59 to get the sessions for a single day request //
       const reqBody = {
         start,
         end,
