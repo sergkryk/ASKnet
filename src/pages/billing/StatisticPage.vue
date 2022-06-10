@@ -66,78 +66,6 @@ export default {
         recv: 58784128,
         sent: 30663,
       },
-      mockActivity: [
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-        {
-          start: "2022-05-27 10:36:02",
-          end: "2022-05-27 10:36:02",
-          duration: 19752,
-          sent: 30663,
-          recv: 58784128,
-        },
-      ],
       quantity: 10,
     };
   },
@@ -163,7 +91,7 @@ export default {
       const reqBody = {
         start,
         end,
-      }
+      };
       const authHeader = this.$store.getters["authHeader"];
       const response = await fetch(STATS_URL, {
         method: "POST",
@@ -207,17 +135,13 @@ export default {
       return `${mbytes} Мбайт`;
     },
     handleScroll() {
-      let bottomOfPage =
-        document.documentElement.scrollTop + window.innerHeight ===
-        document.documentElement.offsetHeight;
+      let bottomOfPage = window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight
 
       if (bottomOfPage) {
         this.quantity = this.quantity + 10;
       }
     },
-  },
-  async beforeMount() {
-    this.stats = await this.fetchStats();
   },
   mounted() {
     this.handleDebouncedScroll = debounce(this.handleScroll, 100);

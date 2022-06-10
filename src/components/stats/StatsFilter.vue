@@ -6,12 +6,14 @@
         class="filter__forw-wrapper"
         inputId="start"
         labelText="Начало"
+        :defaultValue="initialDates.startDate"
         @inputDateHandle="setStart"
       ></base-datepicker>
       <base-datepicker
         class="filter__forw-wrapper"
         inputId="end"
         labelText="Конец"
+        :defaultValue="initialDates.endDate"
         @inputDateHandle="setEnd"
       ></base-datepicker>
       <span v-if="errorMessage">{{ errorMessage }}</span>
@@ -62,6 +64,22 @@ export default {
       this.handleDatesInput();
     },
   },
+  computed: {
+    initialDates() {
+      const start = this.currentDate.setMonth(this.currentDate.getMonth() - 1, 1);
+      const end = this.currentDate.setMonth(this.currentDate.getMonth() + 2, 0);
+
+      const startDate = new Date(start).toISOString().slice(0, 10);
+      const endDate = new Date(end).toISOString().slice(0, 10);
+      return {
+        startDate,
+        endDate
+      };
+    }
+  },
+  beforeMount() {
+    this.handleDatesInput;
+  }
 };
 </script>
 

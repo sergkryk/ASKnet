@@ -27,11 +27,16 @@ export default {
       type: Array,
       required: false,
     },
+    defaultValue: {
+      type: String,
+      required: false,
+      default: '',
+    }
   },
   emits: ["inputDateHandle"],
   data() {
     return {
-      inputValue: "",
+      inputValue: this.defaultValue,
     };
   },
   methods: {
@@ -39,6 +44,9 @@ export default {
       this.$emit("inputDateHandle", this.inputValue);
     },
   },
+  beforeMount() {
+    this.handleInput();
+  }
 };
 </script>
 
