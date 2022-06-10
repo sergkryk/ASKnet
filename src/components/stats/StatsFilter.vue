@@ -6,20 +6,63 @@
         class="filter__forw-wrapper"
         inputId="start"
         labelText="Начало"
-        :mods="['stats__date']"
+        @inputDateHandle="setStart"
       ></base-datepicker>
       <base-datepicker
         class="filter__forw-wrapper"
         inputId="end"
         labelText="Конец"
-        :mods="['stats__date']"
+        @inputDateHandle="setEnd"
       ></base-datepicker>
+      <span v-if="errorMessage">{{ errorMessage }}</span>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  emits: ['requestByDates'],
+  data() {
+    return {
+      currentDate: new Date(),
+      startDate: "",
+      endDate: "",
+      errorMessage: "",
+    };
+  },
+  methods: {
+    compareDates() {
+      if (this.startDate > this.endDate) {
+        throw new Error("Начальная дата не должна быть позднее конечной");
+      }
+      if (this.startDate > this.currentDate || this.endDate > this.currentDate) {
+        throw new Error("Это архив, нельзя выбирать даты из будущего!")
+      }
+    },
+    handleDatesInput() {
+      if (this.startDate && this.endDate) {
+        try {
+          this.compareDates();
+          this.$emit("requestByDates", {
+            start: this.startDate,
+            end: this.endDate,
+          });
+          this.errorMessage = '';
+        } catch (error) {
+          this.errorMessage = error.message;
+        }
+      }
+    },
+    setStart(data) {
+      this.startDate = new Date(data);
+      this.handleDatesInput();
+    },
+    setEnd(data) {
+      this.endDate = new Date(data);
+      this.handleDatesInput();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

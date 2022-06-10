@@ -5,6 +5,7 @@
       :id="inputId"
       :class="mods"
       v-model="inputValue"
+      @input="handleInput"
     />
     <label :for="inputId">{{ labelText }}</label>
   </div>
@@ -25,12 +26,18 @@ export default {
     mods: {
       type: Array,
       required: false,
-    }
+    },
   },
+  emits: ["inputDateHandle"],
   data() {
     return {
       inputValue: "",
     };
+  },
+  methods: {
+    handleInput() {
+      this.$emit("inputDateHandle", this.inputValue);
+    },
   },
 };
 </script>
@@ -52,10 +59,20 @@ div {
   & .valid {
     --border-color: var(--color-green);
     color: var(--color-green);
+
+    input::-webkit-calendar-picker-indicator {
+      filter: invert(41%) sepia(80%) saturate(1838%) hue-rotate(122deg)
+        brightness(93%) contrast(97%);
+    }
   }
   & .invalid {
     --border-color: var(--color-lightred);
     color: var(--color-red);
+
+    input::-webkit-calendar-picker-indicator {
+      filter: invert(15%) sepia(56%) saturate(5711%) hue-rotate(342deg)
+        brightness(89%) contrast(85%);
+    }
   }
 }
 input {
@@ -65,15 +82,11 @@ input {
 
   font-size: inherit;
   line-height: inherit;
-  color: var(--font-color);
+  color: inherit;
 
   border: var(--border) solid var(--border-color);
   border-radius: 0.5rem;
 
-  &::placeholder {
-    opacity: 0;
-    font-size: 0;
-  }
   &:focus,
   &:focus-visible,
   &:active {
@@ -91,7 +104,7 @@ label {
 
   font-size: 0.8rem;
   line-height: var(--lineHeight);
-  color: var(--font-color);
+  color: inherit;
 
   background-color: var(--color-white);
 }

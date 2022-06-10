@@ -23,7 +23,7 @@
         </template>
       </base-table>
       <h2 class="subtitle">История</h2>
-      <stats-filter></stats-filter>
+      <stats-filter @requestByDates="fetchStatsByDate"></stats-filter>
       <base-table>
         <template #theader>
           <tr>
@@ -34,7 +34,7 @@
             <th>Данных отправлено</th>
           </tr>
         </template>
-        <template #tbody v-if="stats">
+        <template #tbody v-if="statsToLoad">
           <tr v-for="item in statsToLoad" :key="item.sent + item.recv">
             <td>{{ dateFormat(item.start) }}</td>
             <td>{{ dateFormat(item.end) }}</td>
@@ -143,7 +143,10 @@ export default {
   },
   computed: {
     statsToLoad() {
-      return this.stats.slice(0, this.quantity);
+      if (this.stats.length > 0) {
+        return this.stats.slice(0, this.quantity);
+      }
+      return '';
     },
   },
   methods: {
@@ -153,6 +156,19 @@ export default {
       });
       const data = await response.json();
       return data;
+    },
+    async fetchStatsByDate(period = {start: new Date(), end: new Date()}) {
+      console.log(period);
+      const response = await fetch(STATS_URL, {
+        method: "POST",
+        headers: this.$store.getters.authHeader,
+        body: {
+          start: period.start,
+          end: period.end,
+        },
+      });
+      const data = await response.json();
+      this.stats = data;
     },
     dateFormat(timestamp) {
       const dateObj = new Date(timestamp);
@@ -188,7 +204,6 @@ export default {
       let bottomOfPage =
         document.documentElement.scrollTop + window.innerHeight ===
         document.documentElement.offsetHeight;
-      console.log(bottomOfPage);
 
       if (bottomOfPage) {
         this.quantity = this.quantity + 10;
