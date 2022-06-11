@@ -17,7 +17,7 @@
       <span class="user__balance">{{ user.deposit }}&#8381;</span>
       <user-finances :finance="user.finance"></user-finances>
       <div class="user__buttons-wrapper">
-        <button type="button" class="site-button">Финансовая выписка</button>
+        <button type="button" class="site-button" @click="showFinance">Финансовая выписка</button>
         <button type="button" class="site-button site-button--green">
           Внести карту оплаты
         </button>
@@ -55,6 +55,9 @@ export default {
     },
     showStatistics() {
       this.$router.push('/statistics')
+    },
+    showFinance() {
+      this.$router.push('/finance')
     },
     showTariff() {
 

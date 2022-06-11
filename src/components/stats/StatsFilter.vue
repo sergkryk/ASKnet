@@ -16,7 +16,7 @@
         :defaultValue="initialDates.endDate"
         @inputDateHandle="setEnd"
       ></base-datepicker>
-      <span v-if="errorMessage">{{ errorMessage }}</span>
+      <span class="filter__error" v-if="errorMessage">{{ errorMessage }}</span>
     </form>
   </div>
 </template>
@@ -96,11 +96,22 @@ export default {
   font-weight: 500;
 }
 .filter__form {
+  position: relative;
   display: flex;
   flex-flow: row wrap;
 }
 .filter__forw-wrapper {
   margin-right: 2rem;
   min-width: 200px;
+}
+.filter__error {
+  --height: 1.2rem;
+
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--height) * -1);
+
+  line-height: var(--height);
+  color: var(--color-red);
 }
 </style>
