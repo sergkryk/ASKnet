@@ -35,7 +35,7 @@
           </tr>
         </template>
         <template #tbody v-if="statsToLoad">
-          <tr v-for="item in statsToLoad" :key="item.sent + item.recv">
+          <tr v-for="item in statsToLoad" :key="item.start">
             <td>{{ dateFormat(item.start) }}</td>
             <td>{{ dateFormat(item.end) }}</td>
             <td>{{ durationFormat(item.duration) }}</td>
@@ -76,28 +76,27 @@ export default {
       }
       return "";
     },
+    authHeader() {
+      return this.$store.getters.authHeader;
+    },
   },
   methods: {
-    async fetchStats() {
-      const response = await fetch(STATS_URL, {
-        headers: this.$store.getters.authHeader,
-      });
-      const data = await response.json();
-      return data;
-    },
     async fetchStatsByDate(period = { start: new Date(), end: new Date() }) {
+      if (!this.authHeader) {
+        this.$router.push('billing');
+        return;
+      }
       const start = period.start.getTime(); // send the value in milliseconds, time is equal 00:00:00 //
       const end = period.end.getTime() + 86399000; // by adding 8639900 I set the time to 23:59:59 to get the sessions for a single day request //
       const reqBody = {
         start,
         end,
       };
-      const authHeader = this.$store.getters["authHeader"];
       const response = await fetch(STATS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: authHeader.Authorization,
+          Authorization: this.authHeader.Authorization,
         },
         body: JSON.stringify(reqBody),
       });
@@ -135,8 +134,8 @@ export default {
       return `${mbytes} Мбайт`;
     },
     handleScroll() {
-      let bottomOfPage = window.innerHeight + window.pageYOffset >=
-        document.body.offsetHeight
+      let bottomOfPage =
+        window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
       if (bottomOfPage) {
         this.quantity = this.quantity + 10;
