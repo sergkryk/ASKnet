@@ -3,16 +3,19 @@
     <div class="container">
       <h1>{{ title }}</h1>
       <finance-filter></finance-filter>
+      <finance-table></finance-table>
     </div>
   </section>
 </template>
 
 <script>
-import FinanceFilter from '@/components/finance/FinanceFilter.vue';
+import FinanceFilter from "@/components/finance/FinanceFilter.vue";
+import FinanceTable from "@/components/finance/FinanceTable.vue";
 
 export default {
   components: {
     FinanceFilter,
+    FinanceTable,
   },
 
   data() {
