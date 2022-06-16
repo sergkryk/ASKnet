@@ -1,13 +1,14 @@
 .
 <template>
   <div>
-    <input type="checkbox" :name="checkboxName" :id="checkboxId"/>
+    <input type="checkbox" :name="checkboxName" :id="checkboxId" :checked="isChecked" v-model="isChecked"/>
     <label :for="checkboxId">{{ checkboxLabel }}</label>
   </div>
 </template>
 
 <script>
 export default {
+  emits: ['inputEvent'],
   props: {
     checkboxId: {
       type: String,
@@ -22,7 +23,22 @@ export default {
       required: false,
       default: "",
     },
+    checkboxState: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
   },
+  data() {
+    return {
+      isChecked: this.checkboxState,
+    }
+  },
+  watch: {
+    isChecked(newValue) {
+      this.$emit('inputEvent', {name: this.checkboxId, isChecked: newValue});
+    }
+  }
 };
 </script>
 

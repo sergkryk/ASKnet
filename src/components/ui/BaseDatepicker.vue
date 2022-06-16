@@ -45,7 +45,7 @@ export default {
     },
   },
   beforeMount() {
-    this.handleInput();
+    // this.handleInput();
   }
 };
 </script>

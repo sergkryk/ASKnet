@@ -3,19 +3,31 @@
     <div class="filter__container">
       <div class="filter__wrapper filter__checkboxes">
         <h4>Тип операции</h4>
-        <base-checkbox class="filter__checkbox" checkboxName="type" checkboxId="all-types" checkboxLabel="Все операции"></base-checkbox>
-        <base-checkbox class="filter__checkbox" checkboxName="type" checkboxId="payment-type" checkboxLabel="Оплаты"></base-checkbox>
-        <base-checkbox class="filter__checkbox" checkboxName="type" checkboxId="fee-type" checkboxLabel="Списания"></base-checkbox>
+        <base-checkbox
+          v-for="box in checkboxes"
+          :key="box.name"
+          class="filter__checkbox"
+          checkboxName="type"
+          :checkboxId="box.name"
+          :checkboxLabel="box.label"
+          :checkboxState="box.checked"
+          @inputEvent="handleCheckboxInput"
+        ></base-checkbox>
       </div>
-      <!-- <div class="filter__wrapper filter__radios">
-        <h4>Сортировка</h4>
-        <base-radio radioName="sort" radioId="desc" radioLabel="От конца"></base-radio>
-        <base-radio radioName="sort" radioId="asc" radioLabel="С начала"></base-radio>
-      </div> -->
       <div class="filter__wrapper filter__dates">
         <h4>Период</h4>
-        <base-datepicker class="filter__date" inputId="start" labelText="Начало" ></base-datepicker>
-        <base-datepicker class="filter__date" inputId="end" labelText="Конец" ></base-datepicker>
+        <base-datepicker
+          class="filter__date"
+          inputId="start"
+          labelText="Начало"
+          @inputDateHandle="setStart"
+        ></base-datepicker>
+        <base-datepicker
+          class="filter__date"
+          inputId="end"
+          labelText="Конец"
+          @inputDateHandle="setEnd"
+        ></base-datepicker>
       </div>
     </div>
   </div>
@@ -23,8 +35,63 @@
 
 <script>
 export default {
-
-}
+  emits: ["filterChange"],
+  data() {
+    return {
+      checkboxes: [
+        // {
+        //   name: "all",
+        //   isChecked: false,
+        //   label: "Все операции",
+        // },
+        {
+          name: "payment",
+          isChecked: false,
+          label: "Оплаты",
+        },
+        {
+          name: "fee",
+          isChecked: false,
+          label: "Списания",
+        },
+      ],
+      dates: {
+        start: "",
+        end: "",
+      },
+    };
+  },
+  methods: {
+    setStart(value) {
+      this.dates.start = value;
+      this.handleFilterInputs();
+    },
+    setEnd(value) {
+      this.dates.end = value;
+      this.handleFilterInputs();
+    },
+    handleCheckboxInput(value) {
+      this.checkboxes.forEach((el) => {
+        if (el.name === value.name) {
+          el.isChecked = value.isChecked;
+        }
+      });
+      this.handleFilterInputs();
+    },
+    handleFilterInputs() {
+      const checked = this.checkboxes.reduce((acc, item, index, array) => {
+        if (item.isChecked === true) {
+          acc.push(item);
+        }
+        if (index === array.length - 1) {
+          acc = acc[0]?.name ? acc[0]?.name : '';
+        }
+        return acc;
+      }, [])
+      this.$emit("filterChange", {dateStart: this.dates.start, dateEnd: this.dates.end, type: checked});
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -37,9 +104,7 @@ export default {
   grid-gap: 1.5rem;
   justify-content: space-between;
 }
-// .filter__wrapper {
-  // width: calc(100% / 3);
-// }
+
 .filter__dates {
   width: 100%;
 
@@ -57,43 +122,20 @@ export default {
     grid-column: span 2;
   }
 }
-// .filter__date {
-  // &:not(:last-child) {
-    // margin-right: 1rem;
-  // }
-// }
+
 .filter__checkboxes {
   width: 100%;
   max-width: 400px;
   grid-column: 2 / -1;
-  // grid-row: 2 / 3;
-
 
   display: grid;
   grid-template-columns: repeat(3, auto);
   justify-content: start;
   grid-gap: 1rem;
-  // justify-items: start;
 
   h4 {
     margin: 0 0 0.5rem;
     grid-column: 1 / -1;
   }
 }
-.filter__checkbox {
-
-}
-// .filter__radios {
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-template-rows: repeat(2, auto);
-//   justify-content: start;
-
-//   & {
-//     h4 {
-//       margin: 0 0 0.5rem;
-//       grid-column: span 2;
-//     }
-//   }
-// }
 </style>

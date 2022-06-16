@@ -33,3 +33,41 @@ app.component("inform-banner", InformBanner);
 app.use(store);
 app.use(routes);
 app.mount("#app");
+
+
+// const filters = [
+//   function filterByStartDate(accumulator, element) {
+//     if (element > 5) {
+//       accumulator.push(element);
+//     }
+//     return accumulator;
+//   },
+//   function filterByStartDate(accumulator, element) {
+//     if (element === 5) {
+//       accumulator.push(element);
+//     }
+//     return accumulator;
+//   },
+//   function filterByStartDate(accumulator, element) {
+//     if (element === 8) {
+//       accumulator.push(element);
+//     }
+//     return accumulator;
+//   },
+//   function filterByStartDate(accumulator, element) {
+//     if (element === 10) {
+//       accumulator.push(element);
+//     }
+//     return accumulator;
+//   },
+// ]
+
+// const reducer = (accumulator, item) => {
+//   return item
+// }
+
+// filters.reduce(reducer, 5);
+
+// console.log(result);
+
+
