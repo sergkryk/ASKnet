@@ -38,6 +38,7 @@ export default {
     payments() {
       const payments = [];
       mockPayments.forEach((el) => {
+        el.date = new Date(el.date).getTime();
         el.type = "payment";
         payments.push(el);
       });
@@ -46,6 +47,7 @@ export default {
     fees() {
       const fees = [];
       mockFees.forEach((el) => {
+        el.date = new Date(el.date).getTime();
         el.type = "fee";
         fees.push(el);
       });

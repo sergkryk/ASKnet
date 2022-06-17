@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     handleInput() {
-      this.$emit("inputDateHandle", this.inputValue);
+      this.$emit("inputDateHandle", new Date(this.inputValue).getTime());
     },
   },
   beforeMount() {
