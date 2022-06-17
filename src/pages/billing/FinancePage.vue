@@ -61,7 +61,7 @@ export default {
       const { dateStart, dateEnd, type } = this.filters;
       if (dateStart) {
         operations = operations.reduce((acc, item) => {
-          if (item.date >= dateStart) {
+          if (new Date(item.date).getTime() >= dateStart) {
             acc.push(item);
           }
           return acc;
@@ -69,17 +69,19 @@ export default {
       }
       if (dateEnd) {
         operations = operations.reduce((acc, item) => {
-          if (item.date <= dateEnd) {
+          if (new Date(item.date).getTime() <= dateEnd) {
             acc.push(item);
           }
           return acc;
         }, [])
       }
-      if (type) {
+      if (type.length > 0) {
         operations = operations.reduce((acc, item) => {
-          if (item.type === this.filters.type) {
-            acc.push(item);
-          }
+          type.forEach((el) => {
+            if (item.type === el) {
+              acc.push(item);
+            }
+          })
           return acc;
         }, [])
       }
@@ -95,7 +97,6 @@ export default {
     },
     handleFilter(data) {
       this.filters = data;
-      console.log(this.filters);
     },
   },
 };

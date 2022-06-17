@@ -10,7 +10,7 @@
           checkboxName="type"
           :checkboxId="box.name"
           :checkboxLabel="box.label"
-          :checkboxState="box.checked"
+          :checkboxState="box.isChecked"
           @inputEvent="handleCheckboxInput"
         ></base-checkbox>
       </div>
@@ -38,12 +38,12 @@ export default {
   emits: ["filterChange"],
   data() {
     return {
+      filters: {
+        dateStart: '',
+        dateEnd: '',
+        type: [],
+      },
       checkboxes: [
-        // {
-        //   name: "all",
-        //   isChecked: false,
-        //   label: "Все операции",
-        // },
         {
           name: "payment",
           isChecked: false,
@@ -55,40 +55,27 @@ export default {
           label: "Списания",
         },
       ],
-      dates: {
-        start: "",
-        end: "",
-      },
     };
   },
   methods: {
     setStart(value) {
-      this.dates.start = value;
+      this.filters.dateStart = value;
       this.handleFilterInputs();
     },
     setEnd(value) {
-      this.dates.end = value;
+      this.filters.dateEnd = value;
       this.handleFilterInputs();
     },
     handleCheckboxInput(value) {
-      this.checkboxes.forEach((el) => {
-        if (el.name === value.name) {
-          el.isChecked = value.isChecked;
-        }
-      });
+      if (value.isChecked) {
+        this.filters.type.push(value.name);
+      } else {
+        this.filters.type = this.filters.type.filter((el) => el !== value.name);
+      }
       this.handleFilterInputs();
     },
     handleFilterInputs() {
-      const checked = this.checkboxes.reduce((acc, item, index, array) => {
-        if (item.isChecked === true) {
-          acc.push(item);
-        }
-        if (index === array.length - 1) {
-          acc = acc[0]?.name ? acc[0]?.name : '';
-        }
-        return acc;
-      }, [])
-      this.$emit("filterChange", {dateStart: this.dates.start, dateEnd: this.dates.end, type: checked});
+      this.$emit("filterChange", this.filters);
     },
   },
 };
