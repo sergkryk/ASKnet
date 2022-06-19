@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div :class="mods">
     <input
       type="date"
       :id="inputId"
-      :class="mods"
       v-model="inputValue"
       @input="handleInput"
     />
@@ -13,6 +12,7 @@
 
 <script>
 export default {
+  emits: ["handleDateInput"],
   props: {
     inputId: {
       type: String,
@@ -27,25 +27,25 @@ export default {
       type: Array,
       required: false,
     },
-    defaultValue: {
+    valueOnLoad: {
       type: String,
       required: false,
       default: '',
     }
   },
-  emits: ["inputDateHandle"],
   data() {
     return {
-      inputValue: this.defaultValue,
+      inputValue: this.valueOnLoad,
     };
   },
   methods: {
     handleInput() {
-      this.$emit("inputDateHandle", new Date(this.inputValue).getTime());
+      const data = {
+        name: this.inputId,
+        value: new Date(this.inputValue).getTime(),
+      }
+      this.$emit("handleDateInput", data);
     },
-  },
-  beforeMount() {
-    // this.handleInput();
   }
 };
 </script>

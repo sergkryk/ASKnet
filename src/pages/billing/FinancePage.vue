@@ -98,7 +98,7 @@ export default {
     handleFilter(data) {
       this.filters = data;
     },
-  },
+  }
 };
 </script>
 

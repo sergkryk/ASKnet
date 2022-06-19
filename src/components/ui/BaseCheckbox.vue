@@ -1,6 +1,6 @@
 .
 <template>
-  <div>
+  <div :class="mods">
     <input type="checkbox" :name="checkboxName" :id="checkboxId" :checked="isChecked" v-model="isChecked"/>
     <label :for="checkboxId">{{ checkboxLabel }}</label>
   </div>
@@ -27,7 +27,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
+    mods: {
+      type: Array,
+      required: false,
+    },
   },
   data() {
     return {

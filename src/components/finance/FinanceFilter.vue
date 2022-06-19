@@ -17,16 +17,13 @@
       <div class="filter__wrapper filter__dates">
         <h4>Период</h4>
         <base-datepicker
-          class="filter__date"
-          inputId="start"
-          labelText="Начало"
-          @inputDateHandle="setStart"
-        ></base-datepicker>
-        <base-datepicker
-          class="filter__date"
-          inputId="end"
-          labelText="Конец"
-          @inputDateHandle="setEnd"
+          v-for="el in datepickers"
+          :key="el.datepickerId"
+          :class="el.mods"
+          :inputId="el.datepickerId"
+          :labelText="el.datepickerLabel"
+          :valueOnLoad="el.initValue"
+          @handleDateInput="handleDateInput"
         ></base-datepicker>
       </div>
     </div>
@@ -39,10 +36,11 @@ export default {
   data() {
     return {
       filters: {
-        dateStart: '',
-        dateEnd: '',
+        dateStart: this.startDate,
+        dateEnd: this.endDate,
         type: [],
       },
+
       checkboxes: [
         {
           name: "payment",
@@ -55,15 +53,26 @@ export default {
           label: "Списания",
         },
       ],
+      
+      datepickers: [
+        {
+          mods: ["filter__date"],
+          datepickerId: "dateStart",
+          datepickerLabel: "Начало",
+          initValue: '',
+        },
+        {
+          mods: ["filter__date"],
+          datepickerId: "dateEnd",
+          datepickerLabel: "Конец",
+          initValue: '',
+        },
+      ],
     };
   },
   methods: {
-    setStart(value) {
-      this.filters.dateStart = value;
-      this.handleFilterInputs();
-    },
-    setEnd(value) {
-      this.filters.dateEnd = value;
+    handleDateInput(data) {
+      this.filters[data.name] = data.value;
       this.handleFilterInputs();
     },
     handleCheckboxInput(value) {
@@ -77,6 +86,34 @@ export default {
     handleFilterInputs() {
       this.$emit("filterChange", this.filters);
     },
+    setInitialFilterDates(dateStart, dateEnd) {
+      this.datepickers.forEach((el) => {
+        if (el.datepickerId === 'dateStart') {
+          el.initValue = dateStart;
+        }
+        if (el.datepickerId === 'dateEnd') {
+          el.initValue = dateEnd;
+        }
+      })
+    },
+    calcInitialFilterDates() {
+      const today = new Date();
+      const dateEnd = today.toISOString().slice(0, 10);
+      today.setMonth(today.getMonth() - 1, 1);
+      const dateStart = today.toISOString().slice(0, 10);
+      return {
+        dateStart,
+        dateEnd
+      }
+    },
+    initFilterDatesOnLoad() {
+      const { dateStart, dateEnd } = this.calcInitialFilterDates();
+      this.setInitialFilterDates(dateStart, dateEnd)
+      this.$emit("filterChange", {dateStart, dateEnd, type: ''})
+    }
+  },
+  beforeMount() {
+    this.initFilterDatesOnLoad();
   },
 };
 </script>
