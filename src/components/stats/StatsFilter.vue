@@ -4,82 +4,64 @@
     <form class="filter__form">
       <base-datepicker
         class="filter__forw-wrapper"
-        inputId="start"
+        inputId="begin"
         labelText="Начало"
-        :defaultValue="initialDates.startDate"
-        @inputDateHandle="setStart"
+        :initialValue="initialDates.begin"
+        @userDateInput="handleDateInput"
       ></base-datepicker>
       <base-datepicker
         class="filter__forw-wrapper"
         inputId="end"
         labelText="Конец"
-        :defaultValue="initialDates.endDate"
-        @inputDateHandle="setEnd"
+        :initialValue="initialDates.end"
+        @userDateInput="handleDateInput"
       ></base-datepicker>
-      <span class="filter__error" v-if="errorMessage">{{ errorMessage }}</span>
+      <!-- <span class="filter__error" v-if="errorMessage">{{ errorMessage }}</span> -->
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ['requestByDates'],
+  emits: ['dateChange'],
+  props: {
+    initialDates: {
+      type: Object,
+      required: false,
+    }
+  },
   data() {
     return {
-      currentDate: new Date(),
-      startDate: "",
-      endDate: "",
-      errorMessage: "",
+
     };
   },
   methods: {
-    compareDates() {
-      if (this.startDate > this.endDate) {
-        throw new Error("Начальная дата не должна быть позднее конечной");
-      }
-      if (this.startDate > this.currentDate || this.endDate > this.currentDate) {
-        throw new Error("Это архив, нельзя выбирать даты из будущего!")
-      }
-    },
-    handleDatesInput() {
-      if (this.startDate && this.endDate) {
-        try {
-          this.compareDates();
-          this.$emit("requestByDates", {
-            start: this.startDate,
-            end: this.endDate,
-          });
-          this.errorMessage = '';
-        } catch (error) {
-          this.errorMessage = error.message;
-        }
-      }
-    },
-    setStart(data) {
-      this.startDate = new Date(data);
-      this.handleDatesInput();
-    },
-    setEnd(data) {
-      this.endDate = new Date(data);
-      this.handleDatesInput();
+    // compareDates() {
+    //   if (this.startDate > this.endDate) {
+    //     throw new Error("Начальная дата не должна быть позднее конечной");
+    //   }
+    //   if (this.startDate > this.currentDate || this.endDate > this.currentDate) {
+    //     throw new Error("Это архив, нельзя выбирать даты из будущего!")
+    //   }
+    // },
+    // handleDatesInput() {
+    //   if (this.startDate && this.endDate) {
+    //     try {
+    //       this.compareDates();
+    //       this.$emit("userDatesInput", {
+    //         start: this.startDate,
+    //         end: this.endDate,
+    //       });
+    //       this.errorMessage = '';
+    //     } catch (error) {
+    //       this.errorMessage = error.message;
+    //     }
+    //   }
+    // },
+    handleDateInput(data) {
+      this.$emit("dateChange", data);
     },
   },
-  computed: {
-    initialDates() {
-      const start = this.currentDate.setMonth(this.currentDate.getMonth() - 1, 1);
-      const end = this.currentDate.setMonth(this.currentDate.getMonth() + 2, 0);
-
-      const startDate = new Date(start).toISOString().slice(0, 10);
-      const endDate = new Date(end).toISOString().slice(0, 10);
-      return {
-        startDate,
-        endDate
-      };
-    }
-  },
-  beforeMount() {
-    this.handleDatesInput;
-  }
 };
 </script>
 
