@@ -31,7 +31,7 @@ export default {
 
   data() {
     return {
-      title: "Финансовая статистика пользователя",
+      title: "Финансовые операции пользователя",
       type: "all",
       pays: [],
       fees: [],
