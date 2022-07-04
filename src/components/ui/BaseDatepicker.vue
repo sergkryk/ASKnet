@@ -29,14 +29,14 @@ export default {
       type: Array,
       required: false,
     },
-    valueOnLoad: {
+    initialValue: {
       type: Number,
       default: null,
     }
   },
   data() {
     return {
-      inputValue: this.valueOnLoad ? DatesUtils.dateToString(this.valueOnLoad) : null,
+      inputValue: this.initialValue ? DatesUtils.dateToString(this.initialValue) : null,
     };
   },
   methods: {

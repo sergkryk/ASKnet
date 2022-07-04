@@ -4,13 +4,13 @@
       <div class="filter__wrapper filter__checkboxes">
         <h4>Тип операции</h4>
         <base-radio
-          v-for="box in checkboxes"
-          :key="box.name"
+          v-for="radio in radios"
+          :key="radio.name"
           class="filter__radio"
           radioName="type"
-          :radioId="box.name"
-          :radioLabel="box.label"
-          :radioState="box.isChecked"
+          :radioId="radio.name"
+          :radioLabel="radio.label"
+          :radioState="radio.isChecked"
           @userTypeInput="handleTypeInput"
         ></base-radio>
       </div>
@@ -22,7 +22,7 @@
           :class="el.mods"
           :inputId="el.datepickerId"
           :labelText="el.datepickerLabel"
-          :valueOnLoad="el.initValue"
+          :initialValue="el.initialValue"
           @userDateInput="handleDateInput"
         ></base-datepicker>
       </div>
@@ -41,13 +41,7 @@ export default {
   },
   data() {
     return {
-      filters: {
-        begin: this.startDate,
-        end: this.endDate,
-        type: [],
-      },
-
-      checkboxes: [
+      radios: [
         {
           name: "all",
           isChecked: true,
@@ -70,13 +64,13 @@ export default {
           mods: ["filter__date"],
           datepickerId: "begin",
           datepickerLabel: "Начало",
-          initValue: this.initialDates.begin,
+          initialValue: this.initialDates.begin,
         },
         {
           mods: ["filter__date"],
           datepickerId: "end",
           datepickerLabel: "Конец",
-          initValue: this.initialDates.end,
+          initialValue: this.initialDates.end,
         },
       ],
     };
