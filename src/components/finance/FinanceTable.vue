@@ -10,7 +10,7 @@
       </tr>
     </template>
     <template #tbody>
-      <tr v-for="item in operations" :key="item.ip + item.id">
+      <tr v-for="item in operations" :key="item.type + item.id">
         <td>{{ getType(item.type) }}</td>
         <td>{{ dateToString(item.date) }}</td>
         <td>{{ formatSum(item.sum) }}</td>

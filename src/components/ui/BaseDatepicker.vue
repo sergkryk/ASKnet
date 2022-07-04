@@ -11,8 +11,10 @@
 </template>
 
 <script>
+import DatesUtils from "@/utils/dates.js";
+
 export default {
-  emits: ["handleDateInput"],
+  emits: ["userDateInput"],
   props: {
     inputId: {
       type: String,
@@ -28,14 +30,13 @@ export default {
       required: false,
     },
     valueOnLoad: {
-      type: String,
-      required: false,
-      default: '',
+      type: Number,
+      default: null,
     }
   },
   data() {
     return {
-      inputValue: this.valueOnLoad,
+      inputValue: this.valueOnLoad ? DatesUtils.dateToString(this.valueOnLoad) : null,
     };
   },
   methods: {
@@ -44,7 +45,7 @@ export default {
         name: this.inputId,
         value: new Date(this.inputValue).getTime(),
       }
-      this.$emit("handleDateInput", data);
+      this.$emit("userDateInput", data);
     },
   }
 };

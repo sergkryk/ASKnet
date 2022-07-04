@@ -1,6 +1,6 @@
 .<template>
   <div>
-    <input type="radio" :name="radioName" :id="radioId">
+    <input type="radio" :name="radioName" :id="radioId" :checked="radioState" @input="handleInput">
     <label :for="radioId">{{ radioLabel }}</label>
   </div>
 </template>
@@ -21,6 +21,16 @@ export default {
       required: false,
       default: '',
     },
+    radioState: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
+  },
+  methods: {
+    handleInput() {
+      this.$emit("userTypeInput", this.radioId);
+    }
   }
 }
 </script>
