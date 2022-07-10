@@ -41,10 +41,14 @@ export default {
   },
   methods: {
     handleInput() {
+      const now = new Date();
+      const offset = now.getTimezoneOffset()*60*1000;
+      
       const data = {
         name: this.inputId,
-        value: new Date(this.inputValue).getTime(),
+        value: new Date(this.inputValue).getTime() + offset,
       }
+      console.log(data);
       this.$emit("userDateInput", data);
     },
   }

@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <h2 class="subtitle">История</h2>
-      <stats-filter @dateChange="handleDatesInput" :initialDates="period"></stats-filter>
+      <stats-filter @dateChange="handleDatesInput" :initialDates="period" :error="datesError"></stats-filter>
       <base-table>
         <template #theader>
           <tr>
@@ -44,6 +44,7 @@ export default {
         begin: null,
         end: null,
       },
+      datesError: '',
       stats: [],
     };
   },
@@ -61,7 +62,7 @@ export default {
         return el;
       })
       return formatted;
-    }
+    },
   },
   methods: {
     setPeriod() {
@@ -69,16 +70,40 @@ export default {
       this.period.begin = startDate;
       this.period.end = endDate;
     },
+    validateDates() {
+      const now = new Date().getTime();
+      if (this.period.begin === this.period.end) {
+        // this.period.end = this.period.end + (86399*1000);
+      }
+      if (this.period.begin > this.period.end) {
+        throw new Error("Начальная дата не должна быть позднее конечной");
+      }
+      if (this.period.begin > now || this.period.end > now) {
+        throw new Error("Это архив, нельзя выбирать даты из будущего!")
+      }
+    },
     async fetchData() {
       const stats = await Req.post(
         STATS_URL,
         this.authHeader.Authorization,
         this.period
       );
+      console.log(this.period.begin);
+      console.log(this.period.end);
+      console.log(new Date(this.period.begin));
+      console.log(new Date(this.period.end));
       this.stats = stats;
     },
-    handleDatesInput(data) {
-      console.log(data);
+    async handleDatesInput(data) {
+      try {
+        this.period[data.name] = data.value;
+        this.validateDates()
+        this.datesError = '';
+        await this.fetchData();
+      } catch (error) {
+        this.stats.length = 0;
+        this.datesError = error.message;
+      }
     }
   },
   async beforeMount() {

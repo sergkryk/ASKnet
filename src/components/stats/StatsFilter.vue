@@ -16,7 +16,7 @@
         :initialValue="initialDates.end"
         @userDateInput="handleDateInput"
       ></base-datepicker>
-      <!-- <span class="filter__error" v-if="errorMessage">{{ errorMessage }}</span> -->
+      <span class="filter__error" v-if="error">{{ error }}</span>
     </form>
   </div>
 </template>
@@ -28,6 +28,10 @@ export default {
     initialDates: {
       type: Object,
       required: false,
+    },
+    error: {
+      type: String,
+      required: false,
     }
   },
   data() {
@@ -36,14 +40,6 @@ export default {
     };
   },
   methods: {
-    // compareDates() {
-    //   if (this.startDate > this.endDate) {
-    //     throw new Error("Начальная дата не должна быть позднее конечной");
-    //   }
-    //   if (this.startDate > this.currentDate || this.endDate > this.currentDate) {
-    //     throw new Error("Это архив, нельзя выбирать даты из будущего!")
-    //   }
-    // },
     // handleDatesInput() {
     //   if (this.startDate && this.endDate) {
     //     try {
