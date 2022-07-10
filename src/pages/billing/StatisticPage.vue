@@ -73,7 +73,7 @@ export default {
     validateDates() {
       const now = new Date().getTime();
       if (this.period.begin === this.period.end) {
-        // this.period.end = this.period.end + (86399*1000);
+        this.period.end = this.period.end + (86399*1000);
       }
       if (this.period.begin > this.period.end) {
         throw new Error("Начальная дата не должна быть позднее конечной");
@@ -88,10 +88,6 @@ export default {
         this.authHeader.Authorization,
         this.period
       );
-      console.log(this.period.begin);
-      console.log(this.period.end);
-      console.log(new Date(this.period.begin));
-      console.log(new Date(this.period.end));
       this.stats = stats;
     },
     async handleDatesInput(data) {

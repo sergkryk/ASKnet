@@ -11,4 +11,9 @@ export default class {
   static dateToString(timeInMilliseconds) {
     return new Date(timeInMilliseconds).toISOString().slice(0, 10);
   }
+  static getTimeZoneOffset() {
+    const now = new Date();
+    const offset = now.getTimezoneOffset()*60*1000;
+    return offset;
+  }
 }
