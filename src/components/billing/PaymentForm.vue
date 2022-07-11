@@ -16,64 +16,76 @@
       :invalidMessage="pin.error"
       @user-input="handlePinInput"
     ></base-input>
-    <button type="submit" class="site-button site-button--green" :disabled="!formIsValid">
+    <button
+      type="submit"
+      class="site-button site-button--green"
+      :disabled="!formIsValid"
+    >
       Отправить
     </button>
   </form>
 </template>
 
 <script>
-import Validator from '@/utils/validations.js'
-// import Req from '@/utils/network.js';
+import Validator from "@/utils/validations.js";
+import Req from "@/utils/network.js";
+import { PAY_CARD_URL } from "@/config/config.js"
 
 export default {
   data() {
     return {
       serial: {
-        value: '',
+        value: "",
         isValid: false,
-        error: '',
+        error: "",
       },
       pin: {
-        value: '',
+        value: "",
         isValid: false,
-        error: '',
+        error: "",
       },
     };
   },
   methods: {
-    formSubmitHandler() {
-      // console.log({serial: this.serial, pin: this.pin});
+    async formSubmitHandler() {
+      const payRequest = await Req.post(
+        PAY_CARD_URL,
+        this.authHeader.Authorization,
+        {
+          serial: this.serial.value,
+          pin: this.pin.value,
+        }
+      );
+      console.log(payRequest);
     },
     handleSerialInput(data) {
       try {
-        Validator.isPayCardSerialValid(data)
-        this.serial.error = '';
-        this.serial.isValid = true,
-        this.serial.value = data;
+        Validator.isPayCardSerialValid(data);
+        this.serial.error = "";
+        (this.serial.isValid = true), (this.serial.value = data);
       } catch (error) {
-        this.serial.isValid = false,
-        this.serial.error = error.message;
+        (this.serial.isValid = false), (this.serial.error = error.message);
       }
     },
     handlePinInput(data) {
       try {
         Validator.isPayCardPinValid(data);
-        this.pin.error = '';
-        this.pin.isValid = true,
-        this.pin.value = data;
+        this.pin.error = "";
+        (this.pin.isValid = true), (this.pin.value = data);
       } catch (error) {
-        this.pin.isValid = false,
-        this.pin.error = error.message;
+        (this.pin.isValid = false), (this.pin.error = error.message);
       }
     },
   },
   computed: {
-      formIsValid() {
-        return this.serial.isValid && this.pin.isValid;
-      }
-    }
-}
+    authHeader() {
+      return this.$store.getters.authHeader;
+    },
+    formIsValid() {
+      return this.serial.isValid && this.pin.isValid;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

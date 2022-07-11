@@ -39,6 +39,7 @@ export const CHANGE_PASS_URL = "http://localhost:9000/user/password";
 export const STATS_URL = "http://localhost:9000/user/stats";
 export const PAYS_URL = "http://localhost:9000/user/pays";
 export const FEES_URL = "http://localhost:9000/user/fees";
+export const PAY_CARD_URL = "http://localhost:9000/user/cards";
 
 export const userInfo = [
   {
