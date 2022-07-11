@@ -15,6 +15,7 @@ import BaseTable from "@/components/ui/BaseTable.vue";
 import BaseModal from "@/components/ui/BaseModal.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
 import ButtonClose from "@/components/ui/ButtonClose.vue";
+import PaymentButton from "@/components/ui/PaymentButton.vue";
 import InformBanner from "@/components/ui/InformBanner.vue";
 
 const app = createApp(App);
@@ -28,6 +29,7 @@ app.component("base-card", BaseCard);
 app.component("base-modal", BaseModal);
 app.component("base-input", BaseInput);
 app.component("button-close", ButtonClose);
+app.component("payment-button", PaymentButton);
 app.component("inform-banner", InformBanner);
 
 app.use(store);

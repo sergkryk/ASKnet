@@ -18,9 +18,7 @@
       <user-finances :finance="user.finance"></user-finances>
       <div class="user__buttons-wrapper">
         <button type="button" class="site-button" @click="showFinance">Финансовая выписка</button>
-        <button type="button" class="site-button site-button--green">
-          Внести карту оплаты
-        </button>
+        <payment-button></payment-button>
       </div>
     </div>
     <div class="user__content">
@@ -37,6 +35,7 @@ import UserPersonal from "@/components/billing/UserPersonal.vue";
 import UserFinances from "@/components/billing/UserFinances.vue";
 import { USER_DETAILS_URL } from '@/config/config.js';
 import { formatDate } from '@/utils/utils';
+import PaymentButton from '@/components/ui/PaymentButton.vue';
 
 export default {
   components: {
@@ -44,6 +43,7 @@ export default {
     PasswordCard,
     UserPersonal,
     UserFinances,
+    PaymentButton,
   },
   methods: {
     async fetchUserDetails() {

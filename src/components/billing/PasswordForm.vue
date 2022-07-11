@@ -44,12 +44,6 @@ export default {
     };
   },
   methods: {
-    // async fetchPassword() {
-    //   await this.$store.dispatch('user/setCid');
-    // },
-    // async updatePassword() {
-    //    await this.$store.dispatch('user/resetCid');
-    // },
     async formSubmitHandler() {
       if (this.formIsValid && this.status === 'ready') {
         this.status = 'pending';

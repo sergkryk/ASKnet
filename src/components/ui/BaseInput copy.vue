@@ -1,14 +1,15 @@
 <template>
-  <div :class="invalidMessage ? 'invalid' : ''">
+  <div :class="validClass">
     <input
       :type="inputType"
       :id="inputId"
       :placeholder="inputPlaceholder"
       v-model="inputValue"
+      @focus="checkValidity"
       @input="inputHandler"
     />
     <label :for="inputId">{{ labelText }}</label>
-    <span v-if="invalidMessage">{{ invalidMessage }}</span>
+    <span v-if="validity.message">{{ validity.message }}</span>
   </div>
 </template>
 
@@ -35,20 +36,51 @@ export default {
       required: false,
       default: "",
     },
-    invalidMessage: {
-      type: String,
-      required: false,
-      default: '',
-    }
+    validations: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
       inputValue: "",
+      validity: {
+        isValid: "",
+        message: "",
+      },
     };
   },
   methods: {
+    checkValidity() {
+      try {
+        for (let i = 0; i < this.validations.length; i++) {
+          this.validations[i](this.inputValue);
+        }
+        this.validity.isValid = true;
+        this.validity.message = "";
+      } catch (error) {
+        this.validity.isValid = false;
+        this.validity.message = error.message;
+      }
+    },
     inputHandler() {
-      this.$emit("user-input", this.inputValue);
+      this.checkValidity();
+      if (this.validity.isValid === true) {
+        this.$emit("user-input", this.inputValue);
+      } else {
+        this.$emit("user-input", "");
+      }
+    },
+  },
+  computed: {
+    validClass() {
+      if (this.validity.isValid === "") {
+        return "";
+      }
+      if (this.validity.isValid === false) {
+        return "invalid";
+      }
+      return "valid";
     },
   },
 };
