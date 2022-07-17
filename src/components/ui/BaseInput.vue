@@ -94,7 +94,7 @@ label {
 
   font-size: inherit;
   line-height: inherit;
-  color: currentColor;
+  color: var(--font-color-light);
 
   transition: top 0.3s ease-in-out, left 0.3s ease-in-out,
     font-size 0.3s ease-in-out;
@@ -127,6 +127,7 @@ input:not(:placeholder-shown) ~ label {
   line-height: 1.2rem;
   top: calc(1.2rem / 2) * -1;
   background-color: var(--color-white);
+  color: currentColor;
 }
 span {
   font-size: 0.75rem;

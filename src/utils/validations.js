@@ -1,7 +1,7 @@
 export default class {
   static isPayCardSerialValid(value) {
     const valueLength = value.toString().trim().length;
-    if (valueLength !== 15 && valueLength > 0) {
+    if (valueLength !== 16 && valueLength > 0) {
       const error = new Error('Длина серийного номера должна быть 15 символов');
       throw error;
     }

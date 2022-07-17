@@ -1,8 +1,6 @@
 <template>
-  <section class="user">
-    <login-form v-if="!authHeader"></login-form>
-    <user-details v-if="authHeader"></user-details>
-  </section>
+  <login-form v-if="!authHeader"></login-form>
+  <user-details v-if="authHeader"></user-details>
 </template>
 
 <script>

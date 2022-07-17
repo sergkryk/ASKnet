@@ -24,6 +24,8 @@
   }
   main {
     flex-grow: 1;
+    display: flex;
+    flex-flow: column nowrap;
   }
   footer {
     flex-shrink: 0;
