@@ -6,6 +6,7 @@
       :placeholder="inputPlaceholder"
       v-model="inputValue"
       @input="inputHandler"
+      @focus="setDefaultValue"
     />
     <label :for="inputId">{{ labelText }}</label>
     <span v-if="invalidMessage">{{ invalidMessage }}</span>
@@ -39,6 +40,10 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    defaultValue: {
+      type: String,
+      required: false,
     }
   },
   data() {
@@ -50,6 +55,11 @@ export default {
     inputHandler() {
       this.$emit("user-input", this.inputValue);
     },
+    setDefaultValue() {
+      if (this.defaultValue) {
+        this.inputValue = this.defaultValue;
+      }
+    }
   },
 };
 </script>

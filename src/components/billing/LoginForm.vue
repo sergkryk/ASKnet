@@ -7,15 +7,16 @@
         <base-input
           inputId="userLogin"
           labelText="Лицевой счёт"
-          invalidMessage=""
+          :invalidMessage="login.error"
           inputPlaceholder="Введите лицевой счёт"
+          defaultValue="user_"
           @user-input="loginInputHandler"
         >
         </base-input>
         <base-input
           inputId="userPassword"
           labelText="Пароль"
-          invalidMessage=""
+          :invalidMessage="password.error"
           inputPlaceholder="Введите пароль"
           @user-input="passwordInputHandler"
         >
@@ -23,6 +24,7 @@
         <base-button
           buttonLabel="Войти"
           buttonType="submit"
+          :buttonIsDisabled="!formIsValid"
           :buttonMods="['green', 'long']"
         ></base-button>
       </form>
@@ -31,13 +33,22 @@
 </template>
 
 <script>
+import Validator from '@/utils/validations.js'
 import { LOGIN_URL } from "@/config/config.js";
 
 export default {
   data() {
     return {
-      login: "",
-      password: "",
+      login: {
+        value: '',
+        error: '',
+        valid: false,
+      },
+      password: {
+        value: '',
+        error: '',
+        valid: false,
+      },
     };
   },
   methods: {
@@ -45,7 +56,7 @@ export default {
       const response = await fetch(LOGIN_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login: this.login, password: this.password }),
+        body: JSON.stringify({ login: this.login.value, password: this.password.value }),
       });
       if (response.status !== 200) {
         return;
@@ -54,12 +65,37 @@ export default {
       this.$store.dispatch("setAuthHeader", resData);
     },
     loginInputHandler(data) {
-      this.login = data;
+      try {
+        Validator.isLoginValid(data);
+        this.login.value = data;
+        this.login.error = '';
+        this.login.valid = true;
+      } catch (error) {
+        this.login.error = error.message;
+        this.login.valid = false;
+      }
     },
     passwordInputHandler(data) {
-      this.password = data;
+      console.log(arguments);
+      try {
+        Validator.isUserPasswordValid(data);
+        this.password.value = data;
+        this.password.error = '';
+        this.password.valid = true;
+      } catch (error) {
+        this.password.error = error.message;
+        this.password.valid = false;
+      }
     },
   },
+  computed: {
+    formIsValid() {
+      return this.login.valid && this.password.valid;
+    },
+    loginValidator() {
+      return Validator.isLoginValid;
+    }
+  }
 };
 </script>
 
