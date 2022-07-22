@@ -3,21 +3,47 @@
     <h1 class="user__title title">Кабинет пользователя</h1>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Интернет</h2>
-        <ul class="bar">
-          <base-card title="Статус" :content="status" :icon="statusIcon" buttonTitle="подробнее" :clickHandler="showStatus"></base-card>
-          <base-card title="Действительный до" :content="expire" icon="calendar" buttonTitle="подробнее" :clickHandler="showExpireDetails"></base-card>
-          <base-card title="Тарифный план" :content="tariff" icon="speedometr" buttonTitle="подробнее" :clickHandler="showTariff"></base-card>
-          <base-card title="Имя пользователя" :content="user.login" icon="user" buttonTitle="статистика" :clickHandler="showStatistics"></base-card>
-          <password-card></password-card>
-          <cid-card></cid-card>
-        </ul>
+      <ul class="bar">
+        <base-card
+          title="Статус"
+          :content="status"
+          :icon="statusIcon"
+          buttonTitle="подробнее"
+          :clickHandler="showStatus"
+        ></base-card>
+        <base-card
+          title="Действительный до"
+          :content="expire"
+          icon="calendar"
+          buttonTitle="подробнее"
+          :clickHandler="showExpireDetails"
+        ></base-card>
+        <base-card
+          title="Тарифный план"
+          :content="tariff"
+          icon="speedometr"
+          buttonTitle="подробнее"
+          :clickHandler="showTariff"
+        ></base-card>
+        <base-card
+          title="Имя пользователя"
+          :content="user.login"
+          icon="user"
+          buttonTitle="статистика"
+          :clickHandler="showStatistics"
+        ></base-card>
+        <password-card></password-card>
+        <cid-card></cid-card>
+      </ul>
     </div>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Текущий баланс</h2>
       <span class="user__balance">{{ user.deposit }}&#8381;</span>
       <user-finances :finance="user.finance"></user-finances>
       <div class="user__buttons-wrapper">
-        <button type="button" class="site-button" @click="showFinance">Финансовая выписка</button>
+        <button type="button" class="site-button" @click="showFinance">
+          Финансовая выписка
+        </button>
         <payment-button></payment-button>
       </div>
     </div>
@@ -29,13 +55,13 @@
 </template>
 
 <script>
-import PasswordCard from '@/components/billing/PasswordCard.vue';
-import CidCard from '@/components/billing/CidCard.vue';
+import PasswordCard from "@/components/billing/PasswordCard.vue";
+import CidCard from "@/components/billing/CidCard.vue";
 import UserPersonal from "@/components/billing/UserPersonal.vue";
 import UserFinances from "@/components/billing/UserFinances.vue";
-import { USER_DETAILS_URL } from '@/config/config.js';
-import { formatDate } from '@/utils/utils';
-import PaymentButton from '@/components/ui/PaymentButton.vue';
+import { USER_DETAILS_URL } from "@/config/config.js";
+import { formatDate } from "@/utils/utils";
+import PaymentButton from "@/components/ui/PaymentButton.vue";
 
 export default {
   components: {
@@ -51,52 +77,46 @@ export default {
         headers: this.$store.getters.authHeader,
       });
       const data = await response.json();
-      this.$store.dispatch('user/setUser', data);
+      this.$store.dispatch("user/setUser", data);
     },
     showStatistics() {
-      this.$router.push('/statistics')
+      this.$router.push("/statistics");
     },
     showFinance() {
-      this.$router.push('/finance')
+      this.$router.push("/finance");
     },
-    showTariff() {
-
-    },
-    showExpireDetails() {
-
-    },
-    showStatus() {
-
-    },
+    showTariff() {},
+    showExpireDetails() {},
+    showStatus() {},
   },
   computed: {
     user() {
-      return this.$store.getters['user/user'];
+      return this.$store.getters["user/user"];
     },
     tariff() {
       return this.user.tp.tp_name;
     },
     status() {
-      return this.user.deposit > 0 ? 'Активен' : 'Отключен';
+      return this.user.deposit > 0 ? "Активен" : "Отключен";
     },
     statusIcon() {
-      return this.status === 'Активен' ? 'enabled' : 'disabled';
+      return this.status === "Активен" ? "enabled" : "disabled";
     },
     cid() {
-      if (this.user.cid.includes(';')) {
-        let addresses = this.user.cid.split(';')
+      if (this.user.cid.includes(";")) {
+        let addresses = this.user.cid.split(";");
         return addresses[0];
       }
-      return this.user.cid ? this.user.cid : 'Адрес сброшен';
+      return this.user.cid ? this.user.cid : "Адрес сброшен";
     },
     expire() {
       return formatDate(this.user.finance.expireDate);
-    }
+    },
   },
   async created() {
     await this.fetchUserDetails();
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">

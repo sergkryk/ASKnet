@@ -77,6 +77,7 @@ div {
 
   font-size: var(--fsize);
   line-height: var(--lheight);
+  color: var(--font-color);
 
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -116,7 +117,7 @@ input {
 
   font-size: inherit;
   line-height: inherit;
-  color: var(--font-color);
+  color: inherit;
 
   border: var(--border) solid var(--border-color);
   border-radius: 0.5rem;

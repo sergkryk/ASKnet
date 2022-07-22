@@ -27,60 +27,63 @@
           :buttonIsDisabled="!formIsValid"
           :buttonMods="['green', 'long']"
         ></base-button>
+        <span class="login__error" v-if="requestError">{{ requestError }}</span>
       </form>
     </div>
   </section>
 </template>
 
 <script>
-import Validator from '@/utils/validations.js'
-import { LOGIN_URL } from "@/config/config.js";
+import Validator from "@/utils/validations.js";
+import Network from "@/utils/network.js";
 
 export default {
   data() {
     return {
       login: {
-        value: '',
-        error: '',
+        value: "",
+        error: "",
         valid: false,
       },
       password: {
-        value: '',
-        error: '',
+        value: "",
+        error: "",
         valid: false,
       },
+      requestError: "",
     };
   },
   methods: {
     async requestAuthorization() {
-      const response = await fetch(LOGIN_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login: this.login.value, password: this.password.value }),
-      });
-      if (response.status !== 200) {
-        return;
+      try {
+        await Network.authorize({
+          login: this.login.value,
+          password: this.password.value,
+        });
+      } catch (error) {
+        this.requestError = error.message;
       }
-      const resData = await response.json();
-      this.$store.dispatch("setAuthHeader", resData);
     },
+
     loginInputHandler(data) {
+      this.requestError = "";
       try {
         Validator.isLoginValid(data);
         this.login.value = data;
-        this.login.error = '';
+        this.login.error = "";
         this.login.valid = true;
       } catch (error) {
         this.login.error = error.message;
         this.login.valid = false;
       }
     },
+
     passwordInputHandler(data) {
-      console.log(arguments);
+      this.requestError = "";
       try {
         Validator.isUserPasswordValid(data);
         this.password.value = data;
-        this.password.error = '';
+        this.password.error = "";
         this.password.valid = true;
       } catch (error) {
         this.password.error = error.message;
@@ -92,10 +95,7 @@ export default {
     formIsValid() {
       return this.login.valid && this.password.valid;
     },
-    loginValidator() {
-      return Validator.isLoginValid;
-    }
-  }
+  },
 };
 </script>
 
@@ -110,6 +110,20 @@ export default {
 
 .login__container {
   max-width: 800px;
+}
+
+.login__error {
+  --line-height: 1.25rem;
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--line-height) * -1.8);
+
+  color: var(--color-red);
+  font-size: 1rem;
+  line-height: var(--line-height);
+
+  text-transform: lowercase;
+  text-align: center;
 }
 
 h2 {
@@ -127,6 +141,7 @@ p {
 }
 
 form {
+  position: relative;
   padding: 2rem 0;
   display: flex;
   flex-flow: column nowrap;
