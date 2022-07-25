@@ -1,6 +1,7 @@
 // import vue-router functionality //
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 import BillingPage from '@/pages/billing/BillingPage.vue'
+import LoginPage from '@/pages/billing/LoginPage.vue'
 import StatisticPage from '@/pages/billing/StatisticPage.vue'
 import FinancePage from '@/pages/billing/FinancePage.vue'
 import HeroPage from '@/pages/hero/HeroPage.vue'
@@ -13,6 +14,10 @@ const routes = [
   {
     path: '/billing',
     component: BillingPage,
+  },
+  {
+    path: '/login',
+    component: LoginPage,
   },
   {
     path: '/statistics',
@@ -29,4 +34,4 @@ const router = createRouter({
   routes,
 })
 
-export default router;
+export default router

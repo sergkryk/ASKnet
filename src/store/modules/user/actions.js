@@ -1,8 +1,13 @@
 import { USER_DETAILS_URL, CHANGE_PASS_URL } from "@/config/config";
 
 export default {
-  setUser(contex, data) {
-    contex.commit('setUser', data);
+  async setUser(contex) {
+    const response = await fetch(USER_DETAILS_URL, {
+      credentials: "include",
+    });
+    const userData = await response.json();
+    contex.commit('setUser', userData);
+    console.log(contex.getters.user);
   },
   async setCid(context) {
     const response = await fetch(`${USER_DETAILS_URL}/cid`, {

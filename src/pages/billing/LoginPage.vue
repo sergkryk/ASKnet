@@ -34,8 +34,9 @@
 </template>
 
 <script>
-import Validator from "@/utils/validations.js";
-import Network from "@/utils/network.js";
+import Validator from "@/utils/validations.js"
+import Network from "@/utils/network.js"
+import { checkAuthorization } from '@/utils/cookies.js'
 
 export default {
   data() {
@@ -60,6 +61,7 @@ export default {
           login: this.login.value,
           password: this.password.value,
         });
+        this.$router.push("/billing");
       } catch (error) {
         this.requestError = error.message;
       }
@@ -95,6 +97,11 @@ export default {
     formIsValid() {
       return this.login.valid && this.password.valid;
     },
+  },
+  beforeCreate() {
+    if (checkAuthorization()) {
+      this.$router.push('/billing')
+    }
   },
 };
 </script>

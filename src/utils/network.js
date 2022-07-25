@@ -1,4 +1,4 @@
-import store from '@/store/index.js';
+// import store from '@/store/index.js';
 import { LOGIN_URL } from '@/config/config';
 
 export default class {
@@ -34,7 +34,5 @@ export default class {
     if (response.status !== 200) {
       throw new Error('Не могу войти на сервер статистики! Проверьте правильность вводимых данных');
     }
-    const resData = await response.json();
-    store.dispatch("setAuthHeader", resData);
   }
 }
