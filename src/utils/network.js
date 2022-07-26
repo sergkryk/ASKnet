@@ -1,18 +1,13 @@
-// import store from '@/store/index.js';
-import { LOGIN_URL } from '@/config/config';
+import { LOGIN_URL } from "@/config/config";
 
 export default class {
-  static async post(url, authHeader, body) {
-    if (!authHeader) {
-      return;
-    }
+  static async post(url, body) {
     const response = await fetch(url, {
       credentials: "include",
-      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: authHeader,
       },
+      method: "POST",
       body: JSON.stringify(body),
     });
     const data = await response.json();
@@ -23,16 +18,20 @@ export default class {
     const { login, password } = credentials;
 
     const response = await fetch(LOGIN_URL, {
-      method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      method: "POST",
       body: JSON.stringify({
         login,
         password,
       }),
     });
     if (response.status !== 200) {
-      throw new Error('Не могу войти на сервер статистики! Проверьте правильность вводимых данных');
+      throw new Error(
+        "Не могу войти на сервер статистики! Проверьте правильность вводимых данных"
+      );
     }
   }
 }

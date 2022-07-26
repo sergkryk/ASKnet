@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import Validator from "@/utils/validations.js"
-import Network from "@/utils/network.js"
-import { checkAuthorization } from '@/utils/cookies.js'
+import Validator from "@/utils/validations.js";
+import Api from "@/utils/network.js";
+import { checkAuthorization } from "@/utils/cookies.js";
 
 export default {
   data() {
@@ -57,7 +57,7 @@ export default {
   methods: {
     async requestAuthorization() {
       try {
-        await Network.authorize({
+        await Api.authorize({
           login: this.login.value,
           password: this.password.value,
         });
@@ -66,30 +66,31 @@ export default {
         this.requestError = error.message;
       }
     },
-
+    setValid(credential, data) {
+      credential.value = data;
+      credential.error = "";
+      credential.valid = true;
+    },
+    setInvalid(credential, error) {
+      credential.error = error.message;
+      credential.valid = false;
+    },
     loginInputHandler(data) {
       this.requestError = "";
       try {
         Validator.isLoginValid(data);
-        this.login.value = data;
-        this.login.error = "";
-        this.login.valid = true;
+        this.setValid(this.login, data)
       } catch (error) {
-        this.login.error = error.message;
-        this.login.valid = false;
+        this.setInvalid(this.login, error)
       }
     },
-
     passwordInputHandler(data) {
       this.requestError = "";
       try {
         Validator.isUserPasswordValid(data);
-        this.password.value = data;
-        this.password.error = "";
-        this.password.valid = true;
+        this.setValid(this.password, data)
       } catch (error) {
-        this.password.error = error.message;
-        this.password.valid = false;
+        this.setInvalid(this.password, error)
       }
     },
   },
@@ -100,7 +101,7 @@ export default {
   },
   beforeCreate() {
     if (checkAuthorization()) {
-      this.$router.push('/billing')
+      this.$router.push("/billing");
     }
   },
 };

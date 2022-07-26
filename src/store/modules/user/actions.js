@@ -7,11 +7,10 @@ export default {
     });
     const userData = await response.json();
     contex.commit('setUser', userData);
-    console.log(contex.getters.user);
   },
   async setCid(context) {
     const response = await fetch(`${USER_DETAILS_URL}/cid`, {
-      headers: context.rootGetters.authHeader,
+      credentials: "include",
     });
     if (response.status === 200) {
       const data = await response.json();
@@ -22,18 +21,17 @@ export default {
   async resetCid(context) {
     const response = await fetch(`${USER_DETAILS_URL}/cid`, {
       method: 'PUT',
-      headers: context.rootGetters.authHeader,
+      credentials: "include",
     });
     if (response.status === 200) {
       context.dispatch('setCid');
-      return;
     } else {
-      throw new Error('CID cannot be reseted');
+      throw new Error(response.status);
     }
   },
   async setPassword(context) {
     const response = await fetch(CHANGE_PASS_URL, {
-      headers: context.rootGetters.authHeader,
+      credentials: "include",
     });
     if (response.status === 200) {
       const data = await response.json();

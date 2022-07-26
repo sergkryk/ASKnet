@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import Validator from "@/utils/validations.js";
-import Req from "@/utils/network.js";
+import Validator from "@/utils/validations.js"
+import Api from "@/utils/network.js"
 import { PAY_CARD_URL } from "@/config/config.js"
 
 export default {
@@ -48,15 +48,13 @@ export default {
   },
   methods: {
     async formSubmitHandler() {
-      const payRequest = await Req.post(
+      await Api.post(
         PAY_CARD_URL,
-        this.authHeader.Authorization,
         {
           serial: this.serial.value,
           pin: this.pin.value,
         }
       );
-      console.log(payRequest);
     },
     handleSerialInput(data) {
       try {

@@ -17,11 +17,12 @@
 
 <script>
 import Dates from "@/utils/dates.js";
-import Req from "@/utils/network.js";
+import Api from "@/utils/network.js";
 import { PAYS_URL, FEES_URL } from "@/config/config.js";
 
 import FinanceTable from "@/components/finance/FinanceTable.vue";
 import FinanceFilter from "@/components/finance/FinanceFilter.vue";
+import { checkAuthorization } from "@/utils/cookies.js";
 
 export default {
   components: {
@@ -42,9 +43,6 @@ export default {
     };
   },
   computed: {
-    authHeader() {
-      return this.$store.getters.authHeader;
-    },
     filteredByType() {
       switch (this.type) {
         case "fee":
@@ -76,14 +74,12 @@ export default {
       this.timePeriod.end = endDate;
     },
     async fetchData() {
-      const pays = await Req.post(
+      const pays = await Api.post(
         PAYS_URL,
-        this.authHeader.Authorization,
         this.timePeriod
       );
-      const fees = await Req.post(
+      const fees = await Api.post(
         FEES_URL,
-        this.authHeader.Authorization,
         this.timePeriod
       );
       this.setType(pays, "payment");
@@ -102,6 +98,11 @@ export default {
     handleTypeChange(value) {
       this.type = value;
     },
+  },
+  beforeCreate() {
+    if (!checkAuthorization()) {
+      this.$router.push("/login");
+    }
   },
   async beforeMount() {
     await this.setPeriod();

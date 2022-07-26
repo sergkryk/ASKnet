@@ -2,7 +2,11 @@
   <section>
     <div class="container">
       <h2 class="subtitle">История</h2>
-      <stats-filter @dateChange="handleDatesInput" :initialDates="period" :error="datesError"></stats-filter>
+      <stats-filter
+        @dateChange="handleDatesInput"
+        :initialDates="period"
+        :error="datesError"
+      ></stats-filter>
       <base-table>
         <template #theader>
           <tr>
@@ -29,12 +33,13 @@
 
 <script>
 import Dates from "@/utils/dates.js";
-import Req from "@/utils/network.js";
-import Formats from '@/utils/formats.js';
+import Api from "@/utils/network.js";
+import Formats from "@/utils/formats.js";
 
 import { STATS_URL } from "@/config/config.js";
 
 import StatsFilter from "@/components/stats/StatsFilter.vue";
+import { checkAuthorization } from "@/utils/cookies.js";
 
 export default {
   components: { StatsFilter },
@@ -44,14 +49,11 @@ export default {
         begin: null,
         end: null,
       },
-      datesError: '',
+      datesError: "",
       stats: [],
     };
   },
   computed: {
-    authHeader() {
-      return this.$store.getters.authHeader;
-    },
     toRender() {
       const formatted = this.stats.map((el) => {
         el.start = Formats.datetime(el.start);
@@ -60,7 +62,7 @@ export default {
         el.recv = Formats.traffic(el.recv);
         el.sent = Formats.traffic(el.sent);
         return el;
-      })
+      });
       return formatted;
     },
   },
@@ -73,33 +75,34 @@ export default {
     validateDates() {
       const now = new Date().getTime();
       if (this.period.begin === this.period.end) {
-        this.period.end = this.period.end + (86399*1000);
+        this.period.end = this.period.end + 86399 * 1000;
       }
       if (this.period.begin > this.period.end) {
         throw new Error("Начальная дата не должна быть позднее конечной");
       }
       if (this.period.begin > now || this.period.end > now) {
-        throw new Error("Это архив, нельзя выбирать даты из будущего!")
+        throw new Error("Это архив, нельзя выбирать даты из будущего!");
       }
     },
     async fetchData() {
-      const stats = await Req.post(
-        STATS_URL,
-        this.authHeader.Authorization,
-        this.period
-      );
+      const stats = await Api.post(STATS_URL, this.period);
       this.stats = stats;
     },
     async handleDatesInput(data) {
       try {
         this.period[data.name] = data.value;
-        this.validateDates()
-        this.datesError = '';
+        this.validateDates();
+        this.datesError = "";
         await this.fetchData();
       } catch (error) {
         this.stats.length = 0;
         this.datesError = error.message;
       }
+    },
+  },
+  beforeCreate() {
+    if (!checkAuthorization()) {
+      this.$router.push("/login");
     }
   },
   async beforeMount() {

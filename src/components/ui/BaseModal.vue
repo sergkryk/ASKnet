@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="visible">
     <div class="modal__overlay" @click="close"></div>
-    <div class="modal__content">
+    <div class="modal__content" :class="modsClassNames">
       <button-close @click="close"></button-close>
       <slot></slot>
     </div>  
@@ -16,6 +16,10 @@ export default {
       type: Boolean,
       required: true,
       default: false,
+    },
+    mods: {
+      type: Array,
+      required: false,
     }
   },
   methods: {
@@ -23,6 +27,14 @@ export default {
       this.$emit('close');
     },
   },
+  computed: {
+    modsClassNames() {
+      if (this.mods && this.mods.length > 0) {
+        return this.mods.map(el => `modal__content--${el}`)
+      }
+      return ''
+    }
+  }
 }
 </script>
 
@@ -65,6 +77,10 @@ export default {
 
   background-color: var(--color-white);
   border-radius: 1rem;
+
+  &--compact {
+    width: auto;
+  }
 }
 button {
   position: absolute;
