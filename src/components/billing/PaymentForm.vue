@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import Validator from "@/utils/validations.js"
-import Api from "@/utils/network.js"
-import { PAY_CARD_URL } from "@/config/config.js"
+import Validator from "@/utils/validations.js";
+import Api from "@/utils/network.js";
+import { PAY_CARD_URL } from "@/config/config.js";
 
 export default {
   data() {
@@ -48,21 +48,20 @@ export default {
   },
   methods: {
     async formSubmitHandler() {
-      await Api.post(
-        PAY_CARD_URL,
-        {
-          serial: this.serial.value,
-          pin: this.pin.value,
-        }
-      );
+      await Api.post(PAY_CARD_URL, {
+        serial: this.serial.value,
+        pin: this.pin.value,
+      });
     },
     handleSerialInput(data) {
       try {
         Validator.isPayCardSerialValid(data);
-        this.serial.error = "";
-        (this.serial.isValid = true), (this.serial.value = data);
+        this.serial.error = ""
+        this.serial.isValid = true
+        this.serial.value = data
       } catch (error) {
-        (this.serial.isValid = false), (this.serial.error = error.message);
+        this.serial.isValid = false
+        this.serial.error = error.message
       }
     },
     handlePinInput(data) {
@@ -76,9 +75,6 @@ export default {
     },
   },
   computed: {
-    authHeader() {
-      return this.$store.getters.authHeader;
-    },
     formIsValid() {
       return this.serial.isValid && this.pin.isValid;
     },

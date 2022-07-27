@@ -16,7 +16,7 @@
           </p>
           <button
             class="confirmation__button"
-            @click="resetCid"
+            @click="reset"
             :disabled="isReseted"
           >
             Да
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import Api from "@/utils/network.js"
+
 export default {
   data() {
     return {
@@ -36,9 +38,10 @@ export default {
     };
   },
   methods: {
-    async resetCid() {
+    async reset() {
       try {
-        await this.$store.dispatch("user/resetCid")
+        await Api.resetUserCid();
+        await this.$store.dispatch("user/setCid")
         this.closeModal()
       } catch (error) {
         console.log(error)

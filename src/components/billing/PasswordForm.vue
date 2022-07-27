@@ -4,95 +4,119 @@
       inputId="currentPassword"
       inputPlaceholder="Текущий пароль"
       labelText="Введите ваш текущий пароль"
-      :validations="validations"
-      @user-input="setCurrent"
+      :invalidMessage="currentPassword.error"
+      @user-input="currentPassHandler"
     ></base-input>
     <base-input
       inputType="password"
-      inputId="newPassword"
+      inputId="candidatePassword"
       inputPlaceholder="Новый пароль"
       labelText="Введите новый пароль"
-      :validations="validations"
-      @user-input="setNew"
+      :invalidMessage="candidatePassword.error"
+      @user-input="candidatePassHandler"
     ></base-input>
     <base-input
       inputType="password"
       inputId="confirmedPassword"
       inputPlaceholder="Подтверждение пароля"
       labelText="Введите подтверждение пароля"
-      :validations="validations"
-      @user-input="setConfirmed"
+      :invalidMessage="confirmedPassword.error"
+      @user-input="confirmedPassHandler"
     ></base-input>
-    <button type="submit" class="site-button site-button--green" :disabled="!formIsValid">
+    <button
+      type="submit"
+      class="site-button site-button--green"
+      :disabled="!formIsValid"
+    >
       Сохранить
     </button>
+    <span v-if="responseMessage">{{ responseMessage }}</span>
   </form>
 </template>
 
 <script>
-import { CHANGE_PASS_URL } from '@/config/config.js'
-import passwordValidations from "@/utils/passwordValidations";
+import passwordValidations from "@/utils/passwordValidations"
+import Api from "@/utils/network.js"
+import Validator from "@/utils/validations.js"
 
 export default {
-  emits: ['close'],
+  emits: ["close"],
   data() {
     return {
-      status: 'ready',
-      currentPassword: "",
-      newPassword: "",
-      confirmedPassword: "",
+      currentPassword: {
+        value: "",
+        valid: false,
+        error: "",
+      },
+      candidatePassword: {
+        value: "",
+        valid: false,
+        error: "",
+      },
+      confirmedPassword: {
+        value: "",
+        valid: false,
+        error: "",
+      },
+      responseMessage: "",
     };
   },
   methods: {
     async formSubmitHandler() {
-      if (this.formIsValid && this.status === 'ready') {
-        this.status = 'pending';
-        this.$store.dispatch('loading/setStatusCode', '102');
-        this.$store.dispatch('loading/setMessage', 'Ожидаю ответ от сервера');
-        this.$store.dispatch('loading/setStatus', true);
-        
-        const authHeader = this.$store.getters["authHeader"];
-        const response = await fetch(CHANGE_PASS_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: authHeader.Authorization,
-          },
-          body: JSON.stringify({
-            previous: this.currentPassword,
-            candidate: this.newPassword,
-            confirmed: this.confirmedPassword,
-          }),
+      try {
+        await Api.updateUserPassword({
+          previous: this.currentPassword.value,
+          candidate: this.candidatePassword.value,
+          confirmed: this.confirmedPassword.value,
         });
-        const data = await response.json();
-        if (response.status === 200) {
-          this.$store.dispatch('user/setPassword');
-          this.$emit('close');
-        }
-        this.$store.dispatch('loading/setStatusCode', response.status);
-        this.$store.dispatch('loading/setMessage', data.message);
-        setTimeout(() => {
-          this.$store.dispatch('loading/setStatus', false);
-          this.status = 'ready';
-        }, 2000)
+        this.$store.dispatch("user/setPassword");
+        this.$emit("close");
+      } catch (error) {
+        this.responseMessage = error.message
       }
     },
-    setCurrent(value) {
-      this.currentPassword = value;
+    setValid(credential, data) {
+      this.responseMessage = '';
+      credential.value = data;
+      credential.error = "";
+      credential.valid = true;
     },
-    setNew(value) {
-      this.newPassword = value;
+    setInvalid(credential, error) {
+      credential.error = error.message;
+      credential.valid = false;
     },
-    setConfirmed(value) {
-      this.confirmedPassword = value;
+    currentPassHandler(value) {
+      try {
+        Validator.isUserPasswordValid(value)
+        this.setValid(this.currentPassword, value)
+      } catch (error) {
+        this.setInvalid(this.currentPassword, error)
+      }
+    },
+    candidatePassHandler(value) {
+      try {
+        Validator.isUserPasswordValid(value)
+        this.setValid(this.candidatePassword, value)
+      } catch (error) {
+        this.setInvalid(this.candidatePassword, error)
+      }
+    },
+    confirmedPassHandler(value) {
+      try {
+        Validator.isUserPasswordValid(value)
+        this.setValid(this.confirmedPassword, value)
+      } catch (error) {
+        this.setInvalid(this.confirmedPassword, error)
+      }
     },
   },
   computed: {
     formIsValid() {
-      if (this.currentPassword && this.newPassword && this.confirmedPassword && this.status === 'ready') {
-        return true;
-      }
-      return false;
+      return (
+        this.currentPassword.valid &&
+        this.candidatePassword.valid &&
+        this.confirmedPassword.valid
+      );
     },
     validations() {
       return passwordValidations;

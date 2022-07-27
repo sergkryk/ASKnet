@@ -18,17 +18,6 @@ export default {
       context.commit('setCid', cid);
     }
   },
-  async resetCid(context) {
-    const response = await fetch(`${USER_DETAILS_URL}/cid`, {
-      method: 'PUT',
-      credentials: "include",
-    });
-    if (response.status === 200) {
-      context.dispatch('setCid');
-    } else {
-      throw new Error(response.status);
-    }
-  },
   async setPassword(context) {
     const response = await fetch(CHANGE_PASS_URL, {
       credentials: "include",
