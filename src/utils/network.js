@@ -41,7 +41,9 @@ export default class {
       credentials: "include",
     });
     if (response.status !== 200) {
-      throw new Error("Не удалось сбросить мак-адрес");
+      const requestError = new Error();
+      requestError.status = response.status;
+      throw requestError;
     }
   }
 

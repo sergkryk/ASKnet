@@ -8,20 +8,44 @@
     :clickHandler="openModal"
   >
     <template #modal>
-      <base-modal :visible="isModalVisible" @close="closeModal" :mods="['compact']">
+      <base-modal
+        :visible="isModalVisible"
+        @close="closeModal"
+        :mods="['compact']"
+      >
         <div class="confirmation">
+          <!-- <div class="confirmation__svg-wrapper">
+            <svg width="64" height="64">
+              <use xlink:href="#bin"></use>
+            </svg>
+          </div> -->
           <p class="confirmation__text">
-            Внимание! Данное действие отменить нельзя. Вы действительно хотите
-            сбросить ваш текущий мак-адрес?
+            <span
+              class="confirmation__highlighted confirmation__highlighted--red"
+              >Внимание!</span
+            >
+            <span class="confirmation__highlighted"
+              >Данное действие отменить нельзя!</span
+            >
+            <span class="confirmation__highlighted"
+              >Сбрасываем текущий мак-адрес?</span
+            >
           </p>
-          <button
-            class="confirmation__button"
-            @click="reset"
-            :disabled="isReseted"
-          >
-            Да
-          </button>
-          <button class="confirmation__button" @click="closeModal">Нет</button>
+          <div class="confirmation__buttons-wrapper">
+            <button
+              class="confirmation__button site-button"
+              @click="reset"
+              :disabled="isReseted"
+            >
+              Да
+            </button>
+            <button
+              class="confirmation__button site-button site-button--green"
+              @click="closeModal"
+            >
+              Нет
+            </button>
+          </div>
         </div>
       </base-modal>
     </template>
@@ -29,7 +53,7 @@
 </template>
 
 <script>
-import Api from "@/utils/network.js"
+import Api from "@/utils/network.js";
 
 export default {
   data() {
@@ -41,32 +65,34 @@ export default {
     async reset() {
       try {
         await Api.resetUserCid();
-        await this.$store.dispatch("user/setCid")
-        this.closeModal()
+        await this.$store.dispatch("user/setCid");
+        this.closeModal();
       } catch (error) {
-        console.log(error)
+        if (error.status == 401) {
+          this.$router.push("/login");
+        }
       }
     },
     openModal() {
       this.isModalVisible = true;
-      this.$store.dispatch("setIsModal", true)
+      this.$store.dispatch("setIsModal", true);
     },
     closeModal() {
       this.isModalVisible = false;
-      this.$store.dispatch("setIsModal", false)
+      this.$store.dispatch("setIsModal", false);
     },
   },
   computed: {
     cid() {
-      let cid = this.$store.getters["user/cid"]
+      let cid = this.$store.getters["user/cid"];
       if (cid.includes(";")) {
-        const splitted = cid.split(";")
-        cid = splitted[0]
+        const splitted = cid.split(";");
+        cid = splitted[0];
       }
-      return cid ? cid : "Нет записи"
+      return cid ? cid : "Нет записи";
     },
     isReseted() {
-      return this.cid === "Нет записи"
+      return this.cid === "Нет записи";
     },
   },
 };
@@ -74,8 +100,60 @@ export default {
 
 <style lang="scss" scoped>
 .confirmation {
-  --side: 25vw;
+  --side: 100%;
+  // position: relative;
   margin: 0 auto;
+  padding: 1rem;
   width: var(--side);
+}
+.confirmation__svg-wrapper {
+  --elSize: 64px;
+  width: var(--elSize);
+  height: var(--elSize);
+
+  position: absolute;
+  top: calc(var(--elSize) * -0.5);
+  left: calc(50% - var(--elSize) * 0.5);
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-red);
+  background-color: var(--color-white);
+  border-radius: 50%;
+
+  & svg {
+    width: 56px;
+    height: 56px;
+  }
+}
+.confirmation__text {
+  margin: 0 0 1.2rem;
+  display: flex;
+  flex-flow: column nowrap;
+
+  font-size: 1rem;
+  line-height: 1.4rem;
+  color: var(--font-color);
+}
+.confirmation__highlighted {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  &--red {
+    font-size: 1.4rem;
+    color: var(--color-red);
+    margin-bottom: 0.3rem;
+  }
+}
+.confirmation__buttons-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.confirmation__button {
+  max-width: 45%;
 }
 </style>

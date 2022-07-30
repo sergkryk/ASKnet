@@ -4,12 +4,12 @@
 
 <style lang="scss" scoped>
 button {
-  --size: 2rem;
+  --size: 1.5rem;
   --contentColor: var(--font-color);
   
   padding: 0;
-  width: 2rem;
-  height: 2rem;
+  width: var(--size);
+  height: var(--size);
   
   line-height: normal;
   overflow: visible;

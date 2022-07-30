@@ -1,55 +1,57 @@
 <template>
   <div class="container" v-if="user">
-    <h1 class="user__title title">Кабинет пользователя</h1>
-    <div class="user__content">
-      <h2 class="user__subtitle subtitle">Интернет</h2>
-      <ul class="bar">
-        <base-card
-          title="Статус"
-          :content="status"
-          :icon="statusIcon"
-          buttonTitle="подробнее"
-          :clickHandler="showStatus"
-        ></base-card>
-        <base-card
-          title="Действительный до"
-          :content="expire"
-          icon="calendar"
-          buttonTitle="подробнее"
-          :clickHandler="showExpireDetails"
-        ></base-card>
-        <base-card
-          title="Тарифный план"
-          :content="tariff"
-          icon="speedometr"
-          buttonTitle="подробнее"
-          :clickHandler="showTariff"
-        ></base-card>
-        <base-card
-          title="Имя пользователя"
-          :content="user.login"
-          icon="user"
-          buttonTitle="статистика"
-          :clickHandler="showStatistics"
-        ></base-card>
-        <password-card></password-card>
-        <cid-card></cid-card>
-      </ul>
-    </div>
-    <div class="user__content">
-      <h2 class="user__subtitle subtitle">Текущий баланс</h2>
-      <span class="user__balance">{{ user.deposit }}&#8381;</span>
-      <user-finances :finance="user.finance"></user-finances>
-      <div class="user__buttons-wrapper">
-        <button type="button" class="site-button" @click="showFinance">
-          Финансовая выписка
-        </button>
-        <payment-button></payment-button>
+    <div class="user">
+      <h1 class="user__title title">Кабинет пользователя</h1>
+      <div class="user__content">
+        <h2 class="user__subtitle subtitle">Интернет</h2>
+        <ul class="bar">
+          <base-card
+            title="Статус"
+            :content="status"
+            :icon="statusIcon"
+            buttonTitle="подробнее"
+            :clickHandler="showStatus"
+          ></base-card>
+          <base-card
+            title="Действительный до"
+            :content="expire"
+            icon="calendar"
+            buttonTitle="подробнее"
+            :clickHandler="showExpireDetails"
+          ></base-card>
+          <base-card
+            title="Тарифный план"
+            :content="tariff"
+            icon="speedometr"
+            buttonTitle="подробнее"
+            :clickHandler="showTariff"
+          ></base-card>
+          <base-card
+            title="Имя пользователя"
+            :content="user.login"
+            icon="user"
+            buttonTitle="статистика"
+            :clickHandler="showStatistics"
+          ></base-card>
+          <password-card></password-card>
+          <cid-card></cid-card>
+        </ul>
       </div>
-    </div>
-    <div class="user__content">
-      <h2 class="user__subtitle subtitle">Личные данные</h2>
-      <user-personal :address="user.pi"></user-personal>
+      <div class="user__content">
+        <h2 class="user__subtitle subtitle">Текущий баланс</h2>
+        <span class="user__balance">{{ user.deposit }}&#8381;</span>
+        <user-finances :finance="user.finance"></user-finances>
+        <div class="user__buttons-wrapper">
+          <button type="button" class="site-button" @click="showFinance">
+            Финансовая выписка
+          </button>
+          <payment-button></payment-button>
+        </div>
+      </div>
+      <div class="user__content">
+        <h2 class="user__subtitle subtitle">Личные данные</h2>
+        <user-personal :address="user.pi"></user-personal>
+      </div>
     </div>
   </div>
 </template>

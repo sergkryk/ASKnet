@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .modal {
-  --padding: 3rem;
+  --padding: 1rem;
   position: fixed;
   z-index: 100;
 
@@ -84,7 +84,7 @@ export default {
 }
 button {
   position: absolute;
-  top: calc(var(--padding) / 3);
-  right: calc(var(--padding) / 3);
+  top: calc(var(--padding) * 0.7);
+  right: calc(var(--padding) * 0.7);
 }
 </style>>
