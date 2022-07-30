@@ -1,5 +1,5 @@
 <template>
-  <ul class="info-grid" :address='address'>
+  <ul class="info-grid">
     <li class="info-grid__item" v-for="el in address" :key="el.label">
       <span class="info-grid__description">{{ el.label }}</span>
       <span class="info-grid__data">{{ el.data }}</span>
@@ -25,7 +25,7 @@ export default {
     padding: 0;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-auto-rows: minmax(50px, auto);
     grid-gap: 1rem;
 
@@ -54,8 +54,5 @@ export default {
     color: var(--border-color);
     
     background-color: var(--color-white);
-  }
-  .info-grid__data {
-
   }
 </style>

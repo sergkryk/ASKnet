@@ -1,11 +1,11 @@
 <template>
-  <table class="site-table" :finance="finance">
+  <table class="finances site-table">
     <thead>
       <tr>
         <th>Операции</th>
         <th>Сумма</th>
         <th>Дата</th>
-        <th>Детали</th>
+        <th class="finances__details-header">Детали</th>
       </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
         </td>
         <td>{{ prevPay.sum }}&#8381;</td>
         <td>{{ date.prevPay }}</td>
-        <td>{{ prevPay.dsc }}</td>
+        <td class="finances__details-data">{{ prevPay.dsc }}</td>
       </tr>
       <tr v-if="prevFee">
         <td>
@@ -48,8 +48,8 @@
           </div>
         </td>
         <td>{{ prevFee.sum }}&#8381;</td>
-        <td>{{ date.prevFee}}</td>
-        <td>{{ prevFee.dsc }}</td>
+        <td>{{ date.prevFee }}</td>
+        <td class="finances__details-data">{{ prevFee.dsc }}</td>
       </tr>
       <tr v-if="nextFee">
         <td>
@@ -66,29 +66,28 @@
         </td>
         <td>{{ nextFee.sum }}&#8381;</td>
         <td>{{ date.nextFee }}</td>
-        <td>{{ nextFee.dsc }}</td>
+        <td class="finances__details-data">{{ nextFee.dsc }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-
-import { formatDate } from '@/utils/utils';
+import { formatDate } from "@/utils/utils";
 
 export default {
   props: {
     finance: {
       type: Object,
       required: true,
-    }
+    },
   },
   data() {
     return {
       prevPay: this.finance.prevPay,
       prevFee: this.finance.prevFee,
       nextFee: this.finance.nextFee,
-    }
+    };
   },
   computed: {
     date() {
@@ -96,21 +95,32 @@ export default {
         prevPay: formatDate(this.prevPay.date),
         prevFee: formatDate(this.prevFee.date),
         nextFee: formatDate(this.nextFee.date),
-      }
-    }
-  }
+      };
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  .site-table {
+.site-table {
   --header-color: #637381;
   --header-bcg: #f4f6f8;
+  --min-font-size: 12px;
+  --max-font-size: 16px;
+  --min-screen-width: 400px;
+  --max-screen-width: 1024px;
+  // font-size: calc(12px + (16 - 12) * ((100vw - 400px) / (1024 - 400)));
+  // font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
+  font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
 
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0px;
   border-bottom: 1px solid #f4f6f8;
+
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  overflow: hidden;
 
   th {
     padding: 0.7rem 1rem;
@@ -118,21 +128,22 @@ export default {
     font-weight: 500;
     color: var(--header-color);
     background-color: var(--header-bcg);
-
-    &:first-child {
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
-    }
-    &:last-child {
-      border-top-right-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
-    }
   }
 
   td {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 }
+
+.finances__details-header,
+.finances__details-data {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: table-cell;
+  }
+}
+
 .site-table__container {
   display: flex;
   flex-flow: row nowrap;
@@ -142,7 +153,6 @@ export default {
 }
 .site-table__arrow {
   --arrow-width: 24px;
-
   margin-right: 0.5rem;
   padding: calc(var(--arrow-width) / 4);
 
@@ -160,6 +170,8 @@ export default {
     rgba(0, 123, 85, 0.24) 100%
   );
   border-radius: 50%;
+    
+  display: none;
 
   svg {
     width: 100%;

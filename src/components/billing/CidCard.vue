@@ -145,7 +145,7 @@ export default {
   &--red {
     font-size: 1.4rem;
     color: var(--color-red);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
   }
 }
 .confirmation__buttons-wrapper {
