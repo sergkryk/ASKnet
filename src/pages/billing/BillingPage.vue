@@ -109,19 +109,17 @@ export default {
       return formatDate(this.user.finance.expireDate);
     },
   },
-  beforeCreate() {
+  async created() {
     if (!checkAuthorization()) {
       this.$router.push("/login");
+    } else {
+      await this.fetchUserDetails();
     }
-  },
-  async created() {
-    await this.fetchUserDetails();
   },
 };
 </script>
 
 <style lang="scss">
-
 .user {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -133,10 +131,6 @@ export default {
 .user__content {
   color: var(--font-color);
   margin-bottom: 2rem;
-  // padding: 1rem;
-
-  // box-shadow: var(--box-shadow);
-  // border-radius: 1rem;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -160,7 +154,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-gap: 1rem;
-  
+
   button {
     width: 100%;
     max-width: 400px;

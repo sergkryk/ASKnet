@@ -40,20 +40,6 @@ export default {
     };
   },
   methods: {
-    // handleDatesInput() {
-    //   if (this.startDate && this.endDate) {
-    //     try {
-    //       this.compareDates();
-    //       this.$emit("userDatesInput", {
-    //         start: this.startDate,
-    //         end: this.endDate,
-    //       });
-    //       this.errorMessage = '';
-    //     } catch (error) {
-    //       this.errorMessage = error.message;
-    //     }
-    //   }
-    // },
     handleDateInput(data) {
       this.$emit("dateChange", data);
     },
@@ -63,23 +49,25 @@ export default {
 
 <style lang="scss" scoped>
 .filter {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .filter__title {
-  margin: 0 2rem 0 0;
+  margin: 0 0 1rem;
   font-weight: 500;
 }
 .filter__form {
   position: relative;
-  display: flex;
-  flex-flow: row wrap;
+
+  display: grid;
+  grid-auto-rows: auto;
+  grid-row-gap: 1rem;
+
+  @media(min-width: 500px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-column-gap: 0.625rem;
+  }
 }
 .filter__forw-wrapper {
-  margin-right: 2rem;
   min-width: 200px;
 }
 .filter__error {

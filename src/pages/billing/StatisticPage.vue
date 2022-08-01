@@ -7,14 +7,14 @@
         :initialDates="period"
         :error="datesError"
       ></stats-filter>
-      <base-table>
+      <base-table :mods="['base-table--stats']">
         <template #theader>
           <tr>
             <th>Начало</th>
             <th>Окончание</th>
             <th>Длительность</th>
-            <th>Данных получено</th>
-            <th>Данных отправлено</th>
+            <th>Получено</th>
+            <th>Отправлено</th>
           </tr>
         </template>
         <template #tbody v-if="toRender">

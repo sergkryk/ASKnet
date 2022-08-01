@@ -105,12 +105,7 @@ export default {
 .site-table {
   --header-color: #637381;
   --header-bcg: #f4f6f8;
-  --min-font-size: 12px;
-  --max-font-size: 16px;
-  --min-screen-width: 400px;
-  --max-screen-width: 1024px;
-  // font-size: calc(12px + (16 - 12) * ((100vw - 400px) / (1024 - 400)));
-  // font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
+
   font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
 
   width: 100%;
