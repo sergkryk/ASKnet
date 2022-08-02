@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   div {
-    padding: 0.5rem 0;
+    // padding: 0.5rem 0;
 
     display: flex;
     flex-flow: row nowrap;

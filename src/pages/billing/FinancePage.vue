@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <h1>{{ title }}</h1>
+      <h1 class="main-heading">{{ title }}</h1>
       <finance-filter
         @typeChange="handleTypeChange"
         @dateChange="handleDatesChange"
@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      title: "Финансовые операции пользователя",
+      title: "Финансовые операции",
       type: "all",
       pays: [],
       fees: [],
@@ -111,4 +111,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+section {
+  padding: 1.2rem 0;
+}
+h1 {
+  margin-bottom: calc(clamp(1.625rem, 0.75vw + 1.4375rem, 2rem) * 0.5);
+}
+</style>
