@@ -3,14 +3,14 @@
     <h3 class="filter__title">Фильтр по дате:</h3>
     <form class="filter__form">
       <base-datepicker
-        class="filter__forw-wrapper"
+        class="filter__form-wrapper"
         inputId="begin"
         labelText="Начало"
         :initialValue="initialDates.begin"
         @userDateInput="handleDateInput"
       ></base-datepicker>
       <base-datepicker
-        class="filter__forw-wrapper"
+        class="filter__form-wrapper"
         inputId="end"
         labelText="Конец"
         :initialValue="initialDates.end"
@@ -67,7 +67,7 @@ export default {
     grid-column-gap: 0.625rem;
   }
 }
-.filter__forw-wrapper {
+.filter__form-wrapper {
   min-width: 200px;
 }
 .filter__error {

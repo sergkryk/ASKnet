@@ -1,8 +1,8 @@
 <template>
-  <base-table :mods="['base-table--blue', 'base-table--accent']" v-if="operations">
+  <base-table :mods="['base-table--finances']" v-if="operations">
     <template #theader>
       <tr>
-        <th>Тип операции</th>
+        <th>Операция</th>
         <th>Дата</th>
         <th>Сумма</th>
         <th>Баланс</th>

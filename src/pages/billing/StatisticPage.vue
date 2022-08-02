@@ -100,14 +100,13 @@ export default {
       }
     },
   },
-  beforeCreate() {
+  async created() {
     if (!checkAuthorization()) {
       this.$router.push("/login");
+    } else {
+      this.setPeriod();
+      await this.fetchData();
     }
-  },
-  async beforeMount() {
-    this.setPeriod();
-    await this.fetchData();
   },
 };
 </script>

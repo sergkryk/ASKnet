@@ -1,17 +1,15 @@
 <template>
-  <div class="wrapper">
-    <table class="base-table" :class="mods">
-      <thead v-if="$slots.theader">
-        <slot name="theader"></slot>
-      </thead>
-      <tbody>
-        <slot name="tbody"></slot>
-      </tbody>
-      <tfoot v-if="$slots.tfooter">
-        <slot name="tfooter"></slot>
-      </tfoot>
-    </table>
-  </div>
+  <table class="base-table" :class="mods">
+    <thead v-if="$slots.theader">
+      <slot name="theader"></slot>
+    </thead>
+    <tbody>
+      <slot name="tbody"></slot>
+    </tbody>
+    <tfoot v-if="$slots.tfooter">
+      <slot name="tfooter"></slot>
+    </tfoot>
+  </table>
 </template>
 
 <script>
@@ -26,14 +24,10 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
-  max-width: 100%;
-  overflow-y: scroll;
-}
 .base-table {
   --header-bcg: #04ab55;
   --border-color: #e4e8eb;
-  --cell-padding: clamp(0.5rem, 2vw, 1rem);
+  --cell-padding: clamp(0.3125rem, 1.25vw, 0.625rem);
 
   width: 100%;
   border-collapse: collapse;
@@ -41,22 +35,19 @@ export default {
   border-bottom: 1px solid #f4f6f8;
   font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
 
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+
+  overflow: hidden;
+
   th {
     padding: var(--cell-padding);
     text-align: left;
     font-weight: 500;
     color: var(--color-white);
     background-color: var(--header-bcg);
-
-    &:first-child {
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
-    }
-    &:last-child {
-      border-top-right-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
-    }
   }
+
   td {
     color: var(--font-color-light);
     padding: var(--cell-padding);
@@ -67,19 +58,29 @@ export default {
     }
   }
 }
-.base-table--blue {
+.base-table--finances {
   th {
     background-color: #1890ff;
-  }
-}
-.base-table--accent {
-  th {
     text-align: center;
+    &:nth-child(5) {
+      display: none;
+
+      @media (min-width: 800px) {
+        display: table-cell;
+      }
+    }
   }
   td {
     color: var(--font-color);
     font-size: inherit;
     text-align: center;
+    &:nth-child(5) {
+      display: none;
+
+      @media (min-width: 800px) {
+        display: table-cell;
+      }
+    }
   }
 }
 .base-table--stats {

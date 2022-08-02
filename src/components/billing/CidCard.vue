@@ -14,11 +14,6 @@
         :mods="['compact']"
       >
         <div class="confirmation">
-          <!-- <div class="confirmation__svg-wrapper">
-            <svg width="64" height="64">
-              <use xlink:href="#bin"></use>
-            </svg>
-          </div> -->
           <p class="confirmation__text">
             <span
               class="confirmation__highlighted confirmation__highlighted--red"
@@ -101,32 +96,9 @@ export default {
 <style lang="scss" scoped>
 .confirmation {
   --side: 100%;
-  // position: relative;
   margin: 0 auto;
   padding: 1rem;
   width: var(--side);
-}
-.confirmation__svg-wrapper {
-  --elSize: 64px;
-  width: var(--elSize);
-  height: var(--elSize);
-
-  position: absolute;
-  top: calc(var(--elSize) * -0.5);
-  left: calc(50% - var(--elSize) * 0.5);
-
-  display: grid;
-  justify-content: center;
-  align-items: center;
-
-  color: var(--color-red);
-  background-color: var(--color-white);
-  border-radius: 50%;
-
-  & svg {
-    width: 56px;
-    height: 56px;
-  }
 }
 .confirmation__text {
   margin: 0 0 1.2rem;
