@@ -1,5 +1,7 @@
 .main-heading {
+  --size: clamp(1.625rem, 0.75vw + 1.4375rem, 2rem);
   margin: 0;
   font-weight: 500;
-  font-size: clamp(1.625rem, 0.75vw + 1.4375rem, 2rem);
+  font-size: var(--size);
+  line-height: calc(var(--size) * 1.25);
 }

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <h2 class="subtitle">История</h2>
+      <h1 class="main-heading">Статистика использования сети</h1>
       <stats-filter
         @dateChange="handleDatesInput"
         :initialDates="period"
@@ -110,3 +110,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+section {
+  padding: 1.2rem 0;
+}
+h1 {
+  margin-bottom: calc(clamp(1.625rem, 0.75vw + 1.4375rem, 2rem) * 0.5);
+}
+</style>
