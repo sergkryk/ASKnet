@@ -127,8 +127,6 @@ export default {
 
 <style lang="scss" scoped>
 form {
-  padding: 1rem;
-
   display: flex;
   flex-flow: column nowrap;
 }

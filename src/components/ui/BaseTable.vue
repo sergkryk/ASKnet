@@ -61,7 +61,7 @@ export default {
 .base-table--finances {
   th {
     background-color: #1890ff;
-    text-align: center;
+    // text-align: center;
     &:nth-child(5) {
       display: none;
 
@@ -73,7 +73,7 @@ export default {
   td {
     color: var(--font-color);
     font-size: inherit;
-    text-align: center;
+    // text-align: center;
     &:nth-child(5) {
       display: none;
 

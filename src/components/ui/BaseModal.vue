@@ -81,6 +81,10 @@ export default {
   &--compact {
     width: auto;
   }
+
+  &--password {
+    max-width: 550px;
+  }
 }
 button {
   position: absolute;
