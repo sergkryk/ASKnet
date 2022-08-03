@@ -4,7 +4,7 @@
       inputType="text"
       inputId="serial"
       inputPlaceholder="Серийный номер"
-      labelText="Введите серийный номер вашей карты"
+      labelText="Введите серийный номер"
       :invalidMessage="serial.error"
       @user-input="handleSerialInput"
     ></base-input>
@@ -12,7 +12,7 @@
       inputType="number"
       inputId="pin"
       inputPlaceholder="Пин-код карты оплаты"
-      labelText="Введите пин-код вашей карты оплаты"
+      labelText="Введите пин-код"
       :invalidMessage="pin.error"
       @user-input="handlePinInput"
     ></base-input>
@@ -56,12 +56,12 @@ export default {
     handleSerialInput(data) {
       try {
         Validator.isPayCardSerialValid(data);
-        this.serial.error = ""
-        this.serial.isValid = true
-        this.serial.value = data
+        this.serial.error = "";
+        this.serial.isValid = true;
+        this.serial.value = data;
       } catch (error) {
-        this.serial.isValid = false
-        this.serial.error = error.message
+        this.serial.isValid = false;
+        this.serial.error = error.message;
       }
     },
     handlePinInput(data) {
@@ -84,14 +84,15 @@ export default {
 
 <style lang="scss" scoped>
 form {
-  padding: 1rem;
-
   display: flex;
   flex-flow: column nowrap;
 }
-button:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.5;
+button {
+  margin: 0 auto;
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.5;
+  }
 }
 </style>

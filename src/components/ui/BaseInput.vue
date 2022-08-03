@@ -80,7 +80,7 @@ div {
   color: var(--font-color);
 
   &:not(:last-child) {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   & .valid {
@@ -105,7 +105,8 @@ label {
 
   font-size: inherit;
   line-height: inherit;
-  color: var(--font-color-light);
+  // color: var(--font-color-light);
+  color: inherit;
 
   transition: top 0.3s ease-in-out, left 0.3s ease-in-out,
     font-size 0.3s ease-in-out;

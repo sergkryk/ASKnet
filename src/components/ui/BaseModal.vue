@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .modal {
-  --padding: 1rem;
+  --padding: clamp(1.25rem, 5vw, 2.5rem);
   position: fixed;
   z-index: 100;
 

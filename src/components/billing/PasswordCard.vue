@@ -12,7 +12,7 @@
         @close="closeModal"
         :mods="['password']"
       >
-        <h3>Изменение пароля пользователя</h3>
+        <h3 class="modal-heading">Изменение пароля пользователя</h3>
         <password-form @close="closeModal"></password-form>
       </base-modal>
     </template>
@@ -51,9 +51,7 @@ export default {
 
 <style lang="scss" scoped>
 h3 {
-  margin: 1.5rem 0 1rem;
-  font-size: 18px;
-  text-align: center;
+  margin: 1rem 0 1rem;
 }
 </style>
 >
