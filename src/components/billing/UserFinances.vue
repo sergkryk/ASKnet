@@ -117,6 +117,9 @@ export default {
   border-top-right-radius: 0.5rem;
   overflow: hidden;
 
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+
   th {
     padding: 0.7rem 1rem;
     text-align: left;
@@ -165,7 +168,7 @@ export default {
     rgba(0, 123, 85, 0.24) 100%
   );
   border-radius: 50%;
-    
+
   display: none;
 
   svg {

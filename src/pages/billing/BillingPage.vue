@@ -62,6 +62,7 @@ import UserFinances from "@/components/billing/UserFinances.vue";
 import { formatDate } from "@/utils/utils";
 import PaymentButton from "@/components/ui/PaymentButton.vue";
 import { checkAuthorization } from "@/utils/cookies.js";
+import Banner from "@/utils/infoBanner.js";
 
 export default {
   components: {
@@ -81,8 +82,12 @@ export default {
     showFinance() {
       this.$router.push("/finance");
     },
-    showTariff() {},
-    showExpireDetails() {},
+    showTariff() {
+      Banner.show(this.$store)
+    },
+    showExpireDetails() {
+      Banner.hide(this.$store)
+    },
     showStatus() {},
   },
   computed: {

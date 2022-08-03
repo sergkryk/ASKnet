@@ -10,7 +10,6 @@ const store = createStore({
   state() {
     return {
       isModal: false,
-      isLoading: false,
     }
   },
   mutations: {
