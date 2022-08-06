@@ -49,6 +49,7 @@
 
 <script>
 import Api from "@/utils/network.js";
+import Banner from "@/utils/infoBanner.js";
 
 export default {
   data() {
@@ -62,9 +63,24 @@ export default {
         await Api.resetUserCid();
         await this.$store.dispatch("user/setCid");
         this.closeModal();
+        Banner.show(this.$store, {
+          status: true,
+          message: "Мак-адрес успешно сброшен",
+          statusCode: "200",
+        });
       } catch (error) {
+        this.closeModal();
         if (error.status == 401) {
           this.$router.push("/login");
+          Banner.show(this.$store, {
+            message: "Вы не авторизованы для этого действия",
+            statusCode: "401",
+          });
+        } else {
+          Banner.show(this.$store, {
+            message: "Ошибка. Повторите запрос позже",
+            statusCode: "400",
+          })
         }
       }
     },

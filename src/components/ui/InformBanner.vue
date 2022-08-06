@@ -2,7 +2,7 @@
   <div class="banner" :class="statusClass" @click="closeBanner">
     <div class="banner__svg-wrapper">
       <svg>
-        <use :xlink:href="'#' + 'ok'"></use>
+        <use :xlink:href="'#' + icon"></use>
       </svg>
     </div>
     <div class="banner__content">
@@ -23,14 +23,22 @@ export default {
     message() {
       return this.$store.getters["loading/message"];
     },
+    statusCode() {
+      return this.$store.getters["loading/statusCode"];
+    },
+    icon() {
+      if (this.statusCode === "400") {
+        return "reject"
+      } else {
+        return "ok"
+      }
+    },
     statusClass() {
-      const code = this.$store.getters["loading/statusCode"];
-      const codes = {
-        102: "processing",
-        200: "completed",
-        400: "rejected",
-      };
-      return codes[code];
+      if (this.statusCode === "400") {
+        return 'rejected'
+      } else {
+        return ''
+      }
     },
   },
 };
@@ -38,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .banner {
-  --success-color: #3cc79e;
+  --status-color: var(--success-color);
   position: fixed;
   top: 1rem;
   right: 1rem;
@@ -67,18 +75,11 @@ export default {
     right: 0;
     bottom: calc(50% - 1px);
 
-    background-color: var(--success-color);
+    background-color: var(--status-color);
   }
-
-  // &.processing {
-
-  // }
-  // &.completed {
-
-  // }
-  // &.rejected {
-
-  // }
+  &.rejected {
+    --status-color: var(--error-color);
+  }
 }
 .banner__svg-wrapper {
   min-height: 50%;
@@ -104,7 +105,7 @@ export default {
     display: block;
     margin: 0 auto;
     font-weight: 500;
-    color: var(--success-color);
+    color: var(--status-color);
     text-align: center;
     font-size: 18px;
   }

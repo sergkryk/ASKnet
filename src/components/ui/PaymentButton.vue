@@ -9,7 +9,7 @@
     </button>
     <base-modal :visible="isModalVisible" @close="closeModal" :mods="['password']">
       <h3 class="modal-heading">Пополнение счёта картой оплаты</h3>
-      <payment-form></payment-form>
+      <payment-form @completed="closeModal"></payment-form>
     </base-modal>
   </div>
 </template>

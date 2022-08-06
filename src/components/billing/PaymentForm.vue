@@ -27,11 +27,13 @@
 </template>
 
 <script>
-import Validator from "@/utils/validations.js";
-import Api from "@/utils/network.js";
-import { PAY_CARD_URL } from "@/config/config.js";
+import Validator from "@/utils/validations.js"
+import Api from "@/utils/network.js"
+import { PAY_CARD_URL } from "@/config/config.js"
+import Banner from "@/utils/infoBanner.js"
 
 export default {
+  emits: ["completed"],
   data() {
     return {
       serial: {
@@ -48,10 +50,38 @@ export default {
   },
   methods: {
     async formSubmitHandler() {
-      await Api.post(PAY_CARD_URL, {
-        serial: this.serial.value,
-        pin: this.pin.value,
-      });
+      try {
+        await Api.post(PAY_CARD_URL, {
+          serial: this.serial.value,
+          pin: this.pin.value,
+        });
+        Banner.show(this.$store, {
+          message: "Ваш счёт успешно пополнен",
+          statusCode: "200",
+        })
+        await this.$store.dispatch("user/setUser")
+        this.$emit("completed")
+      } catch (error) {
+        if (error.message === "400") {
+          Banner.show(this.$store, {
+            message: "Карта не найдена. Проверьте вводимые данные",
+            statusCode: "400",
+          })
+        }
+        if (error.message === "404") {
+          Banner.show(this.$store, {
+            message: "Ошибка! Повторите запрос позже",
+            statusCode: "400",
+          })
+        }
+        if (error.message === "401") {
+          Banner.show(this.$store, {
+            message: "Для пополнения вам нужно авторизоваться",
+            statusCode: "400",
+          })
+          this.$router.push("/login")
+        }
+      }
     },
     handleSerialInput(data) {
       try {

@@ -30,7 +30,6 @@
     >
       Сохранить
     </button>
-    <span v-if="responseMessage">{{ responseMessage }}</span>
   </form>
 </template>
 
@@ -38,6 +37,7 @@
 import passwordValidations from "@/utils/passwordValidations"
 import Api from "@/utils/network.js"
 import Validator from "@/utils/validations.js"
+import Banner from "@/utils/infoBanner.js"
 
 export default {
   emits: ["close"],
@@ -58,7 +58,6 @@ export default {
         valid: false,
         error: "",
       },
-      responseMessage: "",
     };
   },
   methods: {
@@ -71,8 +70,10 @@ export default {
         });
         this.$store.dispatch("user/setPassword");
         this.$emit("close");
+        Banner.show(this.$store, {message: "Пароль успешно обновлён", statusCode: "200"})
       } catch (error) {
-        this.responseMessage = error.message
+        this.$emit("close");
+        Banner.show(this.$store, {message: "Ошибка! Повторите запрос позже", statusCode: "400"})
       }
     },
     setValid(credential, data) {
