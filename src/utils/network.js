@@ -3,6 +3,7 @@ import { LOGIN_URL, CHANGE_PASS_URL, USER_DETAILS_URL } from "@/config/config";
 export default class {
   static async post(url, body) {
     const response = await fetch(url, {
+      mode: "cors",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +22,7 @@ export default class {
     const { login, password } = credentials;
 
     const response = await fetch(LOGIN_URL, {
+      mode: "cors",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

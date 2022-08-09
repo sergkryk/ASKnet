@@ -39,7 +39,6 @@ import Formats from "@/utils/formats.js";
 import { STATS_URL } from "@/config/config.js";
 
 import StatsFilter from "@/components/stats/StatsFilter.vue";
-import { checkAuthorization } from "@/utils/cookies.js";
 
 export default {
   components: { StatsFilter },
@@ -101,12 +100,8 @@ export default {
     },
   },
   async created() {
-    if (!checkAuthorization()) {
-      this.$router.push("/login");
-    } else {
-      this.setPeriod();
-      await this.fetchData();
-    }
+    this.setPeriod();
+    await this.fetchData();
   },
 };
 </script>

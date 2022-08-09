@@ -61,7 +61,6 @@ import UserPersonal from "@/components/billing/UserPersonal.vue";
 import UserFinances from "@/components/billing/UserFinances.vue";
 import { formatDate } from "@/utils/utils";
 import PaymentButton from "@/components/ui/PaymentButton.vue";
-import { checkAuthorization } from "@/utils/cookies.js";
 import Banner from "@/utils/infoBanner.js";
 
 export default {
@@ -83,10 +82,10 @@ export default {
       this.$router.push("/finance");
     },
     showTariff() {
-      Banner.show(this.$store)
+      Banner.show(this.$store);
     },
     showExpireDetails() {
-      Banner.hide(this.$store)
+      Banner.hide(this.$store);
     },
     showStatus() {},
   },
@@ -113,14 +112,17 @@ export default {
     expire() {
       return formatDate(this.user.finance.expireDate);
     },
+    isAuthorized() {
+      return this.$store.getters["isAuthorized"];
+    },
   },
-  async created() {
-    if (!checkAuthorization()) {
-      this.$router.push("/login");
-    } else {
-      await this.fetchUserDetails();
-    }
-  },
+  // async created() {
+  //   if (!this.isAuthorized) {
+  //     this.$router.push("/login");
+  //   } else {
+  //     await this.fetchUserDetails();
+  //   }
+  // },
 };
 </script>
 

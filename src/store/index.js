@@ -15,17 +15,17 @@ const store = createStore({
   mutations: {
     setIsModal(state, payload) {
       state.isModal = payload;
-    }
+    },
   },
   actions: {
     setIsModal(context, data) {
       context.commit('setIsModal', data);
-    }
+    },
   },
   getters: {
     isModal(state) {
       return state.isModal;
-    }
+    },
   },
 });
 

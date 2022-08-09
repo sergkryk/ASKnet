@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import TheContainer from '@/components/layout/TheContainer.vue';
-import TheHeader from '@/components/layout/TheHeader.vue';
-// import TheFooter from '@/components/layout/TheFooter.vue';
-import SvgSprite from '@/components/svg/SvgSprite.vue';
+import TheContainer from "@/components/layout/TheContainer.vue";
+import TheHeader from "@/components/layout/TheHeader.vue";
+// import TheFooter from '@/components/layout/TheFooter.vue'
+import SvgSprite from "@/components/svg/SvgSprite.vue";
 
 export default {
   components: {
@@ -29,20 +29,22 @@ export default {
   },
   computed: {
     isModal() {
-      return this.$store.getters['isModal'];
+      return this.$store.getters["isModal"];
     },
     isLoading() {
-      return this.$store.getters['loading/status'];
-    }
+      return this.$store.getters["loading/status"];
+    },
   },
   watch: {
     isModal() {
       if (this.isModal) {
-        document.querySelector('body').setAttribute('style', 'overflow: hidden');
+        document
+          .querySelector("body")
+          .setAttribute("style", "overflow: hidden");
       } else {
-        document.querySelector('body').removeAttribute('style');
+        document.querySelector("body").removeAttribute("style");
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
