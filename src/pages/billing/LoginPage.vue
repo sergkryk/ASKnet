@@ -60,8 +60,6 @@ export default {
           login: this.login.value,
           password: this.password.value,
         });
-        Api.checkAuthStatus()
-        // this.$router.push("/billing");
       } catch (error) {
         this.requestError = error.message;
       }
