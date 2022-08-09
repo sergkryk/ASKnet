@@ -60,6 +60,8 @@ export default {
           login: this.login.value,
           password: this.password.value,
         });
+        await this.$store.dispatch("user/setUid")
+        this.$router.push("/billing")
       } catch (error) {
         this.requestError = error.message;
       }
@@ -96,10 +98,15 @@ export default {
     formIsValid() {
       return this.login.valid && this.password.valid;
     },
-    isAuthorized() {
-      return this.$store.getters["isAuthorized"]
+    isLoggedIn() {
+      return this.$store.getters["user/uid"] ? true : false
     }
   },
+  created() {
+    if (this.isLoggedIn) {
+      this.$router.push("/billing")
+    }
+  }
 };
 </script>
 

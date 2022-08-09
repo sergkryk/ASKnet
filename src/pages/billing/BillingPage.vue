@@ -1,5 +1,5 @@
 <template>
-  <section class="user container" v-if="user">
+  <section class="user container" v-if="user.login">
     <h1 class="user__title title">Кабинет пользователя</h1>
     <div class="user__content">
       <h2 class="user__subtitle subtitle">Интернет</h2>
@@ -112,13 +112,17 @@ export default {
     expire() {
       return formatDate(this.user.finance.expireDate);
     },
-    isAuthorized() {
-      return this.$store.getters["isAuthorized"];
-    },
+    isLoggedIn() {
+      return this.$store.getters["user/uid"] ? true : false
+    }
   },
   async created() {
-    await this.fetchUserDetails();
-  },
+    if(this.isLoggedIn) {
+      await this.fetchUserDetails()
+    } else {
+      this.$router.push("/login")
+    }
+  }
 };
 </script>
 

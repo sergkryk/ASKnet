@@ -3,9 +3,12 @@ export default {
     return state.user;
   },
   cid(state) {
-    return state.user.cid;
+    return state.user?.cid;
+  },
+  uid(state) {
+    return state.user?.uid;
   },
   password(state) {
-    return state.user.password;
+    return state.user?.password;
   }
 }

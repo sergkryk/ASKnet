@@ -1,5 +1,5 @@
 <template>
-  <the-container>
+  <the-container v-if="!pending">
     <template v-slot:header>
       <the-header></the-header>
     </template>
@@ -27,12 +27,20 @@ export default {
     // TheFooter,
     SvgSprite,
   },
+  data() {
+    return {
+      pending: false,
+    }
+  },
   computed: {
     isModal() {
-      return this.$store.getters["isModal"];
+      return this.$store.getters["isModal"]
     },
     isLoading() {
-      return this.$store.getters["loading/status"];
+      return this.$store.getters["loading/status"]
+    },
+    isLoggedIn() {
+      return this.$store.getters["user/uid"] ? true : false
     },
   },
   watch: {
@@ -40,11 +48,18 @@ export default {
       if (this.isModal) {
         document
           .querySelector("body")
-          .setAttribute("style", "overflow: hidden");
+          .setAttribute("style", "overflow: hidden")
       } else {
-        document.querySelector("body").removeAttribute("style");
+        document.querySelector("body").removeAttribute("style")
       }
     },
   },
+  async created() {
+    if(!this.isLoggedIn) {
+      this.pending = true
+      await this.$store.dispatch("user/setUid")
+      this.pending = false
+    } 
+  }
 };
 </script>

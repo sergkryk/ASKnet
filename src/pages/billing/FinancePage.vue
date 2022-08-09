@@ -3,6 +3,7 @@
     <div class="container">
       <h1 class="main-heading">{{ title }}</h1>
       <finance-filter
+        v-if="filteredByType.length > 0"
         @typeChange="handleTypeChange"
         @dateChange="handleDatesChange"
         :initialDates="timePeriod"
@@ -41,6 +42,35 @@ export default {
       },
     };
   },
+  methods: {
+    setType(arr, type) {
+      arr.forEach((el) => (el.type = type));
+    },
+    setPeriod() {
+      const { startDate, endDate } = Dates.getDefaulDatesPeriod();
+      this.timePeriod.begin = startDate;
+      this.timePeriod.end = endDate;
+    },
+    async fetchData() {
+      const pays = await Api.post(PAYS_URL, this.timePeriod);
+      const fees = await Api.post(FEES_URL, this.timePeriod);
+      this.setType(pays, "payment");
+      this.setType(fees, "fee");
+
+      this.pays = pays;
+      this.fees = fees;
+    },
+    async handleDatesChange(data) {
+      if (isNaN(data.value) || typeof data.value !== "number") {
+        return;
+      }
+      this.timePeriod[data.name] = data.value;
+      await this.fetchData();
+    },
+    handleTypeChange(value) {
+      this.type = value;
+    },
+  },
   computed: {
     filteredByType() {
       switch (this.type) {
@@ -62,45 +92,17 @@ export default {
       });
       return sorted;
     },
+    isLoggedIn() {
+      return this.$store.getters["user/uid"] ? true : false;
+    },
   },
-  methods: {
-    setType(arr, type) {
-      arr.forEach((el) => (el.type = type));
-    },
-    setPeriod() {
-      const { startDate, endDate } = Dates.getDefaulDatesPeriod();
-      this.timePeriod.begin = startDate;
-      this.timePeriod.end = endDate;
-    },
-    async fetchData() {
-      const pays = await Api.post(
-        PAYS_URL,
-        this.timePeriod
-      );
-      const fees = await Api.post(
-        FEES_URL,
-        this.timePeriod
-      );
-      this.setType(pays, "payment");
-      this.setType(fees, "fee");
-
-      this.pays = pays;
-      this.fees = fees;
-    },
-    async handleDatesChange(data) {
-      if (isNaN(data.value) || typeof data.value !== "number") {
-        return;
-      }
-      this.timePeriod[data.name] = data.value;
+  async created() {
+    if (this.isLoggedIn) {
+      this.setPeriod();
       await this.fetchData();
-    },
-    handleTypeChange(value) {
-      this.type = value;
-    },
-  },
-  async beforeMount() {
-    await this.setPeriod();
-    await this.fetchData();
+    } else {
+      this.$router.push("/login");
+    }
   },
 };
 </script>

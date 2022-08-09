@@ -52,19 +52,6 @@ export default {
       stats: [],
     };
   },
-  computed: {
-    toRender() {
-      const formatted = this.stats.map((el) => {
-        el.start = Formats.datetime(el.start);
-        el.end = Formats.datetime(el.end);
-        el.duration = Formats.duration(el.duration);
-        el.recv = Formats.traffic(el.recv);
-        el.sent = Formats.traffic(el.sent);
-        return el;
-      });
-      return formatted;
-    },
-  },
   methods: {
     setPeriod() {
       const { startDate, endDate } = Dates.getDefaulDatesPeriod();
@@ -99,9 +86,29 @@ export default {
       }
     },
   },
+  computed: {
+    toRender() {
+      const formatted = this.stats.map((el) => {
+        el.start = Formats.datetime(el.start);
+        el.end = Formats.datetime(el.end);
+        el.duration = Formats.duration(el.duration);
+        el.recv = Formats.traffic(el.recv);
+        el.sent = Formats.traffic(el.sent);
+        return el;
+      });
+      return formatted;
+    },
+    isLoggedIn() {
+      return this.$store.getters["user/uid"] ? true : false;
+    },
+  },
   async created() {
-    this.setPeriod();
-    await this.fetchData();
+    if (this.isLoggedIn) {
+      this.setPeriod();
+      await this.fetchData();
+    } else {
+      this.$router.push("/login");
+    }
   },
 };
 </script>
