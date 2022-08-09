@@ -116,13 +116,9 @@ export default {
       return this.$store.getters["isAuthorized"];
     },
   },
-  // async created() {
-  //   if (!this.isAuthorized) {
-  //     this.$router.push("/login");
-  //   } else {
-  //     await this.fetchUserDetails();
-  //   }
-  // },
+  async created() {
+    await this.fetchUserDetails();
+  },
 };
 </script>
 
