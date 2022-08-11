@@ -12,3 +12,18 @@
   font-size: var(--fsize);
   line-height: calc(var(--fsize) * 1.25);
 }
+
+.site-title {
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 2rem;
+  text-align: center;
+  color: #5d6678;
+}
+
+@media(min-width: 768px) {
+  .site-title {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+}

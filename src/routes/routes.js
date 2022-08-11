@@ -4,12 +4,12 @@ import BillingPage from '@/pages/billing/BillingPage.vue'
 import LoginPage from '@/pages/billing/LoginPage.vue'
 import StatisticPage from '@/pages/billing/StatisticPage.vue'
 import FinancePage from '@/pages/billing/FinancePage.vue'
-import HeroPage from '@/pages/hero/HeroPage.vue'
+import MainPage from '@/pages/main/MainPage.vue'
 
 const routes = [
   {
     path: '/',
-    component: HeroPage,
+    component: MainPage,
   },
   {
     path: '/billing',

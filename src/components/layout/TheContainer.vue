@@ -23,6 +23,7 @@
     box-shadow: 0 0 5px 0 rgba(1, 3, 4, 0.19);
   }
   main {
+    padding-top: 80px; // высота хедера
     flex-grow: 1;
     display: flex;
     flex-flow: column nowrap;

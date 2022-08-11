@@ -1,6 +1,7 @@
 html {
   --font-color: #212b36;
   --font-color-light: #637381;
+  --site-blue: #2096f3;
 
   --color-white: #ffffff;
   --color-green: #04ab55;
@@ -12,12 +13,23 @@ html {
   --color-dark-green: #007b55;
   --color-dark-yellow: #b78103;
   --color-dark-red: #701421;
-
+  
   --color-lightblue: #1890ff;
   --color-lightred: #f30827;
 
   --error-color: #f44336;
   --success-color: #3cc79e;
+
+  --header-text: #f8f8f8;
+  --header-dark-text: #5d6678;
+  --header-hover-text: #2196f3;
+  --header-stroke: #4caf50;
+
+  --pricing-bg: #fbfbfb;
+  --pricing-shadow: rgba(93, 102, 120, 0.2);
+  --pricing-descr: #5d6678;
+
+  --hero-overlay: rgba(18, 71, 114, 0.8);
   
   
   
@@ -30,4 +42,6 @@ html {
 
   --box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
   rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+
+  --default-transition: 0.3s ease-in-out;
 }
