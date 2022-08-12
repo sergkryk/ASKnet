@@ -4,6 +4,7 @@ import BillingPage from '@/pages/billing/BillingPage.vue'
 import LoginPage from '@/pages/billing/LoginPage.vue'
 import StatisticPage from '@/pages/billing/StatisticPage.vue'
 import FinancePage from '@/pages/billing/FinancePage.vue'
+import FluidPage from '@/pages/FluidPage.vue'
 import MainPage from '@/pages/main/MainPage.vue'
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/finance',
     component: FinancePage,
+  },
+  {
+    path: '/fluid',
+    component: FluidPage,
   }
 ]
 

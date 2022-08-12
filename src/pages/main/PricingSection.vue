@@ -1,7 +1,7 @@
 <template>
-  <section class="pricing" id="pricing">
+  <section class="pricing">
     <div class="container">
-      <h2 class="pricing__title site-title">Тарифные планы</h2>
+      <h2 class="pricing__title secondary-heading">Тарифные планы</h2>
       <ul class="pricing__list">
         <pricing-item
           v-for="plan in plans"
@@ -86,38 +86,38 @@ export default {
         {
           content: "доступен в частном секторе",
           icon: "tick",
-          plans: [3,5,6]
+          plans: [3, 5, 6],
         },
         {
           content: "посуточная тарификация",
           icon: "coins",
-          plans: [1,2,3]
+          plans: [1, 2, 3],
         },
         {
           content: "скорость",
           icon: "www",
-          plans: [1,2,3,4,5,6],
+          plans: [1, 2, 3, 4, 5, 6],
         },
         {
           content: "техническая поддержка",
           icon: "support",
-          plans: [1,2,3,4,5,6],
+          plans: [1, 2, 3, 4, 5, 6],
         },
         {
           content: "200 IPTV каналов",
           icon: "tv",
-          plans: [2,3,4,5,6]
+          plans: [2, 3, 4, 5, 6],
         },
         {
           content: "видео высокого качества",
           icon: "youtube",
-          plans: [2,3,4,5,6]
+          plans: [2, 3, 4, 5, 6],
         },
         {
           content: "быстрое скачивание файлов",
           icon: "rocket",
           mods: ["disabled"],
-          plans: [3,5,6]
+          plans: [3, 5, 6],
         },
       ],
     };
@@ -127,14 +127,14 @@ export default {
 
 <style lang="scss" scoped>
 .pricing {
-  padding: 50px 0 0;
+  padding: 20px 0 0;
 
   background-color: var(--pricing-bg);
 }
 
 .pricing__title {
-  margin: 0 0 25px;
-  padding: 0;
+  margin: 0 0 20px;
+  text-align: center;
 }
 
 .pricing__list {
@@ -142,21 +142,10 @@ export default {
   padding: 0;
 
   list-style: none;
-}
 
-@media (min-width: 768px) {
-  .pricing__title {
-    margin: 0 0 50px;
-  }
-
-  .pricing__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    grid-auto-rows: minmax(150px, auto);
-  }
-
-  .pricing__card {
-    margin: 1rem;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  grid-gap: 20px;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <li class="pricing__card">
-    <h3 class="pricing__card-title" :class="setTitleMods(mods)">{{ title }}</h3>
-    <div class="pricing__price">
+  <li class="card">
+    <h3 class="card__title" :class="setTitleMods(mods)">{{ title }}</h3>
+    <div class="card__price">
       <span>{{ price }}</span>
       <span>₽</span>
     </div>
-    <p class="pricing__description">{{ content }}</p>
-    <ul class="pricing__details">
+    <p class="card__description">{{ content }}</p>
+    <ul class="card__details">
       <li
-        class="pricing__details-item"
+        class="card__details-item"
         :class="setFeaturesMods(feature)"
         v-for="feature in features"
         :key="feature.content"
@@ -55,29 +55,31 @@ export default {
   },
   methods: {
     setTitleMods(modsList) {
-      if (modsList) return modsList.map((mod) => `pricing__card-title--${mod}`);
+      if (modsList) return modsList.map((mod) => `card__title--${mod}`);
     },
     setFeaturesIcon(feature) {
       if (!feature.plans.includes(this.id) && feature.icon !== "coins") {
-        return "#na"
+        return "#na";
       } else {
-        return `#${feature.icon}`
+        return `#${feature.icon}`;
       }
     },
     setFeaturesMods(feature) {
       if (feature.icon === "coins") {
-        return ""
+        return "";
       }
-      return feature.plans.includes(this.id) ? "" : "pricing__details-item--disabled";
+      return feature.plans.includes(this.id)
+        ? ""
+        : "card__details-item--disabled";
     },
     setContent(feature) {
       if (feature.icon === "www") {
         return `${feature.content} до ${this.speed} мбит/с.`;
       }
       if (feature.icon === "coins" && !feature.plans.includes(this.id)) {
-        return "Предоплата за месяц"
+        return "Предоплата за месяц";
       } else {
-        return feature.content
+        return feature.content;
       }
     },
   },
@@ -85,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pricing__card {
+.card {
   --padding-top: 20px;
   --padding-left: 15px;
 
@@ -97,18 +99,20 @@ export default {
 
   background-color: var(--color-white);
   border-radius: 5px;
-  box-shadow: 0 0 1px 0 var(--pricing-shadow);
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
 
-.pricing__card-title {
+.card__title {
+  --fsize: clamp(1.375rem, 0.25vw + 1.3125rem, 1.5rem);
   margin: 0 0 20px calc(var(--padding-left) * -1);
   padding: 18px 0;
   width: calc(100% + var(--padding-left) * 2);
 
   background-color: var(--site-blue);
 
-  font-size: 1.25rem;
-  line-height: 1.5rem;
+  font-size: var(--fsize);
+  line-height: calc(var(--fsize) * 1.25);
   text-align: center;
   color: var(--color-white);
   text-transform: uppercase;
@@ -122,20 +126,21 @@ export default {
   }
 }
 
-.pricing__price {
+.card__price {
+  --fsize: clamp(3.5rem, 1vw + 3.25rem, 4rem);
   position: relative;
 
-  margin: 0 auto 20px;
+  margin: 0 auto clamp(0.625rem, 1.25vw + 0.3125rem, 1.25rem);
   padding: 10px 20px;
 
-  font-size: 4rem;
+  font-size: var(--fsize);
 
   & span:last-child {
-    font-size: 2rem;
+    font-size: calc(var(--fsize) / 2);
   }
 }
 
-.pricing__description {
+.card__description {
   margin: 0 0 20px;
   padding: 0;
 
@@ -144,14 +149,14 @@ export default {
   color: var(--pricing-descr);
 }
 
-.pricing__details {
+.card__details {
   margin: 0;
   padding: 0;
 
   list-style: none;
 }
 
-.pricing__details-item {
+.card__details-item {
   position: relative;
 
   margin-bottom: 5px;
@@ -171,21 +176,15 @@ export default {
     color: var(--color-dark-green);
   }
   &--disabled {
-    color: rgba(0,0,0,0.3);
+    color: rgba(0, 0, 0, 0.3);
 
     & span {
       color: inherit;
     }
-    
+
     & svg {
       color: var(--error-color);
     }
-  }
-}
-
-@media (min-width: 768px) {
-  .pricing__card {
-    margin: 1rem;
   }
 }
 </style>

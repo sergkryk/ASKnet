@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import HeroSection from "@/components/main/HeroSection.vue"
-import PricingSection from "@/components/main/PricingSection.vue"
+import HeroSection from "@/pages/main/HeroSection.vue"
+import PricingSection from "@/pages/main/PricingSection.vue"
 
 export default {
   components: {

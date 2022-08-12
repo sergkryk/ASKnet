@@ -36,6 +36,6 @@ app.component("button-close", ButtonClose);
 app.component("payment-button", PaymentButton);
 app.component("inform-banner", InformBanner);
 
-app.use(store);
 app.use(routes);
+app.use(store);
 app.mount("#app");
