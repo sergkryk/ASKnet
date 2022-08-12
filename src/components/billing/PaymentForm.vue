@@ -29,7 +29,7 @@
 <script>
 import Validator from "@/utils/validations.js"
 import Api from "@/utils/network.js"
-import { PAY_CARD_URL } from "@/config/config.js"
+import { API_URL } from "@/config/config.js"
 import Banner from "@/utils/infoBanner.js"
 
 export default {
@@ -51,7 +51,7 @@ export default {
   methods: {
     async formSubmitHandler() {
       try {
-        await Api.post(PAY_CARD_URL, {
+        await Api.post(`${API_URL}/user/cards`, {
           serial: this.serial.value,
           pin: this.pin.value,
         });

@@ -19,7 +19,7 @@
 <script>
 import Dates from "@/utils/dates.js";
 import Api from "@/utils/network.js";
-import { PAYS_URL, FEES_URL } from "@/config/config.js";
+import { API_URL } from "@/config/config.js";
 
 import FinanceTable from "@/components/finance/FinanceTable.vue";
 import FinanceFilter from "@/components/finance/FinanceFilter.vue";
@@ -52,8 +52,8 @@ export default {
       this.timePeriod.end = endDate;
     },
     async fetchData() {
-      const pays = await Api.post(PAYS_URL, this.timePeriod);
-      const fees = await Api.post(FEES_URL, this.timePeriod);
+      const pays = await Api.post(`${API_URL}/user/pays`, this.timePeriod);
+      const fees = await Api.post(`${API_URL}/user/fees`, this.timePeriod);
       this.setType(pays, "payment");
       this.setType(fees, "fee");
 

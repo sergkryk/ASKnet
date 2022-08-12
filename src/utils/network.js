@@ -1,4 +1,4 @@
-import { LOGIN_URL, CHANGE_PASS_URL, USER_DETAILS_URL } from "@/config/config";
+import { API_URL } from "@/config/config";
 
 export default class {
   static async post(url, body) {
@@ -21,7 +21,7 @@ export default class {
   static async authorize(credentials) {
     const { login, password } = credentials;
 
-    const response = await fetch(LOGIN_URL, {
+    const response = await fetch(`${API_URL}/login`, {
       mode: "cors",
       credentials: "include",
       headers: {
@@ -41,7 +41,7 @@ export default class {
   }
 
   static async resetUserCid() {
-    const response = await fetch(`${USER_DETAILS_URL}/cid`, {
+    const response = await fetch(`${API_URL}/user/cid`, {
       method: 'PUT',
       credentials: "include",
     });
@@ -53,7 +53,7 @@ export default class {
   }
 
   static async updateUserPassword(updated) {
-    const response = await fetch(CHANGE_PASS_URL, {
+    const response = await fetch(`${API_URL}/user/password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

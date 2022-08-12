@@ -1,11 +1,4 @@
 export const API_URL = "http://localhost:9000";
-export const LOGIN_URL = "https://billing.asknet.online:9000/login";
-export const USER_DETAILS_URL = "https://billing.asknet.online:9000/user";
-export const CHANGE_PASS_URL = "https://billing.asknet.online:9000/user/password";
-export const STATS_URL = "https://billing.asknet.online:9000/user/stats";
-export const PAYS_URL = "https://billing.asknet.online:9000/user/pays";
-export const FEES_URL = "https://billing.asknet.online:9000/user/fees";
-export const PAY_CARD_URL = "https://billing.asknet.online:9000/user/cards";
 
 export const userInfo = [
   {

@@ -36,7 +36,7 @@ import Dates from "@/utils/dates.js";
 import Api from "@/utils/network.js";
 import Formats from "@/utils/formats.js";
 
-import { STATS_URL } from "@/config/config.js";
+import { API_URL } from "@/config/config.js";
 
 import StatsFilter from "@/components/stats/StatsFilter.vue";
 
@@ -71,7 +71,7 @@ export default {
       }
     },
     async fetchData() {
-      const stats = await Api.post(STATS_URL, this.period);
+      const stats = await Api.post(`${API_URL}/user/stats`, this.period);
       this.stats = stats;
     },
     async handleDatesInput(data) {
