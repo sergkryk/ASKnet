@@ -39,18 +39,6 @@
   </header>
 </template>
 
-<script>
-import { headerLinks } from "@/config/config";
-
-export default {
-  data() {
-    return {
-      links: headerLinks,
-    };
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .header {
   --header-height: 80px;

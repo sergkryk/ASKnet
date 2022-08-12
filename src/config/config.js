@@ -1,38 +1,4 @@
-export const headerLinks = [
-  {
-    id: 'main',
-    title: 'Главная',
-    url: '/',
-  },
-  // {
-  //   id: 'news',
-  //   title: 'Новости',
-  //   url: '/news'
-  // },
-  // {
-  //   id: 'help',
-  //   title: 'Помощь',
-  //   url: '/help'
-  // },
-  // {
-  //   id: 'tarifs',
-  //   title: 'Тарифы',
-  //   url: '/tariffs'
-  // },
-  // {
-  //   id: 'about',
-  //   title: 'О нас',
-  //   url: '/about'
-  // },
-  {
-    id: 'billing',
-    title: 'Личный кабинет',
-    url: '/billing'
-  }
-]
-
-export const API_URL = "https://billing.asknet.online:9000";
-
+export const API_URL = "http://localhost:9000";
 export const LOGIN_URL = "https://billing.asknet.online:9000/login";
 export const USER_DETAILS_URL = "https://billing.asknet.online:9000/user";
 export const CHANGE_PASS_URL = "https://billing.asknet.online:9000/user/password";
