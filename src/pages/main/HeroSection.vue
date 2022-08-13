@@ -31,27 +31,16 @@
       <div class="hero__content">
         <h1 class="hero__title">Интернет-провайдер ASKnet</h1>
         <h2 class="hero__subtitle">
-          Скоростной доступ к сети Интернет и более 200 телевизионных каналов в
-          одном кабеле.
+          Скоростной доступ к&nbsp;сети Интернет и&nbsp;более 200 телевизионных
+          каналов в одном кабеле.
         </h2>
         <p class="hero__text">
-          Наша компания занимается предоставлением услуг доступа в сеть Интернет
-          и просмотра цифрового телевидения используя передовые технологии GEPON
-          и FTTH (волоконно-оптическая линия к каждому абоненту).
+          Наша компания занимается предоставлением услуг доступа в&nbsp;сеть
+          Интернет и&nbsp;просмотра цифрового телевидения используя передовые
+          технологии GEPON и&nbsp;FTTH (волоконно-оптическая линия
+          к&nbsp;каждому абоненту).
         </p>
-        <div class="hero__button-wrapper">
-          <a
-            class="hero__button button"
-            href="about.html"
-            aria-label="Перейти на страницу с детальным описанием"
-            >узнать больше</a
-          ><a
-            class="hero__button button button--yellow"
-            href="tel:+30991170048"
-            aria-label="Позвонить в нашу компанию"
-            >позвонить нам</a
-          >
-        </div>
+        <base-link to="login" label="Личный кабинет" ariaLabel="Переход в личный кабинет" icon="enter" :mods="['hero__enter']"></base-link>
       </div>
     </div>
   </section>
@@ -106,163 +95,50 @@ export default {};
 .hero__content {
   min-height: 100%;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .hero__title {
+  --fsize: clamp(2rem, 6vw + 0.5rem, 5rem);
   margin: 0 0 1rem 0;
   padding: 0;
 
   font-weight: 700;
-  font-size: 1.6rem;
-  line-height: 2rem;
+  font-size: var(--fsize);
+  line-height: calc(var(--fsize) * 1.25);
   text-align: center;
   color: var(--color-white);
 }
 
 .hero__subtitle {
+  --fsize: clamp(1.25rem, 2.5vw + 0.625rem, 2.5rem);
   margin: 0 0 1rem 0;
   padding: 0;
 
   font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 1.3rem;
+  font-size: var(--fsize);
+  line-height: calc(var(--fsize) * 1.25);
   text-align: center;
   color: var(--color-white);
 }
 
 .hero__text {
+  --fsize: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+  display: none;
   margin: 0 0 1rem 0;
   padding: 0;
 
   font-weight: 500;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
+  font-size: var(--fsize);
+  line-height: calc(var(--fsize) * 1.25);
   text-align: center;
   color: var(--color-white);
-}
 
-.hero__button {
-  margin: 0 auto 20px;
-}
-
-@media (min-width: 375px) {
-  .hero__title {
-    font-size: 2rem;
-    line-height: 2.4rem;
-  }
-
-  .hero__subtitle {
-    font-size: 1.5rem;
-    line-height: 1.8rem;
-  }
-
-  .hero__text {
-    font-size: 1rem;
-    line-height: 1.5rem;
+  @media (min-width: 768px) {
+    display: block;
   }
 }
 
-@media (min-width: 768px) {
-  .hero__content {
-    padding: 40px;
-  }
-
-  .hero__button-wrapper {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-  }
-
-  .hero__title {
-    font-size: 3.5rem;
-    line-height: 4rem;
-  }
-
-  .hero__subtitle {
-    font-size: 2rem;
-    line-height: 2.4rem;
-  }
-
-  .hero__text {
-    margin-bottom: 50px;
-
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-  }
-
-  .hero__button {
-    margin: 0;
-  }
-
-  .hero__button + .hero__button {
-    margin-left: 40px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero__title {
-    font-size: 4rem;
-    line-height: 4.5rem;
-  }
-
-  .hero__subtitle {
-    font-size: 2.5rem;
-    line-height: 3rem;
-  }
-
-  .hero__text {
-    margin-bottom: 50px;
-
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-}
-
-@media (min-width: 1440px) {
-  .hero__title {
-    font-size: 5rem;
-    line-height: 5.5rem;
-  }
-
-  .hero__subtitle {
-    font-size: 3rem;
-    line-height: 3.5rem;
-  }
-
-  .hero__text {
-    margin-bottom: 50px;
-
-    font-size: 2rem;
-    line-height: 2.5rem;
-  }
-}
-.button {
-  position: relative;
-
-  display: block;
-  width: 80%;
-  max-width: 250px;
-  padding: 10px 20px;
-  overflow: hidden;
-  overflow: hidden;
-
-  font-weight: 500;
-  text-align: center;
-  color: var(--color-white);
-  text-transform: uppercase;
-
-  background-color: var(--color-green);
-  border-radius: 25px;
-
-  transition: transform 0.2s ease-in-out;
-
-  &--yellow {
-    background-color: var(--color-yellow);
-  }
-
-  &:hover {
-    transform: scale(1.05);
-  }
+.hero__enter {
+  margin: 4rem auto 0;
 }
 </style>
