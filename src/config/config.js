@@ -1,4 +1,4 @@
-export const API_URL = "https://10.100.0.11:9000";
+export const API_URL = "https://billing.asknet.online:9000";
 
 export const userInfo = [
   {
