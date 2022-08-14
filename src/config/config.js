@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:9000";
+export const API_URL = "http://10.100.0.11:9000";
 
 export const userInfo = [
   {

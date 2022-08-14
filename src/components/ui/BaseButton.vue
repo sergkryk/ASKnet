@@ -40,7 +40,6 @@ button {
   align-items: center;
   justify-content: center;
 
-  -webkit-tap-highlight-color: transparent;
   outline: 0px;
   border: 0px;
   margin: 0px;
@@ -55,14 +54,14 @@ button {
   text-transform: capitalize;
   
   border-radius: 8px;
-  color: rgb(255, 255, 255);
+  color: var(--color-white);
   background-color: rgb(0, 171, 85);
   box-shadow: rgb(0 171 85 / 24%) 0px 8px 16px 0px;
   
   transition: 
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color var(--default-transition),
+    box-shadow var(--default-transition),
+    border-color var(--default-transition);
 
   &:hover {
     background-color: rgb(0, 123, 85);

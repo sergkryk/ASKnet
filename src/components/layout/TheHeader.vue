@@ -9,7 +9,7 @@
     >
       <span class="hamburger__box"><span class="hamburger__inner"></span></span>
     </button>
-    <nav class="header__nav">
+    <!-- <nav class="header__nav">
       <ul class="header__list">
         <li class="header__item">
           <a class="header__link header__link--hover">Главная</a>
@@ -26,16 +26,8 @@
         <li class="header__item">
           <a class="header__link header__link--hover" href="#services">О нас</a>
         </li>
-        <li class="header__item header__item--login">
-          <a
-            class="header__link header__link--login"
-            href="http://10.100.0.254"
-            target="blank"
-            >Личный кабинет</a
-          >
-        </li>
       </ul>
-    </nav>
+    </nav> -->
   </header>
 </template>
 
@@ -194,39 +186,6 @@
         background-color: var(--header-stroke);
         transform: scaleX(1);
         opacity: 1;
-      }
-    }
-  }
-
-  .header__link--login {
-    position: relative;
-
-    font-weight: 500;
-
-    transition: all var(--default-transition);
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-
-      width: 100%;
-      height: 100%;
-
-      background-color: var(--header-stroke);
-      transform: scaleX(0);
-      transform-origin: left;
-
-      transition: all var(--default-transition);
-    }
-
-    &:hover {
-      color: var(--color-white);
-
-      &:after {
-        transform: scaleX(1);
       }
     }
   }
