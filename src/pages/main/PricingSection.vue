@@ -1,23 +1,20 @@
 <template>
-  <section class="pricing">
-    <div class="container">
-      <h2 class="pricing__title secondary-heading">Тарифные планы</h2>
-      <ul class="pricing__list">
-        <pricing-item
-          v-for="plan in plans"
-          :key="plan.id"
-          :id="plan.id"
-          :title="plan.title"
-          :price="plan.price"
-          :speed="plan.speed"
-          :content="plan.content"
-          :flatsOnly="plan.flatsOnly"
-          :mods="plan.mods"
-          :features="features"
-        ></pricing-item>
-      </ul>
-    </div>
-  </section>
+  <root-section title="Тарифные планы" :mods="['pricing']">
+    <ul>
+      <pricing-item
+        v-for="plan in plans"
+        :key="plan.id"
+        :id="plan.id"
+        :title="plan.title"
+        :price="plan.price"
+        :speed="plan.speed"
+        :content="plan.content"
+        :flatsOnly="plan.flatsOnly"
+        :mods="plan.mods"
+        :features="features"
+      ></pricing-item>
+    </ul>
+  </root-section>
 </template>
 
 <script>
@@ -126,18 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pricing {
-  padding: 20px 0 0;
-
-  background-color: var(--pricing-bg);
-}
-
-.pricing__title {
-  margin: 0 0 20px;
-  text-align: center;
-}
-
-.pricing__list {
+ul {
   margin: 0 auto;
   padding: 0;
 

@@ -21,6 +21,7 @@ import BaseFilter from "@/components/ui/BaseFilter.vue";
 import ButtonClose from "@/components/ui/ButtonClose.vue";
 import PaymentButton from "@/components/ui/PaymentButton.vue";
 import InformBanner from "@/components/ui/InformBanner.vue";
+import RootSection from "@/components/layout/RootSection.vue";
 
 const app = createApp(App);
 
@@ -39,6 +40,7 @@ app.component("base-filter", BaseFilter);
 app.component("button-close", ButtonClose);
 app.component("payment-button", PaymentButton);
 app.component("inform-banner", InformBanner);
+app.component("root-section", RootSection);
 
 app.use(routes);
 app.use(store);
