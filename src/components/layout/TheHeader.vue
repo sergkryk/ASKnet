@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="header__logo"><img src="@/assets/img/svg/logo.svg" width="150" /></div>
+    <base-logo class="header__logo"></base-logo>
     <button
       class="header__button hamburger hamburger--spin"
       type="button"
@@ -33,8 +33,6 @@
 
 <style lang="scss" scoped>
 .header {
-  --header-height: 80px;
-  
   position: fixed;
   top: 0;
   right: 0;
@@ -54,11 +52,11 @@
 }
 
 .header__logo {
-  flex-shrink: 0;
-  padding: 15px 0;
+  width: clamp(9.375rem, 3.75vw + 8.4375rem, 11.25rem);
 }
 
 .header__button {
+  display: none;
   margin: 0 0 0 auto;
 }
 
@@ -107,10 +105,6 @@
 @media (min-width: 1024px) {
   .header {
     padding: 0 32px;
-  }
-
-  .header__logo {
-    margin-right: 50px;
   }
 
   .header__button {

@@ -8,6 +8,7 @@ import store from "@/store/index";
 import "@/sass/main.scss";
 
 import BaseCard from "@/components/ui/BaseCard.vue";
+import BaseLogo from "@/components/ui/BaseLogo.vue";
 import BaseDatepicker from "@/components/ui/BaseDatepicker.vue";
 import BaseCheckbox from "@/components/ui/BaseCheckbox.vue";
 import BaseRadio from "@/components/ui/BaseRadio.vue";
@@ -29,6 +30,7 @@ app.component("base-table", BaseTable);
 app.component("base-checkbox", BaseCheckbox);
 app.component("base-radio", BaseRadio);
 app.component("base-card", BaseCard);
+app.component("base-logo", BaseLogo);
 app.component("base-modal", BaseModal);
 app.component("base-button", BaseButton);
 app.component("base-link", BaseLink);

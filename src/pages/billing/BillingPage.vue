@@ -173,7 +173,7 @@ export default {
   padding: 0;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-auto-rows: minmax(100px, auto);
   grid-gap: 1rem;
 

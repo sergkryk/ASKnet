@@ -1,34 +1,32 @@
 <template>
-<div class="wrapper">
-    <header>
-      <slot name="header"></slot>
-    </header>
+  <div class="wrapper">
+    <slot name="header"></slot>
     <main>
       <slot name="main"></slot>
     </main>
     <footer>
       <slot name="footer"></slot>
     </footer>
-</div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-  .wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  header {
-    background-color: #ffffff;
-    box-shadow: 0 0 5px 0 rgba(1, 3, 4, 0.19);
-  }
-  main {
-    padding-top: 80px; // высота хедера
-    flex-grow: 1;
-    display: flex;
-    flex-flow: column nowrap;
-  }
-  footer {
-    flex-shrink: 0;
-  }
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+// header {
+//   background-color: #ffffff;
+//   box-shadow: 0 0 5px 0 rgba(1, 3, 4, 0.19);
+// }
+main {
+  padding-top: var(--header-height); // высота хедера
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+}
+footer {
+  flex-shrink: 0;
+}
 </style>

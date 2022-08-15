@@ -48,4 +48,6 @@ html {
   rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 
   --default-transition: 0.3s ease-in-out;
+
+  --header-height: clamp(3.75rem, 2.5vw + 3.125rem, 5rem);
 }
