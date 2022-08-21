@@ -6,6 +6,7 @@ import StatisticPage from '@/pages/billing/StatisticPage.vue'
 import FinancePage from '@/pages/billing/FinancePage.vue'
 import FluidPage from '@/pages/FluidPage.vue'
 import MainPage from '@/pages/main/MainPage.vue'
+import NewsPage from '@/pages/news/NewsPage.vue'
 
 const routes = [
   {
@@ -31,6 +32,10 @@ const routes = [
   {
     path: '/fluid',
     component: FluidPage,
+  },
+  {
+    path: '/news',
+    component: NewsPage,
   }
 ]
 

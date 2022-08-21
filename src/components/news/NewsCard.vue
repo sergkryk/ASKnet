@@ -71,7 +71,8 @@ export default {
 }
 .news-card__image {
   position: relative;
-  min-height: 60%;
+  height: 60%;
+  max-height: 220px;
 
   img {
     width: 100%;

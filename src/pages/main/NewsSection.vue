@@ -78,5 +78,9 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
+
+  & li:first-child {
+    grid-column: span 2;
+  }
 }
 </style>

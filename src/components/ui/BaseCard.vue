@@ -110,6 +110,7 @@ export default {
 
     color: var(--font-color);
     font-size: 2rem;
+    line-height: 2.4rem;
     font-weight: 400;
 
     overflow: hidden;
