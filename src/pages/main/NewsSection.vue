@@ -85,8 +85,6 @@ ul {
   padding: 0 var(--gap) 0 var(--gap);
   margin-left: calc(var(--gap) * -1);
   padding-bottom: clamp(1.25rem, 1.25vw + 0.9375rem, 1.875rem);
-  // padding-left: clamp(1rem, 4vw, 3rem);
-  // padding-right: clamp(1rem, 4vw, 3rem);
 
   display: flex;
   flex-flow: row nowrap;
@@ -97,10 +95,21 @@ ul {
 
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+
   scrollbar-color: transparent transparent;
   scrollbar-width: 0px;
   -ms-overflow-style: none;
-
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: none;
+  }
+  
   & > li {
     min-width: 300px;
     max-width: 350px;
@@ -109,19 +118,6 @@ ul {
     &:not(:last-child) {
       margin-right: clamp(1rem, 4vw, 3rem);
     }
-  }
-
-  &::-webkit-scrollbar {
-    width: 0;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-    border: none;
   }
 
   @media (min-width: 1024px) {

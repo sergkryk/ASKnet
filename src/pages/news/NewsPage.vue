@@ -85,20 +85,23 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  --gap: 1.5rem;
+  --gap: clamp(0.75rem, 1.5vw + 0.375rem, 1.5rem); // from 12px to 24px & from 400px to 1200px
   min-height: 100vh;
 }
 .post__container {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  grid-gap: 2rem;
-  min-height: 100%;
+  // min-height: 100%;
 
   background-color: var(--color-white);
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-gap: 2rem;
+  }
 }
 .post__img {
   position: relative;
-  padding: 2rem;
+  padding: clamp(1rem, 2vw + 0.5rem, 2rem); //from 16px to 32px & from 400px to 1200px
 
   display: flex;
   justify-content: center;
@@ -106,39 +109,42 @@ export default {
 
   img {
     width: 100%;
-    height: 100%;
     max-width: 350px;
-    max-height: 350px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-
     border-radius: 0.5rem;
   }
 
   &::after {
-    content: "";
-    position: absolute;
-    width: 50%;
-    height: 100%;
+    @media (min-width: 1024px) {
+      content: "";
+      position: absolute;
+      width: 50%;
+      height: 100%;
 
-    left: 0;
-    top: var(--gap);
+      left: 0;
+      top: var(--gap);
 
-    background-color: var(--site-blue);
-    opacity: 0.1;
-    border-top-right-radius: 3rem;
-    border-bottom-right-radius: 3rem;
+      background-color: var(--site-blue);
+      opacity: 0.1;
+      border-top-right-radius: 3rem;
+      border-bottom-right-radius: 3rem;
+    }
   }
 }
 .post__content {
-  padding-top: 1rem;
+  @media (min-width: 1024px) {
+    padding-top: 1rem;
+  }
 }
 .post__title {
+  --font-size: clamp(1.5rem, 4vw + 0.5rem, 3.5rem); // from 24px to 56 px & 400px to 1200px
   position: relative;
 
   margin: 0;
   padding-bottom: var(--gap);
-  font-size: 3.5rem;
-  line-height: 3.6rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.25);
   font-weight: 400;
 
   &::after {
@@ -150,7 +156,6 @@ export default {
     left: 0;
     bottom: 0;
 
-    // background-color: var(--site-green);
     background-image: linear-gradient(
       90deg,
       rgba(76, 175, 80, 1) 25%,
@@ -179,7 +184,7 @@ export default {
 }
 
 .post__details-item {
-  padding: 5px 10px;
+  padding: clamp(0.125rem, 0.5vw + 0rem, 0.375rem) clamp(0.375rem, 0.5vw + 0.25rem, 0.625rem);
   background-color: var(--site-yellow);
   border-radius: 4px;
 
@@ -188,7 +193,7 @@ export default {
   align-items: center;
 
   color: var(--color-white);
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 0.5vw + 0.625rem, 1rem); //from 12px(400px) to 16px(1200px)
   line-height: 1.2rem;
   font-weight: 500;
 
