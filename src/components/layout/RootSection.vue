@@ -35,9 +35,14 @@ export default {
 .section {
   padding-top: clamp(1.25rem, 1.25vw + 0.9375rem, 1.875rem);
   padding-bottom: clamp(1.25rem, 1.25vw + 0.9375rem, 1.875rem);
+  background-color: var(--pricing-bg);
 
-  &--pricing {
-    background-color: var(--pricing-bg);
+  &--news {
+    padding-bottom: 0;
+
+    @media (min-width: 1024px) {
+      padding-bottom: clamp(1.25rem, 1.25vw + 0.9375rem, 1.875rem);
+    }
   }
 }
 h2 {
