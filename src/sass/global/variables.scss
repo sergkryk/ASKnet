@@ -17,7 +17,7 @@ html {
   --color-dark-green: #007b55;
   --color-dark-yellow: #b78103;
   --color-dark-red: #701421;
-  
+
   --color-lightblue: #1890ff;
   --color-lightred: #f30827;
 
@@ -34,9 +34,7 @@ html {
   --pricing-descr: #5d6678;
 
   --hero-overlay: rgba(18, 71, 114, 0.8);
-  
-  
-  
+
   --color-lightblue-transparent: rgba(24, 144, 255, 0.5);
   --color-green-transparent: rgba(5, 171, 85, 0.5);
 
@@ -45,9 +43,11 @@ html {
   --border-color: rgba(145, 158, 171, 0.32);
 
   --box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
-  rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 
   --default-transition: 0.3s ease-in-out;
 
   --header-height: clamp(3.75rem, 2.5vw + 3.125rem, 5rem);
+  --card-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 6px 12px -4px;
 }

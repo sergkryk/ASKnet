@@ -31,25 +31,17 @@
         </div>
       </div>
     </div>
+    <recent-news></recent-news>
   </section>
 </template>
 
 <script>
+import RecentNews from '@/components/news/RecentNews.vue'
+
 export default {
-  // props: {
-  //   title: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   img: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   content: {
-  //     type: Array,
-  //     required: true,
-  //   },
-  // },
+  components: {
+    RecentNews,
+  },
   data() {
     return {
       post: {
@@ -89,7 +81,7 @@ export default {
   min-height: 100vh;
 }
 .post__container {
-  // min-height: 100%;
+  padding-bottom: var(--gap);
 
   background-color: var(--color-white);
 
@@ -123,7 +115,7 @@ export default {
       height: 100%;
 
       left: 0;
-      top: var(--gap);
+      top: 0;
 
       background-color: var(--site-blue);
       opacity: 0.1;
@@ -171,6 +163,8 @@ export default {
   padding: var(--gap) 0;
   p {
     margin: 0 0 var(--gap);
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
+    line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
 
     &:last-child {
       margin-bottom: 0;
@@ -181,6 +175,10 @@ export default {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+
+  @media (min-width: 1024px) {
+    margin-top: auto;
+  }
 }
 
 .post__details-item {

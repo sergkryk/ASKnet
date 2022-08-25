@@ -132,14 +132,16 @@ export default {
   --size: 0.8rem;
 
   position: relative;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: -1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
   padding: 5px 25px;
-  position: absolute;
-  right: 0;
-  bottom: 1.5rem;
+  // right: 0;
+  // bottom: 1.5rem;
 
   font-size: var(--size);
   line-height: calc(var(--size) * 1.2);
