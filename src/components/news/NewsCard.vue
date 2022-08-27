@@ -17,7 +17,7 @@
     </div>
     <div class="news-card__content">
       <span class="news-card__date">{{ date }}</span>
-      <h3 class="news-card__title">{{ title }}</h3>
+      <router-link :to="newsPage" class="news-card__title">{{ title }}</router-link>
       <div class="news-card__cat">
         <svg viewBox="0 0 24 24">
           <use xlink:href="#hashtag"></use>
@@ -32,6 +32,10 @@
 export default {
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    id: {
       type: String,
       required: true,
     },
@@ -53,6 +57,9 @@ export default {
     imageSource() {
       return require(`@/assets/img/news/${this.img}`);
     },
+    newsPage() {
+      return `/news/${this.id}`
+    }
   },
 };
 </script>
@@ -116,6 +123,7 @@ export default {
 }
 .news-card__title {
   --size: 1.625rem;
+  display: block;
   margin: 0 0 var(--size);
 
   font-size: var(--size);
@@ -140,8 +148,6 @@ export default {
   align-items: center;
 
   padding: 5px 25px;
-  // right: 0;
-  // bottom: 1.5rem;
 
   font-size: var(--size);
   line-height: calc(var(--size) * 1.2);

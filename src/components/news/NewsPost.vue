@@ -2,74 +2,51 @@
   <section class="post">
     <div class="post__container container">
       <div class="post__img">
-        <img :src="image" :alt="post.title" />
+        <img :src="currentPost.image" :alt="currentPost.title" />
       </div>
       <div class="post__content">
         <h1 class="post__title">
-          {{ post.title }}
+          {{ currentPost.title }}
         </h1>
         <div class="post__body">
-          <template v-for="el in post.content" :key="el.key">
-            <component :is="el.tag">
-              {{ el.body }}
-            </component>
-          </template>
+          <component :is="comp"></component>
         </div>
         <div class="post__details">
           <div class="post__details-item">
             <svg>
               <use xlink:href="#calendar"></use>
             </svg>
-            <span>{{ post.date }}</span>
+            <span>{{ currentPost.date }}</span>
           </div>
           <div class="post__details-item post__details-item--purple">
             <svg>
               <use xlink:href="#hashtag"></use>
             </svg>
-            <span class="post__cat">Категория: {{ post.category }}</span>
+            <span class="post__cat">Категория: {{ currentPost.category }}</span>
           </div>
         </div>
       </div>
     </div>
-    <recent-news></recent-news>
   </section>
 </template>
 
 <script>
-import RecentNews from '@/components/news/RecentNews.vue'
+import news from "@/config/news.js";
+import { defineAsyncComponent } from "vue";
 
 export default {
-  components: {
-    RecentNews,
-  },
-  data() {
-    return {
-      post: {
-        title:
-          "Важные изменения в тарифных планах для абонентов частного сектора",
-        img: "post-2-420x368@2x.jpg",
-        date: "15 августа 2022 года",
-        category: "финансы",
-        content: [
-          {
-            tag: "p",
-            body: "Уважаемы абоненты. Обращаем ваше внимание на то, что с 01 сентября 2022 года тарифные планы Базовый, Стандартный и Простой станут недоступны для абонентов проживающих в частном секторе.",
-          },
-          {
-            tag: "p",
-            body: "Абоненты использующие тарифный план 'Базовый' или 'Стандартный' будут автоматически переведены на тарифный план 'Стандартный Плюс'. Абоненты с тарифным планом 'Простой' будут автоматически переведены на тарифный план 'Простой плюс'",
-          },
-          {
-            tag: "p",
-            body: "Данные изменения связаны с подоражанием оплаты за подвеску кабеля на электрических опорах ЛЭП что привело к невозможности предоставлять услугу в частный сектор по цене данных тарифных планов",
-          },
-        ],
-      },
-    };
-  },
   computed: {
     image() {
-      return require(`@/assets/img/news/${this.post.img}`);
+      return require(`@/assets/img/news/${this.img}`);
+    },
+    comp() {
+      return defineAsyncComponent(() =>
+        import(`@/components/news/posts/${this.currentPost.component}.vue`)
+      );
+    },
+    currentPost() {
+      const [post] = news.filter((el) => el.id === this.$route.params.id);
+      return post;
     },
   },
 };
@@ -77,8 +54,11 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  --gap: clamp(0.75rem, 1.5vw + 0.375rem, 1.5rem); // from 12px to 24px & from 400px to 1200px
-  min-height: 100vh;
+  --gap: clamp(
+    0.75rem,
+    1.5vw + 0.375rem,
+    1.5rem
+  ); // from 12px to 24px & from 400px to 1200px
 }
 .post__container {
   padding-bottom: var(--gap);
@@ -93,7 +73,11 @@ export default {
 }
 .post__img {
   position: relative;
-  padding: clamp(1rem, 2vw + 0.5rem, 2rem); //from 16px to 32px & from 400px to 1200px
+  padding: clamp(
+    1rem,
+    2vw + 0.5rem,
+    2rem
+  ); //from 16px to 32px & from 400px to 1200px
 
   display: flex;
   justify-content: center;
@@ -130,7 +114,11 @@ export default {
   }
 }
 .post__title {
-  --font-size: clamp(1.5rem, 4vw + 0.5rem, 3.5rem); // from 24px to 56 px & 400px to 1200px
+  --font-size: clamp(
+    1.5rem,
+    4vw + 0.5rem,
+    3.5rem
+  ); // from 24px to 56 px & 400px to 1200px
   position: relative;
 
   margin: 0;
@@ -161,7 +149,12 @@ export default {
 
 .post__body {
   padding: var(--gap) 0;
-  p {
+
+  h1 {
+    color: red;
+  }
+
+  & > p {
     margin: 0 0 var(--gap);
     font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
     line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
@@ -171,6 +164,7 @@ export default {
     }
   }
 }
+
 .post__details {
   display: flex;
   flex-flow: row wrap;
@@ -182,7 +176,8 @@ export default {
 }
 
 .post__details-item {
-  padding: clamp(0.125rem, 0.5vw + 0rem, 0.375rem) clamp(0.375rem, 0.5vw + 0.25rem, 0.625rem);
+  padding: clamp(0.125rem, 0.5vw + 0rem, 0.375rem)
+    clamp(0.375rem, 0.5vw + 0.25rem, 0.625rem);
   background-color: var(--site-yellow);
   border-radius: 4px;
 
@@ -191,7 +186,11 @@ export default {
   align-items: center;
 
   color: var(--color-white);
-  font-size: clamp(0.75rem, 0.5vw + 0.625rem, 1rem); //from 12px(400px) to 16px(1200px)
+  font-size: clamp(
+    0.75rem,
+    0.5vw + 0.625rem,
+    1rem
+  ); //from 12px(400px) to 16px(1200px)
   line-height: 1.2rem;
   font-weight: 500;
 

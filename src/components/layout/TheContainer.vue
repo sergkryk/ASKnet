@@ -16,10 +16,6 @@
   display: flex;
   flex-direction: column;
 }
-// header {
-//   background-color: #ffffff;
-//   box-shadow: 0 0 5px 0 rgba(1, 3, 4, 0.19);
-// }
 main {
   padding-top: var(--header-height); // высота хедера
   flex-grow: 1;
