@@ -1,5 +1,6 @@
 <template>
-  <the-container v-if="!pending">
+  <!-- <the-container v-if="!pending"> -->
+  <the-container>
     <template v-slot:header>
       <the-header></the-header>
     </template>

@@ -1,7 +1,7 @@
 <template>
   <li class="news-card">
     <div class="news-card__image">
-      <img :src="imageSource" :alt="title" />
+      <base-image :name="img" path="news"></base-image>
       <div class="news-card__decor">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,9 @@
     </div>
     <div class="news-card__content">
       <span class="news-card__date">{{ date }}</span>
-      <router-link :to="newsPage" class="news-card__title">{{ title }}</router-link>
+      <router-link :to="newsPage" class="news-card__title">{{
+        title
+      }}</router-link>
       <div class="news-card__cat">
         <svg viewBox="0 0 24 24">
           <use xlink:href="#hashtag"></use>
@@ -54,17 +56,14 @@ export default {
     },
   },
   computed: {
-    imageSource() {
-      return require(`@/assets/img/news/${this.img}`);
-    },
     newsPage() {
-      return `/news/${this.id}`
-    }
+      return `/news/${this.id}`;
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .news-card {
   display: flex;
   flex-flow: column nowrap;
@@ -78,19 +77,24 @@ export default {
 }
 .news-card__image {
   position: relative;
-  height: 60%;
-  max-height: 220px;
+  height: 220px;
 
-  img {
+  picture {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 .news-card__content {
   position: relative;
   padding: 1.5rem;
-  min-height: 40%;
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .news-card__decor {
@@ -141,6 +145,7 @@ export default {
 
   position: relative;
   width: fit-content;
+  margin-top: auto;
   margin-left: auto;
   margin-right: -1.5rem;
   display: flex;

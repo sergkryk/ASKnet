@@ -40,7 +40,7 @@
           технологии GEPON и&nbsp;FTTH (волоконно-оптическая линия
           к&nbsp;каждому абоненту).
         </p>
-        <base-link to="/login" label="Личный кабинет" ariaLabel="Переход в личный кабинет" icon="enter" :mods="['hero__enter', 'green']"></base-link>
+        <base-link to="http://10.100.0.254" target="_blank" label="Личный кабинет" ariaLabel="Переход в личный кабинет" icon="enter" :mods="['hero__enter', 'green']"></base-link>
       </div>
     </div>
   </section>

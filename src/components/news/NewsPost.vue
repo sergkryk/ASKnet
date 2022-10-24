@@ -2,15 +2,13 @@
   <section class="post">
     <div class="post__container container">
       <div class="post__img">
-        <img :src="currentPost.image" :alt="currentPost.title" />
+        <base-image :name="currentPost.img" path="news"></base-image>
       </div>
       <div class="post__content">
         <h1 class="post__title">
           {{ currentPost.title }}
         </h1>
-        <div class="post__body">
-          <component :is="comp"></component>
-        </div>
+        <component :is="comp"></component>
         <div class="post__details">
           <div class="post__details-item">
             <svg>
@@ -36,23 +34,20 @@ import { defineAsyncComponent } from "vue";
 
 export default {
   computed: {
-    image() {
-      return require(`@/assets/img/news/${this.img}`);
+    currentPost() {
+      const [post] = news.filter((el) => el.id === this.$route.params.id);
+      return post;
     },
     comp() {
       return defineAsyncComponent(() =>
         import(`@/components/news/posts/${this.currentPost.component}.vue`)
       );
     },
-    currentPost() {
-      const [post] = news.filter((el) => el.id === this.$route.params.id);
-      return post;
-    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .post {
   --gap: clamp(
     0.75rem,
@@ -83,14 +78,16 @@ export default {
   justify-content: center;
   align-items: center;
 
-  img {
-    width: 100%;
-    max-width: 350px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 0.5rem;
+  picture {
+    z-index: 10;
+    img {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
   }
-
   &::after {
     @media (min-width: 1024px) {
       content: "";
@@ -147,24 +144,6 @@ export default {
   }
 }
 
-.post__body {
-  padding: var(--gap) 0;
-
-  h1 {
-    color: red;
-  }
-
-  & > p {
-    margin: 0 0 var(--gap);
-    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
-    line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
 .post__details {
   display: flex;
   flex-flow: row wrap;
@@ -202,6 +181,60 @@ export default {
 
   &--purple {
     background-color: var(--color-violet);
+  }
+}
+
+.post__body {
+  padding: var(--gap) 0;
+
+  h2 {
+    margin: 0 0 var(--gap);
+    font-weight: 600;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0 0 var(--gap);
+
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
+    line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
+    list-style: none;
+
+    li {
+      margin-bottom: calc(var(--gap) * 0.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  p {
+    margin: 0 0 var(--gap);
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
+    line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: var(--site-blue);
+    transition: color var(--default-transition);
+
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.25rem);
+    line-height: calc(clamp(1rem, 0.5vw + 0.875rem, 1.25rem) * 1.25);
+
+    &:hover {
+      color: var(--color-lightblue-transparent);
+    }
+  }
+  
+  table {
+    margin-bottom: var(--gap);
+    border-collapse: collapse;
+    text-align: left;
   }
 }
 </style>

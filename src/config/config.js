@@ -1,5 +1,5 @@
-// export const API_URL = "https://billing.asknet.online:9000";
-export const API_URL = "http://localhost:9000";
+export const API_URL = "https://billing.asknet.online:9000";
+// export const API_URL = "http://localhost:9000";
 
 export const userInfo = [
   {
