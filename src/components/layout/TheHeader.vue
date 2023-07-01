@@ -9,7 +9,7 @@
     >
       <span class="hamburger__box"><span class="hamburger__inner"></span></span>
     </button>
-    <!-- <nav class="header__nav">
+    <nav class="header__nav">
       <ul class="header__list">
         <li class="header__item">
           <a class="header__link header__link--hover">Главная</a>
@@ -27,7 +27,7 @@
           <a class="header__link header__link--hover" href="#services">О нас</a>
         </li>
       </ul>
-    </nav> -->
+    </nav>
   </header>
 </template>
 
@@ -53,6 +53,7 @@
 
 .header__logo {
   width: clamp(9.375rem, 3.75vw + 8.4375rem, 11.25rem);
+  margin-right: auto;
 }
 
 .header__button {
